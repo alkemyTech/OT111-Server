@@ -44,7 +44,7 @@ public class OrganizationEntity {
     @Column (name = "aboutUsText", nullable = false)
     private String aboutUsText;
 
-//    Timestamps:
+//    Timestamps
     @CreationTimestamp
     @Column (name = "created_date", nullable = false)
     private Timestamp createdDate;
@@ -59,7 +59,7 @@ public class OrganizationEntity {
     @Column (name = "modified_by")
     private String modifiedBy;
 
-//    Soft Delete:
+//    Soft Delete
     @Column(name = "deleted", nullable = false)
     private boolean deleted = Boolean.FALSE;
 }
