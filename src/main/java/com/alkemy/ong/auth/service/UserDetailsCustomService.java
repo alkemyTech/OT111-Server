@@ -19,7 +19,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         // UserEntity foundUser = FindByUsername() - Repository
         FoundUserEntity foundUser = new FoundUserEntity();
         foundUser.setUsername("email");
-        foundUser.setPassword("password");
+        foundUser.setPassword("$2a$12$rE7dAY4bjaSKEjxRszkCQeVSU3kjviYRkHcb17qTBtEFhJBd9RqX6");
 
         // IF No User: Exception
         // if (foundUser == null) {
