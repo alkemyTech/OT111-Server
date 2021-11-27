@@ -14,4 +14,6 @@ CREATE TABLE  organization (
     modified_by varchar(100) NULL,
 --    Soft Delete
     deleted bool NOT NULL DEFAULT FALSE
+
+    CONSTRAINT organization_pk PRIMARY KEY (id)
 );
