@@ -1,6 +1,6 @@
 create table if not EXISTS members (
 --  Fields
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     facebook_url VARCHAR NULL,
     instagram_url VARCHAR NULL,
