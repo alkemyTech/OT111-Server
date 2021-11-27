@@ -1,6 +1,5 @@
 create table if not EXISTS members (
 --  Fields
---TODO Poner tamano de VARCHAR?
     id INT GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     facebook_url VARCHAR NULL,
@@ -14,5 +13,7 @@ create table if not EXISTS members (
     modified_date timestamptz(0) NULL,
     modified_by varchar(100) NULL,
 --  SoftDelete
-    deleted bool NOT NULL DEFAULT FALSE
+    deleted bool NOT NULL DEFAULT FALSE,
+
+    CONSTRAINT members_pk PRIMARY KEY (id)
 );
