@@ -15,5 +15,5 @@ create table member (
 --  SoftDelete
     deleted bool NOT NULL DEFAULT FALSE,
 
-    CONSTRAINT members_pk PRIMARY KEY (id)
+    CONSTRAINT member_pk PRIMARY KEY (id)
 );
