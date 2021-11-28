@@ -5,6 +5,7 @@ import com.alkemy.ong.auth.entity.UserEntity;
 import com.alkemy.ong.auth.mapper.UserMapper;
 import com.alkemy.ong.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,15 +21,14 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     private UserMapper userMapper;
 
-
-    public void setUserRepository(final UserRepository userRepo) {
-        this.userRepo=userRepo;
+    @Autowired
+    public UserDetailsCustomService(@Lazy UserMapper userMapper,@Lazy UserRepository userRepo){
+        this.userMapper= userMapper;
+        this.userRepo = userRepo;
     }
 
 
-    public void setUserMapper(final UserMapper userMapper) {
-        this.userMapper=userMapper;
-    }
+
 
 
     // Signup New User:

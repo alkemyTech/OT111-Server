@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usser")
 @Getter
 @Setter
 public class UserEntity {
@@ -22,7 +22,6 @@ public class UserEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
 
