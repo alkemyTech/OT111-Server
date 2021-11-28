@@ -1,1 +1,11 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/OT111_ong?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: Postgresql
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
