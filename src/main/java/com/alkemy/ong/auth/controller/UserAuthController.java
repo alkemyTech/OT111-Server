@@ -1,7 +1,7 @@
 package com.alkemy.ong.auth.controller;
 
-import com.alkemy.ong.auth.dto.AuthenticationRequest;
-import com.alkemy.ong.auth.dto.UserDTO;
+import com.alkemy.ong.model.dto.AuthenticationRequest;
+import com.alkemy.ong.model.dto.UserDTO;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +29,7 @@ public class UserAuthController {
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
+        // TODO: Mover todo a otro package Service?
         UserDetails userDetails;
 
         try {
@@ -39,16 +40,16 @@ public class UserAuthController {
             Authentication auth = authManager.authenticate(newTry);
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            // Casteamos Dicho AUTH a UserDetails
             userDetails = (UserDetails) auth.getPrincipal();
-
 
         } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
+
         UserDTO foundUser = new UserDTO();
-        foundUser.setUsername(userDetails.getUsername());
+        foundUser.setEmail(userDetails.getUsername());
         foundUser.setPassword(userDetails.getPassword());
+
         return ResponseEntity.ok(foundUser);
     }
 }

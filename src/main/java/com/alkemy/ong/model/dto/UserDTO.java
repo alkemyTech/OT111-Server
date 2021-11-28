@@ -1,4 +1,4 @@
-package com.alkemy.ong.auth.dto;
+package com.alkemy.ong.model.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserDTO {
-    private String username;
+
+    private String email;
     private String password;
 }

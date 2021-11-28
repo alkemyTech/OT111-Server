@@ -1,10 +1,10 @@
-package com.alkemy.ong.auth;
+package com.alkemy.ong.model.entity;
 
 import lombok.Data;
 
 @Data
 public class FoundUserEntity {
 
-    private String username;
+    private String email;
     private String password;
 }

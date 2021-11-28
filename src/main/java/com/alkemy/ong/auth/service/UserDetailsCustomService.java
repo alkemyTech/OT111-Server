@@ -1,6 +1,6 @@
 package com.alkemy.ong.auth.service;
 
-import com.alkemy.ong.auth.FoundUserEntity;
+import com.alkemy.ong.model.entity.FoundUserEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,22 +15,22 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // SpringSecurity will take care of password, we must match Username with JPA
-        // UserEntity foundUser = FindByUsername() - Repository
+        // === Testeo de USER ENTITY ===
+        // TODO: UserEntity foundUser = UserRepository.FindByEmail()
         FoundUserEntity foundUser = new FoundUserEntity();
-        foundUser.setUsername("email");
+        foundUser.setEmail("email");
         foundUser.setPassword("$2a$12$rE7dAY4bjaSKEjxRszkCQeVSU3kjviYRkHcb17qTBtEFhJBd9RqX6");
 
-        // IF No User: Exception
+        // TODO: === Exception IF NOT FOUND ===
         // if (foundUser == null) {
         //      throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
         // }
 
-        // IF User: Creamos un Nuevo User Object con datos del UserEncontrado.
+        // === Set Spring Security USER ===
         return new User(
-                foundUser.getUsername(),
+                foundUser.getEmail(),
                 foundUser.getPassword(),
-                Collections.emptyList() // Roles
+                Collections.emptyList() // TODO: Roles
         );
     }
 }
