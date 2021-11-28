@@ -22,9 +22,9 @@ public class UserDetailsCustomService implements UserDetailsService {
         foundUser.setPassword("$2a$12$rE7dAY4bjaSKEjxRszkCQeVSU3kjviYRkHcb17qTBtEFhJBd9RqX6");
 
         // TODO: === Exception IF NOT FOUND ===
-        // if (foundUser == null) {
-        //      throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
-        // }
+//         if (foundUser == null) {
+//              throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
+//         }
 
         // === Set Spring Security USER ===
         return new User(

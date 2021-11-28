@@ -27,7 +27,7 @@ public class UserAuthController {
     private AuthenticationManager authManager;
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<Object> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         // TODO: Mover todo a otro package Service?
         UserDetails userDetails;
