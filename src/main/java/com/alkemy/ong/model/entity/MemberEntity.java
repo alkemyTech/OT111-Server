@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Entity
 @Table(name = "member")
-@SQLDelete(sql = "UPDATE members SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE member SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class MemberEntity {
 
