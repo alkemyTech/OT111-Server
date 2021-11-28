@@ -2,7 +2,7 @@ CREATE TABLE  activities (
 
     id INTEGER GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
-    content VARCHAR NOT NULL,
+    content TEXT NOT NULL,
     image VARCHAR NULL,
 
 --  Timestamps
