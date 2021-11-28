@@ -52,7 +52,7 @@ public class EmailServiceImpl implements  EmailService{
             e.printStackTrace();
             return "error al enviar mail";
         }
-        return "El mail se envió correctamente";
+        return "El mail se envió correctamente.";
 
     }
 
