@@ -1,4 +1,4 @@
-package com.alkemy.ong.auth.entity;
+package com.alkemy.ong.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;

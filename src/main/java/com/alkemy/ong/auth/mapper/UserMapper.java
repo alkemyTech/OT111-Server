@@ -1,7 +1,7 @@
 package com.alkemy.ong.auth.mapper;
 
-import com.alkemy.ong.auth.dto.UserDto;
-import com.alkemy.ong.auth.entity.UserEntity;
+import com.alkemy.ong.model.dto.UserDto;
+import com.alkemy.ong.model.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.alkemy.ong.auth.config;
 
-import com.alkemy.ong.auth.service.UserDetailsCustomService;
+import com.alkemy.ong.service.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    // Importamos CustomService y CustomFilter.
+    // Instanciamos CustomService.
     @Autowired
     private UserDetailsCustomService userDetailsCustomService;
 

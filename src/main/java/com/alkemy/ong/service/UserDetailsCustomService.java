@@ -1,7 +1,7 @@
-package com.alkemy.ong.auth.service;
+package com.alkemy.ong.service;
 
-import com.alkemy.ong.auth.dto.UserDto;
-import com.alkemy.ong.auth.entity.UserEntity;
+import com.alkemy.ong.model.dto.UserDto;
+import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.auth.mapper.UserMapper;
 import com.alkemy.ong.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
