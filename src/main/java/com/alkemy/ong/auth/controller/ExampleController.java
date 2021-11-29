@@ -27,9 +27,9 @@ public class ExampleController {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-    @RequestMapping({ "/hello" })
-    public String firstPage() {
-        return "Welcome";
+    @RequestMapping("/example")
+    public String index() {
+        return "Welcome text. This is an example";
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
