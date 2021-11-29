@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class UserEntity {
 
+
     @Email(message = "El usuario debe ser un email")
     private String username;
 
