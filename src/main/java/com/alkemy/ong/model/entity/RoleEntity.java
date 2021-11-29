@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @Table(name= "roles")
 @SQLDelete(sql = "UPDATE role SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
-public class Role {
+public class RoleEntity {
 
     private static final long serialVersionUID = 1L;
 
