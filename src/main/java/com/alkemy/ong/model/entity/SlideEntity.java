@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@Table(name = "slides")
+@Table(name = "slide")
 @SQLDelete(sql = "UPDATE slides SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 @Entity
