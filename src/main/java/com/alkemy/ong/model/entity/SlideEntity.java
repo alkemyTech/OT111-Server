@@ -29,10 +29,11 @@ public class SlideEntity {
     @Column(name = "order") //Not specify if nullable
     private Integer order;
 
-    @Column(name = "organization_id", nullable = false)
-    private Integer organizationId;
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    //TODO: Create the organization entity to relate the tables (Foreign Key)
+    private OrganizationEntity organizationId;
+    
     //Auditory fields
     @Column(name = "created_date", nullable = false)
     private Timestamp created_date;
