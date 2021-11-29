@@ -4,7 +4,7 @@ create table news (
     name    VARCHAR(100)    NOT NULL,
     content TEXT            NOT NULL,
     image   VARCHAR(100) NULL,
-    category_id int8 NOT NULL, --CONFIRM NOT NULL
+    category_id int8 NOT NULL,
 --  Timestamps
     created_date timestamptz(0) NOT NULL DEFAULT NOW(),
     created_by varchar(100) NULL,
