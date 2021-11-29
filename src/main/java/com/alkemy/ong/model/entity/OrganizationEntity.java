@@ -18,7 +18,7 @@ public class OrganizationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -26,7 +26,7 @@ public class OrganizationEntity {
 
     private String address;
 
-    private Integer phone;
+    private int phone;
 
     private String email;
 

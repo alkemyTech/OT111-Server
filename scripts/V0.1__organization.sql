@@ -1,5 +1,5 @@
 CREATE TABLE  organization (
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
     name TEXT NOT NULL,
     image TEXT NOT NULL,
     address TEXT NULL,
