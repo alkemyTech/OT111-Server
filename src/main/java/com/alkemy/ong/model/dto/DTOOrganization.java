@@ -1,12 +1,20 @@
 package com.alkemy.ong.model.dto;
 
+
 public class DTOOrganization {
+    //@NotNull
     private String name;
+    //@NotNull
     private String image;
+    //@Nullable
     private String address;
+    //@Nullable
     private int phone;
+    //@NotNull
     private String email;
+    //@NotNull
     private String welcomeText;
+    //@Nullable
     private String aboutUsText;
 
     public String getName() {
