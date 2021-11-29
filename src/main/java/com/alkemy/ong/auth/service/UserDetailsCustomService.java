@@ -16,7 +16,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // === Testeo de USER ENTITY ===
-        // TODO: UserEntity foundUser = UserRepository.FindByEmail()
+        // TODO: UserEntity foundUser = UserRepository.findByEmail()
         FoundUserEntity foundUser = new FoundUserEntity();
         foundUser.setEmail("email");
         foundUser.setPassword("$2a$12$rE7dAY4bjaSKEjxRszkCQeVSU3kjviYRkHcb17qTBtEFhJBd9RqX6");

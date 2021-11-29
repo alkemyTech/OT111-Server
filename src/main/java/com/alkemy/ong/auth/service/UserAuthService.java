@@ -1,10 +1,10 @@
 package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.model.dto.AuthenticationRequest;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.alkemy.ong.model.dto.UserDTO;
 
 public interface UserAuthService {
 
-    UserDetails loginAttempt(AuthenticationRequest authenticationRequest) throws Exception;
+    UserDTO loginAttempt(AuthenticationRequest authenticationRequest) throws Exception;
 
 }

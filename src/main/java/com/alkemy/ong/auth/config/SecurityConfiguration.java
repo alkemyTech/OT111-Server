@@ -39,12 +39,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
-                .antMatchers("/hola").authenticated() // TODO: Add Routes
+                .antMatchers("/test").authenticated() // TODO: Add Routes
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS); // TODO: Add STATLESS
 
         // TODO: Filter JWT before AUTH FILTER
+
     }
 }

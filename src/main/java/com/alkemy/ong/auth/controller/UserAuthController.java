@@ -28,13 +28,9 @@ public class UserAuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        UserDetails userDetails = userAuthServ.loginAttempt(authenticationRequest);
+        UserDTO userDetails = userAuthServ.loginAttempt(authenticationRequest);
 
-        UserDTO foundUser = new UserDTO();
-        foundUser.setEmail(userDetails.getUsername());
-        foundUser.setPassword(userDetails.getPassword());
-
-        return ResponseEntity.ok(foundUser);
+        return ResponseEntity.ok(userDetails);
     }
 
 }
