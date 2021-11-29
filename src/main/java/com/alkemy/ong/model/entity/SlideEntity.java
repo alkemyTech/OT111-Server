@@ -23,10 +23,10 @@ public class SlideEntity {
     @Column(name = "url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "text")
+    @Column(name = "text") //Not specify if nullable
     private String text;
 
-    @Column(name = "order")
+    @Column(name = "order") //Not specify if nullable
     private Integer order;
 
     @Column(name = "organization_id", nullable = false)
@@ -42,6 +42,8 @@ public class SlideEntity {
     private Timestamp modify_date;
     @Column(name = "modify_by")
     private String modify_by;
+
+    //Soft delete
     @Column(name = "deleted")
     private Boolean deleted = Boolean.FALSE;
 }
