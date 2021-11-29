@@ -7,6 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
@@ -22,14 +23,13 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotEmpty
     private String name;
 
     private String description;
 
     private String image;
 
-    @NotNull
     private OffsetDateTime createdDate;
 
     private OffsetDateTime modifiedDate;
@@ -38,7 +38,6 @@ public class CategoryEntity {
 
     private String modifiedBy;
 
-    @NotNull
     private boolean deleted = Boolean.FALSE;
 
 }
