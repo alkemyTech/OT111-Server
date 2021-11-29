@@ -1,20 +1,23 @@
 package com.alkemy.ong.model.dto;
 
 
+import com.sun.istack.NotNull;
+import org.springframework.lang.Nullable;
+
 public class DTOOrganization {
-    //@NotNull
+    @NotNull
     private String name;
-    //@NotNull
+    @NotNull
     private String image;
-    //@Nullable
+    @Nullable
     private String address;
-    //@Nullable
+    @Nullable
     private int phone;
-    //@NotNull
+    @NotNull
     private String email;
-    //@NotNull
+    @NotNull
     private String welcomeText;
-    //@Nullable
+    @Nullable
     private String aboutUsText;
 
     public String getName() {
