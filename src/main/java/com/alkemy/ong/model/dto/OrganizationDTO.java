@@ -1,10 +1,9 @@
 package com.alkemy.ong.model.dto;
 
-
 import com.sun.istack.NotNull;
 import org.springframework.lang.Nullable;
 
-public class DTOOrganization {
+public class OrganizationDTO {
     @NotNull
     private String name;
     @NotNull
