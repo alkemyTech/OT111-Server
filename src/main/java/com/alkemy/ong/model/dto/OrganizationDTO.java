@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.dto;
 
-
 public class OrganizationDTO {
     private String name;
     private String image;
