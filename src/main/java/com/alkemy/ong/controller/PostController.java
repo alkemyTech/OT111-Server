@@ -15,7 +15,7 @@ import java.util.Map;
 class TestCont {
 
     @GetMapping(value = "/organization/public")
-    public ResponseEntity test() {
+    public ResponseEntity test(@RequestBody String id) {
         OrganizationDTO organization = PostManagmentService.readOrganization();
         Map<String, String> response = new HashMap<String,String>();
         response.put("name",organization.getName());
