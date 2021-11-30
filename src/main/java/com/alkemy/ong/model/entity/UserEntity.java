@@ -5,6 +5,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
@@ -13,27 +14,28 @@ import java.time.OffsetDateTime;
 @ToString
 @AllArgsConstructor
 @Table(name = "users")
-@SQLDelete(sql = "UPDATE User SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-public class User implements Serializable {
+public class UserEntity {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
-
+    @NotNull
     private String firstName;
-
+    @NotNull
     private String lastName;
-
+    @NotNull
     private String email;
-
+    @NotNull
     private String password;
-
+    @NotNull
     private String photo;
-
-    //Anotaciones correspondientes para la unión
+    @NotNull
+    @JoinColumn(name = "role_id")
+    @OneToOne
     private Role roleId;
 
     private OffsetDateTime createdDate;
