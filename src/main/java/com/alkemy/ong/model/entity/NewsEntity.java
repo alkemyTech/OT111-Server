@@ -6,8 +6,9 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import java.time.OffsetDateTime;
+import com.alkemy.ong.model.entity.CategoryEntity;
 
 @Getter
 @Setter
@@ -21,18 +22,20 @@ public class NewsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotEmpty
     private String name;
 
-    @NotNull
+    @NotEmpty
     private String content;
 
     private String image;
 
-    @NotNull //Confirm annotation
-    private Long categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    //TODO Missing CategoryEntity from OT111-18
+    //TODO ask if @OneToMany(mappedBy="category")in CategoryEntity.
+    private CategoryEntity categoryId;
 
-    @NotNull
     private OffsetDateTime createdDate;
 
     private OffsetDateTime modifiedDate;
@@ -41,7 +44,6 @@ public class NewsEntity {
 
     private String modifiedBy;
 
-    @NotNull
     private boolean deleted = Boolean.FALSE;
 
 }
