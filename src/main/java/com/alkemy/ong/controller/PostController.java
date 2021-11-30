@@ -1,6 +1,10 @@
 package com.alkemy.ong.controller;
 
+<<<<<<< Updated upstream
 import com.alkemy.ong.model.dto.DTOOrganization;
+=======
+import com.alkemy.ong.model.dto.OrganizationDTO;
+>>>>>>> Stashed changes
 import com.alkemy.ong.service.PostManagmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +20,11 @@ class TestCont {
 
     @GetMapping(value = "/organization/public")
     public ResponseEntity test() {
+<<<<<<< Updated upstream
         DTOOrganization organization = PostManagmentService.readOrganization();
+=======
+        OrganizationDTO organization = PostManagmentService.readOrganization();
+>>>>>>> Stashed changes
         Map<String, String> response = new HashMap<String,String>();
         response.put("name",organization.getName());
         response.put("image",organization.getImage());
