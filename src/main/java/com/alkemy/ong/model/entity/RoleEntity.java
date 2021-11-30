@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @ToString
 @Entity
 @Table(name= "roles")
-@SQLDelete(sql = "UPDATE role SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE roles SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 public class RoleEntity {
 
