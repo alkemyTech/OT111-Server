@@ -3,6 +3,7 @@ package com.alkemy.ong.auth.service.impl;
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.model.dto.AuthenticationRequest;
 import com.alkemy.ong.model.dto.UserDTO;
+import com.alkemy.ong.model.entity.FoundUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,28 +22,21 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public UserDTO loginAttempt(AuthenticationRequest authenticationRequest) throws Exception {
         UserDetails userDetails;
-
         try {
             UsernamePasswordAuthenticationToken newTry = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()
             );
             Authentication auth = authManager.authenticate(newTry);
-
             SecurityContextHolder.getContext().setAuthentication(auth);
-
-            // Deberia Agarrarlo del Context o del Auth?
             userDetails = (UserDetails) auth.getPrincipal();
-
         } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-
+        //TODO: Add All UserEntity attributes to UserDetails.
         UserDTO foundUser = new UserDTO();
         foundUser.setEmail(userDetails.getUsername());
         foundUser.setPassword(userDetails.getPassword());
-
         return foundUser;
     }
-
 }
