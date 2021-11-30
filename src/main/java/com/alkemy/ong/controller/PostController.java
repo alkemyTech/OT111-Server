@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.dto.DTOOrganization;
 import com.alkemy.ong.model.dto.OrganizationDTO;
 
 import com.alkemy.ong.service.PostManagmentService;

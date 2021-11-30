@@ -1,6 +1,5 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.model.dto.DTOOrganization;
 
 import com.alkemy.ong.model.dto.OrganizationDTO;
 
