@@ -28,9 +28,9 @@ public class SlideEntity {
     private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "organization_id")
     //TODO: Create the organization entity to relate the tables (Foreign Key)
-    private OrganizationEntity organizationId;
+    private OrganizationEntity organization;
     
     //Auditory fields
     private OffsetDateTime created_date;
