@@ -22,7 +22,7 @@ public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRole;
+    private Long id;
     @NotNull
     private String name;
 
