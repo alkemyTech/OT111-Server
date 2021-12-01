@@ -24,7 +24,8 @@ dependencies {
 
 	implementation 'org.hibernate.validator:hibernate-validator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
+	implementation 'com.sendgrid:sendgrid-java:4.8.0'
+	
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
