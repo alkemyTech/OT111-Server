@@ -18,8 +18,8 @@ public class UserDetailsCustomService implements UserDetailsService {
         // === Testeo de USER ENTITY ===
         // TODO: UserEntity foundUser = UserRepository.findByEmail()
         FoundUserEntity foundUser = new FoundUserEntity();
-        foundUser.setEmail("email");
-        foundUser.setPassword("$2a$12$rE7dAY4bjaSKEjxRszkCQeVSU3kjviYRkHcb17qTBtEFhJBd9RqX6");
+        foundUser.setEmail("user");
+        foundUser.setPassword("$2a$12$SseiD77XMlFI9uR.4vfAF.a4okOn/IZXvo9X7UkS8D5l5nAAiW61y");
 
         // TODO: === Exception IF NOT FOUND ===
 //         if (foundUser == null) {
