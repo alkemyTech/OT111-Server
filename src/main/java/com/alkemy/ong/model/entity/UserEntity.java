@@ -22,7 +22,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idUser;
     @NotNull
     private String firstName;
     @NotNull
@@ -31,11 +31,11 @@ public class UserEntity {
     private String email;
     @NotNull
     private String password;
-
+    @NotNull
     private String photo;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+    @OneToOne
     private Role roleId;
 
     private OffsetDateTime createdDate;

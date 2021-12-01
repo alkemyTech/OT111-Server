@@ -15,7 +15,7 @@ CREATE TABLE users (
     modified_date timestamptz(0) NULL,
     modified_by varchar(100) NULL,
 
-    CONSTRAINT user_pk PRIMARY KEY (id),
+    CONSTRAINT user_pk PRIMARY KEY (id_user),
     CONSTRAINT users_email_key UNIQUE (email),
     CONSTRAINT users_fk FOREIGN KEY (role_id) REFERENCES roles(id)
 );
