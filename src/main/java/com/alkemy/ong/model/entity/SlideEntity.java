@@ -7,11 +7,12 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @Table(name = "slide")
-@SQLDelete(sql = "UPDATE slides SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE slide SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 @Entity
 public class SlideEntity {
@@ -20,31 +21,26 @@ public class SlideEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "text") //Not specify if nullable
     private String text;
 
-    @Column(name = "order") //Not specify if nullable
     private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id")
+    @JoinColumn(name = "id")
     //TODO: Create the organization entity to relate the tables (Foreign Key)
     private OrganizationEntity organizationId;
     
     //Auditory fields
-    @Column(name = "created_date", nullable = false)
-    private Timestamp created_date;
-    @Column(name = "created_by", nullable = false)
+    private OffsetDateTime created_date;
+
     private String created_by;
-    @Column(name = "modify_date")
-    private Timestamp modify_date;
-    @Column(name = "modify_by")
+
+    private OffsetDateTime modify_date;
+
     private String modify_by;
 
     //Soft delete
-    @Column(name = "deleted")
     private Boolean deleted = Boolean.FALSE;
 }
