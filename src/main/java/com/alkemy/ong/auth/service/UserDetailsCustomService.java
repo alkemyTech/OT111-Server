@@ -32,6 +32,7 @@ public class UserDetailsCustomService implements UserDetailsService {
                 foundUser.getPassword(),
                 Collections.emptyList() // TODO: Roles
         );
+
     }
 }
 

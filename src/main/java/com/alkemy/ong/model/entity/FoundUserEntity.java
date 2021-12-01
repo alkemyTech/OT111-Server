@@ -7,4 +7,5 @@ public class FoundUserEntity {
 
     private String email;
     private String password;
+
 }
