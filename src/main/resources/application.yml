@@ -1,1 +1,6 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ot111_ong
+    username: postgres
+    password: postgres
+    show-sql: true
