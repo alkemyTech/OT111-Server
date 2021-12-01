@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.entity;
 
+<<<<<<< HEAD
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +26,21 @@ public class UserEntity {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
+=======
+import lombok.Data;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@Table(name = "usser")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String email;
+    private String password;
+>>>>>>> feature/segurity
 
 }
