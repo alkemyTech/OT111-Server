@@ -7,22 +7,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-    //
-    // === DTO -> Entity ===
-    public UserEntity userDTO2Entity(UserDTO dto) {
-        UserEntity entity = new UserEntity();
-        entity.setEmail(dto.getEmail());
-        entity.setPassword(dto.getPassword());
-        return entity;
+
+
+    public UserEntity userDTO2Entity(UserDTO userDto){
+
+        UserEntity newUser = new UserEntity();
+
+        newUser.setEmail(userDto.getEmail());
+
+        newUser.setPassword(userDto.getPassword());
+
+        return newUser;
     }
 
-    //
-    // === Entity -> DTO ===
-    public UserDTO userEntity2DTO(UserEntity entity) {
-        UserDTO dto = new UserDTO();
-        dto.setEmail(entity.getEmail());
-        dto.setPassword(entity.getPassword());
-        return dto;
+    public UserDTO entity2DTO(UserEntity userEntity){
+
+        //ver builder, patron de diseño, para que lo utilizamos.
+        return  UserDTO.builder()
+                .email(userEntity.getEmail())
+                .password(userEntity.getPassword())
+                .build();
+
     }
 
 }

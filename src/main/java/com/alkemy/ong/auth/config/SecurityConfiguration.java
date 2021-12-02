@@ -1,5 +1,6 @@
 package com.alkemy.ong.auth.config;
 
+
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/register").permitAll()
                 .antMatchers("/test").authenticated() // TODO: Add Routes / Roles
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
