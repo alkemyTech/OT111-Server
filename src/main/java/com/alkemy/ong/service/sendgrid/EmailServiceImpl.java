@@ -22,7 +22,7 @@ public class EmailServiceImpl implements  EmailService{
 
     private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
 
-    private String sender = System.getenv("SENDGRID_API_KEY");
+    private String sender = System.getenv("SENDER");
 
     @Autowired
     SendGrid sendGrid;

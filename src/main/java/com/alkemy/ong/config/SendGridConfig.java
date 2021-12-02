@@ -10,8 +10,7 @@ import com.sendgrid.SendGrid;
 @Configuration
 public class SendGridConfig {
 
-    @Value("${sendgrid.key}")
-    private String key;
+    private String key = System.getenv("SENDGRID_API_KEY");
     @Bean
     public SendGrid startSendGrid() {
         //inicializa sendgrid con su key
