@@ -2,10 +2,8 @@ package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.dto.UserDTO;
-import com.alkemy.ong.model.entity.FoundUserEntity;
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.User;
@@ -14,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import javax.validation.Valid;
 import java.util.Collections;
 
 @Service

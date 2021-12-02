@@ -38,11 +38,13 @@ public class UserAuthServiceImpl implements UserAuthService {
             throw new Exception("Incorrect username or password", e);
         }
 
-        UserDTO foundUser = new UserDTO();
+        // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);
-        foundUser.setEmail(userDetails.getUsername());
-        foundUser.setPassword(userDetails.getPassword());
-        foundUser.setJwt(jwt);
+        UserDTO foundUser =  UserDTO.builder()
+                .email(userDetails.getUsername())
+                .password(userDetails.getPassword())
+                .jwt(jwt)
+                .build();
 
         return foundUser;
     }
