@@ -39,18 +39,12 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // === Testeo de USER ENTITY ===
-        // TODO: UserEntity foundUser = UserRepository.findByEmail()
-        FoundUserEntity foundUser = new FoundUserEntity();
-        foundUser.setEmail("user");
-        foundUser.setPassword("$2a$12$SseiD77XMlFI9uR.4vfAF.a4okOn/IZXvo9X7UkS8D5l5nAAiW61y");
+        UserEntity foundUser = userRepository.findByEmail(username);
+         if (foundUser == null) {
+              throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
+         }
 
-        // TODO: === Exception IF NOT FOUND ===
-//         if (foundUser == null) {
-//              throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
-//         }
-
-        // === Set Spring Security USER ===
+        // === Set Spring Security USER en el Context ===
         return new User(
                 foundUser.getEmail(),
                 foundUser.getPassword(),
@@ -62,13 +56,9 @@ public class UserDetailsCustomService implements UserDetailsService {
     public UserDTO signupUser(UserDTO userToCreate) {
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         UserEntity newUser = userMapper.userDTO2Entity(userToCreate);
-        // ===
 
-        //Busco por matcheo un usuario.
         UserEntity matchingUser = userRepository.findByEmail(userToCreate.getEmail());
         if(matchingUser != null && (matchingUser.getEmail().equals(newUser.getEmail()))) {
-            // NO LO CREA, PERO NO ENVIA "Already Exists"
-            // En Controller verificamos TRUE o FALSE y Mandamos ResponseEntity segun corresponda
             return userMapper.entity2DTO(matchingUser);
         }
 

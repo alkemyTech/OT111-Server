@@ -37,12 +37,13 @@ public class UserAuthServiceImpl implements UserAuthService {
         } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-        //TODO: Add All UserEntity attributes to UserDetails.
+
         UserDTO foundUser = new UserDTO();
         String jwt = jwtTokenUtil.generateToken(userDetails);
         foundUser.setEmail(userDetails.getUsername());
         foundUser.setPassword(userDetails.getPassword());
         foundUser.setJwt(jwt);
+
         return foundUser;
     }
 }

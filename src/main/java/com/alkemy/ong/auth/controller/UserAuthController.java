@@ -2,6 +2,7 @@ package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.model.dto.AuthenticationRequest;
@@ -29,9 +30,7 @@ public class UserAuthController {
     // Signup
     @PostMapping("/register")
     public ResponseEntity<UserDTO> signUp(@Valid @RequestBody UserDTO userToCreate) {
-
         UserDTO userDto = userDetailsCustomService.signupUser(userToCreate);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 
