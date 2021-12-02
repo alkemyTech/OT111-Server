@@ -1,1 +1,10 @@
   dynamic.template.data = ce151f2bd39347fca69b3b48e2f31aed;
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ot111_ong
+
+    username: postgres
+    password: postgres
+
+  jpa:
+    show-sql: true
