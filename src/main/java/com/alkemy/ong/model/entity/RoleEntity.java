@@ -6,17 +6,17 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.Null;
 import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@Table(name = "users")
-@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
-@Where(clause = "deleted = false")
-public class UserEntity {
+@Entity
+@Table(name= "roles")
+@SQLDelete(sql = "UPDATE roles SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+public class RoleEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,19 +24,9 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
-    @NotNull
-    private String email;
-    @NotNull
-    private String password;
+    private String name;
 
-    private String photo;
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private Role roleId;
+    private String description;
 
     private OffsetDateTime createdDate;
 
@@ -46,5 +36,5 @@ public class UserEntity {
 
     private String modifiedBy;
 
-    private Boolean deleted = Boolean.FALSE;
+    private boolean deleted = Boolean.FALSE;
 }
