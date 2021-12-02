@@ -60,9 +60,9 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
     public UserDTO signupUser(UserDTO userToCreate) {
-        userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
+
         UserEntity newUser = userMapper.userDTO2Entity(userToCreate);
-        // ===
+        userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
 
         //Busco por matcheo un usuario.
         UserEntity matchingUser = userRepository.findByEmail(userToCreate.getEmail());
