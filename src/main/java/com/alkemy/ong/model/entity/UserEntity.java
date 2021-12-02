@@ -11,11 +11,9 @@ import javax.validation.constraints.Size;
 @Data
 public class UserEntity {
 
-
     @Email(message = "El usuario debe ser un email")
     private String email;
-
-
+    
     @Size(min = 2)
     private String password;
 

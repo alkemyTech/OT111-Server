@@ -7,5 +7,4 @@ public interface UserAuthService {
 
     UserDTO loginAttempt(AuthenticationRequest authenticationRequest) throws Exception ;
 
-
 }

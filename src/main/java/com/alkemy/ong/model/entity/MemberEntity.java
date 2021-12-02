@@ -6,6 +6,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
@@ -21,7 +22,7 @@ public class MemberEntity {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @NotNull
+        @NotEmpty
         private String name;
 
         private String facebookUrl;
@@ -30,12 +31,11 @@ public class MemberEntity {
 
         private String linkedinUrl;
 
-        @NotNull
+        @NotEmpty
         private String image;
 
         private String description;
 
-        @NotNull
         private OffsetDateTime createdDate;
 
         private OffsetDateTime modifiedDate;
@@ -44,7 +44,6 @@ public class MemberEntity {
 
         private String modifiedBy;
 
-        @NotNull
         private boolean deleted = Boolean.FALSE;
     }
 

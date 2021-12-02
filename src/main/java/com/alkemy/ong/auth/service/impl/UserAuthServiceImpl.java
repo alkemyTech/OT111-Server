@@ -4,7 +4,6 @@ import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.model.dto.AuthenticationRequest;
 import com.alkemy.ong.model.dto.UserDTO;
-import com.alkemy.ong.model.entity.FoundUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,7 +40,6 @@ public class UserAuthServiceImpl implements UserAuthService {
         //TODO: Add All UserEntity attributes to UserDetails.
         UserDTO foundUser = new UserDTO();
         String jwt = jwtTokenUtil.generateToken(userDetails);
-        System.out.println("UserDetails JWT --->  "+jwt);
         foundUser.setEmail(userDetails.getUsername());
         foundUser.setPassword(userDetails.getPassword());
         foundUser.setJwt(jwt);
