@@ -35,7 +35,6 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         UserEntity foundUser = userRepository.findByEmail(username);
          if (foundUser == null) {
               throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
@@ -47,21 +46,19 @@ public class UserDetailsCustomService implements UserDetailsService {
                 foundUser.getPassword(),
                 Collections.emptyList() // TODO: Roles
         );
-
     }
 
     public UserDTO signupUser(UserDTO userToCreate) {
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         UserEntity newUser = userMapper.userDTO2Entity(userToCreate);
-
         UserEntity matchingUser = userRepository.findByEmail(userToCreate.getEmail());
         if(matchingUser != null && (matchingUser.getEmail().equals(newUser.getEmail()))) {
             return userMapper.entity2DTO(matchingUser);
         }
-
         newUser = userRepository.save(newUser);
         return userMapper.entity2DTO(newUser);
     }
+
 }
 
 
