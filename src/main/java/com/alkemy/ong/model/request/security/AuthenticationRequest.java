@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.dto;
+package com.alkemy.ong.model.request.security;
 
 import lombok.Getter;
 import lombok.Setter;
