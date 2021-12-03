@@ -12,10 +12,10 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @ToString
-@Entity
 @Table(name= "roles")
 @SQLDelete(sql = "UPDATE roles SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
+@Entity
 public class RoleEntity {
 
     private static final long serialVersionUID = 1L;
