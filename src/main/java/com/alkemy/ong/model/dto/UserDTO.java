@@ -24,9 +24,5 @@ public class UserDTO {
     @NotEmpty
     private String password;
 
-    private String photo;
-
-    private String role;
-
     private String jwt;
 }

@@ -15,14 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-//@RequiredArgsConstructor //Esta anotacion suplanta a lo realizado en linea 33 a 37. genera constructor.
 public class UserDetailsCustomService implements UserDetailsService {
 
-
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired /*se póne de esta manera ya que si lo ponemos arriba por
@@ -44,17 +40,19 @@ public class UserDetailsCustomService implements UserDetailsService {
         return new User(
                 foundUser.getEmail(),
                 foundUser.getPassword(),
-                Collections.emptyList() // TODO: Roles
+                Collections.emptyList()// TODO: Roles
         );
     }
 
     public UserDTO signupUser(UserDTO userToCreate) {
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         UserEntity newUser = userMapper.userDTO2Entity(userToCreate);
+
         UserEntity matchingUser = userRepository.findByEmail(userToCreate.getEmail());
         if(matchingUser != null && (matchingUser.getEmail().equals(newUser.getEmail()))) {
             return userMapper.entity2DTO(matchingUser);
         }
+
         newUser = userRepository.save(newUser);
         return userMapper.entity2DTO(newUser);
     }
