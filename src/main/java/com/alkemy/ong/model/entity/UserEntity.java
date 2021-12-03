@@ -3,11 +3,11 @@ package com.alkemy.ong.model.entity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.type.OffsetDateTimeType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 
 @Entity
 @Data
@@ -38,11 +38,16 @@ public class UserEntity  {
     @NotNull
     private String photo;
 
-//    @NotNull
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "role_id")
-//    private RoleEntity roleId;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private HashSet<RoleEntity> role;
 
+    private boolean tokenExpired;
 
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
