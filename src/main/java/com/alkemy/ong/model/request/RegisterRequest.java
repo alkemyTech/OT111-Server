@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.response;
+package com.alkemy.ong.model.request;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,9 +6,9 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-@Builder
 @Data
-public class UserResponseDTO {
+@Builder
+public class RegisterRequest {
 
     @NotEmpty
     private String firstName;
@@ -18,6 +18,9 @@ public class UserResponseDTO {
 
     @Email
     private String email;
+
+    @NotEmpty
+    private String password;
 
     @NotEmpty
     private String photo;

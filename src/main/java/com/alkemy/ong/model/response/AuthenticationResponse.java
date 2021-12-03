@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class UserResponseLoginDTO {
+public class AuthenticationResponse {
 
     private String email;
     private String password;

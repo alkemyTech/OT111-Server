@@ -1,9 +1,9 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.UserRequestDTO;
-import com.alkemy.ong.model.response.UserResponseDTO;
-import com.alkemy.ong.model.response.UserResponseLoginDTO;
+import com.alkemy.ong.model.request.RegisterRequest;
+import com.alkemy.ong.model.response.RegisterResponse;
+import com.alkemy.ong.model.response.AuthenticationResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +11,7 @@ public class UserMapper {
 
 
 
-    public UserEntity userDTO2Entity(UserRequestDTO userDto){
+    public UserEntity userDTO2Entity(RegisterRequest userDto){
         UserEntity newUser = new UserEntity();
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
@@ -21,8 +21,8 @@ public class UserMapper {
         return newUser;
     }
 
-    public UserResponseDTO entity2ResponseDTO(UserEntity userEntity){
-        return UserResponseDTO.builder()
+    public RegisterResponse entity2ResponseDTO(UserEntity userEntity){
+        return RegisterResponse.builder()
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
@@ -30,8 +30,8 @@ public class UserMapper {
                 .build();
     }
 
-    public UserResponseLoginDTO entity2ResponseLoginDTO(UserEntity userEntity){
-        return UserResponseLoginDTO.builder()
+    public AuthenticationResponse entity2ResponseLoginDTO(UserEntity userEntity){
+        return AuthenticationResponse.builder()
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
                 .build();

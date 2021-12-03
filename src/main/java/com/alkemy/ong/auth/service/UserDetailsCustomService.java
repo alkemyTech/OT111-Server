@@ -2,8 +2,8 @@ package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.UserRequestDTO;
-import com.alkemy.ong.model.response.UserResponseDTO;
+import com.alkemy.ong.model.request.RegisterRequest;
+import com.alkemy.ong.model.response.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -45,7 +45,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         );
     }
 
-    public UserResponseDTO signupUser(UserRequestDTO userToCreate) {
+    public RegisterResponse signupUser(RegisterRequest userToCreate) {
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         UserEntity newUser = userMapper.userDTO2Entity(userToCreate);
 

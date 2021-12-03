@@ -1,9 +1,9 @@
 package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
-import com.alkemy.ong.model.request.UserRequestDTO;
-import com.alkemy.ong.model.response.UserResponseDTO;
-import com.alkemy.ong.model.response.UserResponseLoginDTO;
+import com.alkemy.ong.model.request.RegisterRequest;
+import com.alkemy.ong.model.response.RegisterResponse;
+import com.alkemy.ong.model.response.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +31,14 @@ public class UserAuthController {
 
     // Signup
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> signUp(@Valid @RequestBody UserRequestDTO userToCreate) {
-        UserResponseDTO userResponse = userDetailsCustomService.signupUser(userToCreate);
+    public ResponseEntity<RegisterResponse> signUp(@Valid @RequestBody RegisterRequest userToCreate) {
+        RegisterResponse userResponse = userDetailsCustomService.signupUser(userToCreate);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        UserResponseLoginDTO userDetails = userAuthServ.loginAttempt(authenticationRequest);
+        AuthenticationResponse userDetails = userAuthServ.loginAttempt(authenticationRequest);
         return ResponseEntity.ok(userDetails);
     }
 
