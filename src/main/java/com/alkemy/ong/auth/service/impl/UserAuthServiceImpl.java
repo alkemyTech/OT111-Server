@@ -2,8 +2,8 @@ package com.alkemy.ong.auth.service.impl;
 
 import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserAuthService;
-import com.alkemy.ong.model.dto.AuthenticationRequest;
-import com.alkemy.ong.model.dto.UserDTO;
+import com.alkemy.ong.model.request.AuthenticationRequest;
+import com.alkemy.ong.model.response.UserResponseLoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,7 +23,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     AuthenticationManager authManager;
 
     @Override
-    public UserDTO loginAttempt(AuthenticationRequest authenticationRequest) throws Exception {
+    public UserResponseLoginDTO loginAttempt(AuthenticationRequest authenticationRequest) throws Exception {
         UserDetails userDetails;
         try {
             UsernamePasswordAuthenticationToken newTry = new UsernamePasswordAuthenticationToken(
@@ -40,12 +40,11 @@ public class UserAuthServiceImpl implements UserAuthService {
 
         // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);
-        UserDTO foundUser =  UserDTO.builder()
+        UserResponseLoginDTO foundUser =  UserResponseLoginDTO.builder()
                 .email(userDetails.getUsername())
                 .password(userDetails.getPassword())
                 .jwt(jwt)
                 .build();
-
         return foundUser;
     }
 }
