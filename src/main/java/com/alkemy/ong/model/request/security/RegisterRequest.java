@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+//DTO de usuario para registro.
 @Data
 @Builder
 public class RegisterRequest {
