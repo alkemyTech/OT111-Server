@@ -2,6 +2,7 @@ package com.alkemy.ong.auth.service.impl;
 
 import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserAuthService;
+import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Autowired
     AuthenticationManager authManager;
 
+    @Autowired
+    private AuthenticationMapper authenticationMapper;
+
     @Override
     public AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) throws Exception {
         UserDetails userDetails;
@@ -40,11 +44,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 
         // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);
-        AuthenticationResponse foundUser =  AuthenticationResponse.builder()
-                .email(userDetails.getUsername())
-                .password(userDetails.getPassword())
-                .jwt(jwt)
-                .build();
-        return foundUser;
+        return authenticationMapper.userDetailsAndJwt2LoginResponseDTO(userDetails, jwt);
     }
+
 }

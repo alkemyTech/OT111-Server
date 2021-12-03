@@ -4,6 +4,7 @@ import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,10 +29,11 @@ public class AuthenticationMapper {
                 .build();
     }
 
-    public AuthenticationResponse entity2LoginResponseDTO(UserEntity userEntity){
+    public AuthenticationResponse userDetailsAndJwt2LoginResponseDTO(UserDetails userInContext, String jwt){
         return AuthenticationResponse.builder()
-                .email(userEntity.getEmail())
-                .password(userEntity.getPassword())
+                .email(userInContext.getUsername())
+                .password(userInContext.getPassword())
+                .jwt(jwt)
                 .build();
     }
 
