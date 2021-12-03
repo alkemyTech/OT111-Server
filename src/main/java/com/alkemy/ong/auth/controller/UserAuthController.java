@@ -1,14 +1,14 @@
 package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
-import com.alkemy.ong.model.request.RegisterRequest;
-import com.alkemy.ong.model.response.RegisterResponse;
-import com.alkemy.ong.model.response.AuthenticationResponse;
+import com.alkemy.ong.model.request.security.RegisterRequest;
+import com.alkemy.ong.model.response.security.RegisterResponse;
+import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.alkemy.ong.auth.service.UserAuthService;
-import com.alkemy.ong.model.request.AuthenticationRequest;
+import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

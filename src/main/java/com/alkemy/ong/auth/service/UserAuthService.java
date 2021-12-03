@@ -1,7 +1,7 @@
 package com.alkemy.ong.auth.service;
 
-import com.alkemy.ong.model.request.AuthenticationRequest;
-import com.alkemy.ong.model.response.AuthenticationResponse;
+import com.alkemy.ong.model.request.security.AuthenticationRequest;
+import com.alkemy.ong.model.response.security.AuthenticationResponse;
 
 public interface UserAuthService {
 

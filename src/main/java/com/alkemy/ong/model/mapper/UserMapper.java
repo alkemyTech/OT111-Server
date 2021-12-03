@@ -1,9 +1,9 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.RegisterRequest;
-import com.alkemy.ong.model.response.RegisterResponse;
-import com.alkemy.ong.model.response.AuthenticationResponse;
+import com.alkemy.ong.model.request.security.RegisterRequest;
+import com.alkemy.ong.model.response.security.RegisterResponse;
+import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import org.springframework.stereotype.Component;
 
 @Component

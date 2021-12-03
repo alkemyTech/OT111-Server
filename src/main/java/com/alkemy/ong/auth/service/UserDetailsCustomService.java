@@ -2,8 +2,8 @@ package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.RegisterRequest;
-import com.alkemy.ong.model.response.RegisterResponse;
+import com.alkemy.ong.model.request.security.RegisterRequest;
+import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

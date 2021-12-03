@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.response;
+package com.alkemy.ong.model.response.security;
 
 import lombok.Builder;
 import lombok.Data;

@@ -2,8 +2,8 @@ package com.alkemy.ong.auth.service.impl;
 
 import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserAuthService;
-import com.alkemy.ong.model.request.AuthenticationRequest;
-import com.alkemy.ong.model.response.AuthenticationResponse;
+import com.alkemy.ong.model.request.security.AuthenticationRequest;
+import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
