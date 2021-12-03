@@ -15,6 +15,7 @@ import java.time.OffsetDateTime;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+@Entity
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
