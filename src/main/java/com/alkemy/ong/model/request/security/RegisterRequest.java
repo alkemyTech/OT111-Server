@@ -1,16 +1,14 @@
-package com.alkemy.ong.model.dto;
+package com.alkemy.ong.model.request.security;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @Builder
-@AllArgsConstructor
-public class UserDTO {
+public class RegisterRequest {
 
     @NotEmpty
     private String firstName;
@@ -24,9 +22,7 @@ public class UserDTO {
     @NotEmpty
     private String password;
 
+    @NotEmpty
     private String photo;
 
-    private String role;
-
-    private String jwt;
 }

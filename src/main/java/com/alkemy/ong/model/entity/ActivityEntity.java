@@ -1,31 +1,32 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
 @Getter
 @Setter
-@ToString
 @Entity
-@Table(name= "role")
-@SQLDelete(sql = "UPDATE role SET deleted = true WHERE id=?")
-@Where(clause = "deleted=false")
-public class RoleEntity {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "activity")
+@SQLDelete(sql = "UPDATE activity SET deleted = true WHERE id=?")
+@Where(clause = "deleted = false")
+public class ActivityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     private String name;
 
-    private String description;
+    private String content;
+
+    private String image;
+
+    //  Timestamps
 
     private OffsetDateTime createdDate;
 
@@ -35,5 +36,6 @@ public class RoleEntity {
 
     private String modifiedBy;
 
-    private boolean deleted = Boolean.FALSE;
+    //  SoftDelete
+    private Boolean deleted = Boolean.FALSE;
 }

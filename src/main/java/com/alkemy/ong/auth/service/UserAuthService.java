@@ -1,10 +1,10 @@
 package com.alkemy.ong.auth.service;
 
-import com.alkemy.ong.model.dto.AuthenticationRequest;
-import com.alkemy.ong.model.dto.UserDTO;
+import com.alkemy.ong.model.request.security.AuthenticationRequest;
+import com.alkemy.ong.model.response.security.AuthenticationResponse;
 
 public interface UserAuthService {
 
-    UserDTO loginAttempt(AuthenticationRequest authenticationRequest) throws Exception ;
+    AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) throws Exception ;
 
 }
