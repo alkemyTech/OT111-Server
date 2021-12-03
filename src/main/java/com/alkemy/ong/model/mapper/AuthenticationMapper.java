@@ -7,11 +7,9 @@ import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapper {
+public class AuthenticationMapper {
 
-
-
-    public UserEntity userDTO2Entity(RegisterRequest userDto){
+    public UserEntity registerRequestDTO2Entity(RegisterRequest userDto){
         UserEntity newUser = new UserEntity();
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
@@ -21,7 +19,7 @@ public class UserMapper {
         return newUser;
     }
 
-    public RegisterResponse entity2ResponseDTO(UserEntity userEntity){
+    public RegisterResponse entity2RegisterResponseDTO(UserEntity userEntity){
         return RegisterResponse.builder()
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
@@ -30,7 +28,7 @@ public class UserMapper {
                 .build();
     }
 
-    public AuthenticationResponse entity2ResponseLoginDTO(UserEntity userEntity){
+    public AuthenticationResponse entity2LoginResponseDTO(UserEntity userEntity){
         return AuthenticationResponse.builder()
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
