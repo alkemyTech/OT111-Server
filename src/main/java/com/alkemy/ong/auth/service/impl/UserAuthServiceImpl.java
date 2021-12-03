@@ -47,4 +47,5 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .build();
         return foundUser;
     }
+
 }

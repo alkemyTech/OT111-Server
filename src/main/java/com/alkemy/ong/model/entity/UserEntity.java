@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 @Where(clause = "deleted = false")
 public class UserEntity  {
 
-//    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,6 @@ public class UserEntity  {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "role_id")
 //    private RoleEntity roleId;
-
 
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
