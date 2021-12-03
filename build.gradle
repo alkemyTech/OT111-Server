@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.hibernate.validator:hibernate-validator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.sendgrid:sendgrid-java:4.8.0'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
