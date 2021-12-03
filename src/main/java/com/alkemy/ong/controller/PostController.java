@@ -1,9 +1,10 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.dto.OrganizationDTO;
-import com.alkemy.ong.service.PostManagmentService;
+import com.alkemy.ong.service.OrganizationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,11 +13,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
-class TestCont {
+class OrganizationController {
 
-    @GetMapping(value = "/organization/public")
+    @GetMapping(value = "/organization/{id}/public ")
     public ResponseEntity test(@RequestBody String id) {
-        OrganizationDTO organization = PostManagmentService.readOrganization();
+        OrganizationDTO organization = OrganizationService.readOrganization();
         Map<String, String> response = new HashMap<String,String>();
         response.put("name",organization.getName());
         response.put("image",organization.getImage());

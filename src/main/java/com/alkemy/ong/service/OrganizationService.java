@@ -2,7 +2,7 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.dto.OrganizationDTO;
 
-public interface PostManagmentService {
+public interface OrganizationService {
 
     static OrganizationDTO readOrganization() {
         OrganizationDTO organizacion = new OrganizationDTO();
