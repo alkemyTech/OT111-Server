@@ -11,8 +11,13 @@ public class TestCont {
 
    @GetMapping("/auth")
     public ResponseEntity<String> test(){
-      return ResponseEntity.ok("Test AUTHENTICATED Controller OK");
+       return ResponseEntity.ok("Test AUTHENTICATED Controller OK");
    }
+
+    @GetMapping("/user-admin")
+    public ResponseEntity<String> testUserAdmin(){
+        return ResponseEntity.ok("Test USER & ADMIN Controller OK");
+    }
 
     @GetMapping("/user")
     public ResponseEntity<String> testUser(){
