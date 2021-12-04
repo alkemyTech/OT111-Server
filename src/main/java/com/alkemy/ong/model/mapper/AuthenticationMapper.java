@@ -14,9 +14,8 @@ public class AuthenticationMapper {
         UserEntity newUser = new UserEntity();
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
-        newUser.setEmail(userDto.getEmail());
         newUser.setPassword(userDto.getPassword());
-        newUser.setPhoto(userDto.getPhoto());
+        newUser.setEmail(userDto.getEmail());
         return newUser;
     }
 
@@ -25,11 +24,10 @@ public class AuthenticationMapper {
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
-                .photo(userEntity.getPhoto())
                 .build();
     }
 
-    public AuthenticationResponse userDetailsAndJwt2LoginResponseDTO(UserDetails userInContext, String jwt){
+    public AuthenticationResponse userDetailsAndJwt2LoginResponseDTO(UserDetails userInContext, String jwt){//Lo que esta en el contexto va a mantener la secion
         return AuthenticationResponse.builder()
                 .email(userInContext.getUsername())
                 .password(userInContext.getPassword())

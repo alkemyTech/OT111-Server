@@ -1,6 +1,5 @@
 package com.alkemy.ong.auth.config;
 
-
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +43,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/login").permitAll()//los que matcheen:antmatchers
                 .antMatchers("/auth/register").permitAll()
-                .antMatchers("/test").authenticated() // TODO: Add Routes / Roles
-                .anyRequest().authenticated()
+                // TODO: Add Routes / Roles
+                .antMatchers("/test/auth").authenticated()//solo los que estan en CONTEXTO:AUTENTICADOS
+                .antMatchers("/test/user").hasRole("USER")//Contexto y como rol usuario
+                .antMatchers("/test/admin").hasRole("ADMIN")//Contexto y como rol admin
+                .antMatchers("/test/user-admin").hasAnyRole("ADMIN", "USER")//Contexto y cualquiera de los 2 roles
+                .anyRequest().authenticated()//algun otro pedido solo si esta autenticado en contexto
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
