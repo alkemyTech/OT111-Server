@@ -24,4 +24,9 @@ public class TestCont {
         return ResponseEntity.ok("Test ADMIN Controller OK");
     }
 
+    @GetMapping("/user-admin")
+    public ResponseEntity<String> testUserAdmin(){
+        return ResponseEntity.ok("Test ADMIN & USER Controller OK");
+    }
+
 }
