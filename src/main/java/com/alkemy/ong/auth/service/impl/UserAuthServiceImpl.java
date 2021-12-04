@@ -36,6 +36,7 @@ public class UserAuthServiceImpl implements UserAuthService {
             );
             Authentication auth = authManager.authenticate(newTry);
             SecurityContextHolder.getContext().setAuthentication(auth);
+
             userDetails = (UserDetails) auth.getPrincipal();
 
         } catch (BadCredentialsException e) {
