@@ -8,11 +8,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 
 
 @Entity
 @Data
-@ToString
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
@@ -43,9 +43,10 @@ public class UserEntity  {
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
+                    name = "usersid", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
+                    name = "rolesid", referencedColumnName = "id")
+                    )
     private Collection<RoleEntity> role;
 
     // private boolean tokenExpired;

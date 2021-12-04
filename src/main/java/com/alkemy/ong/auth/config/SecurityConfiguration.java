@@ -46,8 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
                 .antMatchers("/test/auth").authenticated()
-                .antMatchers("/test/user").hasRole("USER")
-                .antMatchers("/test/admin").hasRole("ADMIN")
+                .antMatchers("/test/user").hasAnyRole("USER")
+                .antMatchers("/test/admin").hasAnyRole("ADMIN")
                 // TODO: Add Routes / Roles
                 .anyRequest().authenticated()
                 .and().exceptionHandling()

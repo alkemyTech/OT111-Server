@@ -7,14 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 
 
 @Getter
 @Setter
-@ToString
 @Entity
-@Table(name= "role")
-@SQLDelete(sql = "UPDATE role SET deleted = true WHERE id=?")
+@Table(name= "roles")
+@SQLDelete(sql = "UPDATE roles SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 public class RoleEntity {
 
@@ -27,8 +27,8 @@ public class RoleEntity {
     @NotNull
     private String name;
 
-    @ManyToMany(mappedBy = "role")
-    private Collection<UserEntity> user;
+    @ManyToMany(mappedBy = "role", fetch = FetchType.EAGER)
+    private Collection<UserEntity> user ;
 
     private String description;
 
