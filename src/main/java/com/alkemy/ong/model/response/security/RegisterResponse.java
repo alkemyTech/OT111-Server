@@ -19,7 +19,4 @@ public class RegisterResponse {
     @Email
     private String email;
 
-    @NotEmpty
-    private String photo;
-
 }
