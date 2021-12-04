@@ -48,7 +48,8 @@ public class UserEntity  {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<RoleEntity> role;
 
-    private boolean tokenExpired;
+    // private boolean tokenExpired;
+
 
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
