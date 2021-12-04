@@ -16,7 +16,6 @@ public class AuthenticationMapper {
         newUser.setLastName(userDto.getLastName());
         newUser.setEmail(userDto.getEmail());
         newUser.setPassword(userDto.getPassword());
-        newUser.setPhoto(userDto.getPhoto());
         return newUser;
     }
 
@@ -25,7 +24,6 @@ public class AuthenticationMapper {
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
-                .photo(userEntity.getPhoto())
                 .build();
     }
 
