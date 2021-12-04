@@ -20,22 +20,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    @DeleteMapping(path="/users/{id}")
-    public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
-
-        var isRemoved = userService.deleteUser(id);
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        boolean isRemoved = userService.deleteUser(id);
         if (!isRemoved) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity(id, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
 }
 

@@ -7,6 +7,7 @@ import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,10 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean deleteUser(Long id) {
         try {
             UserEntity user = userRepository.getById(id);
-            user.setDeleted(1);
+            user.setDeleted(true);
             userRepository.save(user);
             return true;
         } catch(Exception e) {
