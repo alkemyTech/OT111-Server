@@ -6,7 +6,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -16,6 +15,7 @@ import java.time.OffsetDateTime;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+@Entity
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class UserEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
-    private Role roleId;
+    private RoleEntity role;
 
     private OffsetDateTime createdDate;
 
