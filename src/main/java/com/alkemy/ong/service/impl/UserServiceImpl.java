@@ -24,5 +24,17 @@ public class UserServiceImpl implements UserService {
         return userMapper.entity2DTO(userEntityList);
     }
 
+    @Override
+    public boolean deleteUser(Long id) {
+        try {
+            UserEntity user = userRepository.getById(id);
+            user.setDeleted(1);
+            userRepository.save(user);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
+
 
 }
