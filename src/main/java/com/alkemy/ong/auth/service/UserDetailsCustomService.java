@@ -65,14 +65,11 @@ public class UserDetailsCustomService implements UserDetailsService {
     public RegisterResponse signupUser(RegisterRequest userToCreate) {
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         UserEntity newUser = userMapper.registerRequestDTO2Entity(userToCreate);
-
         UserEntity matchingUser = userRepository.findByEmail(userToCreate.getEmail());
         if(matchingUser != null && (matchingUser.getEmail().equals(newUser.getEmail()))) {
             return userMapper.entity2RegisterResponseDTO(matchingUser);
         }
-
         newUser = userRepository.save(newUser);
-
         return userMapper.entity2RegisterResponseDTO(newUser);
     }
 
