@@ -6,7 +6,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
-import java.util.HashSet;
+import java.util.Collection;
+
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class RoleEntity {
     private String name;
 
     @ManyToMany(mappedBy = "role")
-    private HashSet<UserEntity> user;
+    private Collection<UserEntity> user;
 
     private String description;
 
