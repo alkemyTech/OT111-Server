@@ -6,7 +6,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 import java.time.OffsetDateTime;
 
 @Getter
@@ -18,7 +17,7 @@ import java.time.OffsetDateTime;
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Builder //Added annotation while working on OT111-35
-@Entity //IMPORTANT - ADDED @Entity annotation (missing in original class) while working on OT111-35
+@Entity
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
