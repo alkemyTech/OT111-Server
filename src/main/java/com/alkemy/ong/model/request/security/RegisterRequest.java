@@ -22,4 +22,7 @@ public class RegisterRequest {
     @NotEmpty
     private String password;
 
+    @NotEmpty
+    private String photo;
+
 }

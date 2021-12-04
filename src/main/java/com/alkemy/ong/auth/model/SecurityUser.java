@@ -18,10 +18,10 @@ public class SecurityUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
        //TODO: GetRole - GrantedAuthorities
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+//        Set<GrantedAuthority> authorities = new HashSet<>();
+//        authorities.add(new SimpleGrantedAuthority(user.getRole()));
 // TODO: Si esta ROTO, Devolver Collection.emptyList() o algo asi. y comentar las 2 lineas de Arriba.
-        return authorities;
+        return Collections.emptyList();
     }
 
     @Override

@@ -16,6 +16,7 @@ public class AuthenticationMapper {
         newUser.setLastName(userDto.getLastName());
         newUser.setPassword(userDto.getPassword());
         newUser.setEmail(userDto.getEmail());
+        newUser.setPhoto(userDto.getPhoto());
         return newUser;
     }
 

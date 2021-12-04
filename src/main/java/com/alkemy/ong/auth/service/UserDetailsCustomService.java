@@ -41,7 +41,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         return new User(
                 foundUser.getEmail(),
                 foundUser.getPassword(),
-                foundUser.getAuthorities() // TODO: Roles -- Si Esta ROTO, Collection.emptyList()
+                Collections.emptyList() // TODO: Roles -- Si Esta ROTO, Collection.emptyList()
         );
     }
 
