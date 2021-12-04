@@ -18,7 +18,7 @@ import java.time.OffsetDateTime;
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Builder //Added annotation while working on OT111-35
-@Entity //IMPORTANT - ADDED @Entity annotation (missing in original class) while working on OT111-35
+@Entity
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,9 @@ public class UserEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+
     private RoleEntity roleId; //IMPORTANT! Changed "Role" name to "RoleEntity" in field class name while working on OT111-35.
+
 
     private OffsetDateTime createdDate;
 
