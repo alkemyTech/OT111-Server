@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 import java.util.Collections;
 
 @Service
@@ -41,7 +43,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         return new User(
                 foundUser.getEmail(),
                 foundUser.getPassword(),
-                foundUser.getAuthorities() // TODO: Roles -- Si Esta ROTO, Collection.emptyList()
+                Collections.emptyList()// TODO: Roles -- Si Esta ROTO, Collection.emptyList()
         );
     }
 
