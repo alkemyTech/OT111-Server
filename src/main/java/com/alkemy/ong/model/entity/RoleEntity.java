@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -27,8 +29,10 @@ public class RoleEntity {
     @NotNull
     private String name;
 
-    @ManyToMany(mappedBy = "role")
-    private Collection<UserEntity> user;
+    @ManyToOne
+    @JoinColumn(
+            name = "user_id")
+    private UserEntity user;
 
     private String description;
 

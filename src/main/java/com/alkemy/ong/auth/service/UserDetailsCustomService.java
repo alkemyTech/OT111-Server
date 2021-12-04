@@ -7,12 +7,15 @@ import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 import java.util.Collections;
 
 @Service
@@ -36,12 +39,13 @@ public class UserDetailsCustomService implements UserDetailsService {
          if (foundUser == null) {
               throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
          }
-
+         //List<GrantedAuthority> authorities = new ArrayList<>();
+         //authorities.add(new SimpleGrantedAuthority(user.getRole()));
         // === Set Spring Security USER en el Context ===
         return new User(
                 foundUser.getEmail(),
                 foundUser.getPassword(),
-                foundUser.getAuthorities() // TODO: Roles -- Si Esta ROTO, Collection.emptyList()
+                (Collection<? extends GrantedAuthority>) foundUser.getRole() // TODO: Roles -- Si Esta ROTO, Collection.emptyList()
         );
     }
 
