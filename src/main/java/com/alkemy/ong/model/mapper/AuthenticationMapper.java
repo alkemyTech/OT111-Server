@@ -14,8 +14,8 @@ public class AuthenticationMapper {
         UserEntity newUser = new UserEntity();
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
-        newUser.setEmail(userDto.getEmail());
         newUser.setPassword(userDto.getPassword());
+        newUser.setEmail(userDto.getEmail());
         return newUser;
     }
 
