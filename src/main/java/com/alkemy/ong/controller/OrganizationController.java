@@ -22,13 +22,7 @@ class OrganizationController {
 
     @GetMapping(value = "/organization/{id}/public ")
     public ResponseEntity test(@RequestBody Long id) {
-        OrganizationEntity organization = organizationService.readOrganization(id);
-        Map<String, String> response = new HashMap<String,String>();
-        response.put("name",organization.getName());
-        response.put("image",organization.getImage());
-        response.put("phone",Integer.toString(organization.getPhone()));
-        response.put("address",organization.getAddress());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(OrganizationDTO.smallOrganization(organizationService.readOrganization(id)));
     }
 
 }
