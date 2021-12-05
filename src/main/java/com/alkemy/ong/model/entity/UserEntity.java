@@ -16,6 +16,7 @@ import java.util.Collection;
 @Where(clause = "deleted = false")
 public class UserEntity  {
 
+
     private static final long serialVersionUID = 1L;
 
     @Id
