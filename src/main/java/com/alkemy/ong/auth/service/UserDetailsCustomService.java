@@ -50,6 +50,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity foundUser = userRepository.findByEmail(username);
+
          if (foundUser == null) {
               throw new UsernameNotFoundException("Username: " + username + " -> NOT FOUND");
          }
@@ -66,6 +67,7 @@ public class UserDetailsCustomService implements UserDetailsService {
                 foundUser.getPassword(),
                 userGA
         );
+
     }
 
 
