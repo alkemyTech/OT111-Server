@@ -27,7 +27,7 @@ public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
                 .email(entity.getEmail())
                 .photo(entity.getPhoto())
                 .role(roleMapper.entity2DTO(entity.getRoleId()))
-                .createdDate(entity.getCreatedDate().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)) //Check if this output format is convenient.
+                .createdDate(entity.getCreatedDate())
                 .build();
 
     }
