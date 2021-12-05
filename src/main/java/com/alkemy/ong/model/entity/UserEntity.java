@@ -6,16 +6,19 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.time.OffsetDateTime;
 import java.util.Collection;
 
 @Entity
-@Table(name = "users")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class UserEntity  {
-
 
     private static final long serialVersionUID = 1L;
 
@@ -46,7 +49,7 @@ public class UserEntity  {
             inverseJoinColumns = @JoinColumn(
                     name = "rolesid", referencedColumnName = "id")
     )
-    private Collection<RoleEntity> role;
+    private Collection<RoleEntity> roles;
 
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
@@ -57,5 +60,4 @@ public class UserEntity  {
     private String modifiedBy;
 
     private Boolean deleted = Boolean.FALSE;
-
 }
