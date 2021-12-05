@@ -1,12 +1,12 @@
-package com.alkemy.ong.model.response.user;
+package com.alkemy.ong.model.request.user;
 
-import com.alkemy.ong.model.response.role.RoleDTO;
+import com.alkemy.ong.model.response.role.RoleResponseDTO;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
-public class UserDTO {
+public class UserUpdateDTO {
 
 
     private Long id; //Check if needed.
@@ -15,15 +15,13 @@ public class UserDTO {
 
     private String lastName;
 
+    private String password;
+
     private String email;
 
     private String photo;
 
-    private RoleDTO role;
-
-    private String createdDate;
-
-    private String createdBy;
+    private RoleResponseDTO role;
 
     private String modifiedDate;
 

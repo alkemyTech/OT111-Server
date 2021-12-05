@@ -1,7 +1,5 @@
 package com.alkemy.ong.model.mapper;
 
-import lombok.With;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,5 @@ public abstract class AbstractMapper<E, D> { //From sonarsource.com: "This chang
                 .map(this::dto2Entity)
                 .collect(Collectors.toList());
     }
-
-
 
 }

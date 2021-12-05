@@ -2,6 +2,7 @@ package com.alkemy.ong.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -38,16 +39,17 @@ public class UserEntity {
     private String photo;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private RoleEntity roleId; //IMPORTANT! Changed "Role" name to "RoleEntity" in field class name while working on OT111-35.
+    @JoinColumn(name = "role")
+    private RoleEntity role; //IMPORTANT! Changed "Role" name to "RoleEntity" in field class name while working on OT111-35.
 
     private OffsetDateTime createdDate;
 
     private String createdBy;
-
+    @UpdateTimestamp
     private OffsetDateTime modifiedDate;
 
     private String modifiedBy;
 
     private Boolean deleted = Boolean.FALSE;
+
 }
