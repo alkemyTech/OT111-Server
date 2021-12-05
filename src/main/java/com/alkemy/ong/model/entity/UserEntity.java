@@ -6,15 +6,18 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor //Added annotation while working on OT111-35
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+@Builder //Added annotation while working on OT111-35
 @Entity
 public class UserEntity {
 
@@ -36,6 +39,7 @@ public class UserEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+
     private RoleEntity role;
 
     private OffsetDateTime createdDate;
