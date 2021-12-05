@@ -26,7 +26,7 @@ public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
                 .photo(entity.getPhoto())
-                .role(roleMapper.entity2DTO(entity.getRoleId()))
+                .role(roleMapper.entity2DTO(entity.getRole()))
                 .createdDate(entity.getCreatedDate())
                 .build();
 
