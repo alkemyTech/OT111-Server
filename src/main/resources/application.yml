@@ -10,4 +10,5 @@ spring:
     show-sql: true
 
 sendgrid:
-  dynamic.template.id : ce151f2bd39347fca69b3b48e2f31aed
+  welcome:
+  app.sengrid.templateid : ce151f2bd39347fca69b3b48e2f31aed

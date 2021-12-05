@@ -16,6 +16,7 @@ import java.time.OffsetDateTime;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+@Entity
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
@@ -32,11 +33,11 @@ public class UserEntity {
     @NotNull
     private String password;
 
-    private String photo;
+   /* private String photo;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
-    private Role roleId;
+    private Role roleId;*/
 
     private OffsetDateTime createdDate;
 
