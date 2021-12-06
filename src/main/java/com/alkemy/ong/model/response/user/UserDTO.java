@@ -4,6 +4,9 @@ import com.alkemy.ong.model.response.role.RoleDTO;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+
 @Builder
 @Data
 public class UserDTO {
@@ -19,9 +22,9 @@ public class UserDTO {
 
     private String photo;
 
-    private RoleDTO role;
+    private List<RoleDTO> roles;
 
-    private String createdDate;
+    private OffsetDateTime createdDate;
 
     private String createdBy;
 

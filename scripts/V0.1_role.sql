@@ -2,7 +2,7 @@
 
 CREATE TABLE roles (
 
-    id int8 NOT NULL GENERATED AlWAYS AS IDENTITY,
+    id int2 NOT NULL,
     "name" VARCHAR(100) NOT NULL,
     description VARCHAR(255) NULL,
     created_date timestamptz(0) NOT NULL DEFAULT NOW(),
@@ -13,3 +13,8 @@ CREATE TABLE roles (
 
     CONSTRAINT role_pk PRIMARY KEY (id)
 );
+
+INSERT INTO roles
+(id, "name")
+VALUES(1, 'USER'),
+      (2, 'ADMIN');

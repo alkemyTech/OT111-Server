@@ -21,8 +21,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
@@ -36,9 +34,6 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }
 
 //TODO Pull Request para agregar Path /users en SecurityConfiguration para que lo pueda solo trabajar un admin
