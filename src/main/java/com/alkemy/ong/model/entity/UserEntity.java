@@ -45,12 +45,13 @@ public class UserEntity  {
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(
-                    name = "usersid", referencedColumnName = "id"),
+                    name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "rolesid", referencedColumnName = "id")
+                    name = "role_id", referencedColumnName = "id")
     )
     private Collection<RoleEntity> roles;
 
+    @Builder.Default
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private String createdBy;
@@ -59,5 +60,5 @@ public class UserEntity  {
 
     private String modifiedBy;
 
-    private Boolean deleted = Boolean.FALSE;
+    private boolean deleted;
 }

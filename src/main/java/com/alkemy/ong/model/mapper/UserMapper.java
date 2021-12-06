@@ -3,6 +3,7 @@ package com.alkemy.ong.model.mapper;
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.response.user.UserDTO;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +11,10 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
 
-
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
     @Override
     public UserDTO entity2DTO(UserEntity entity) {
@@ -26,7 +25,7 @@ public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
                 .photo(entity.getPhoto())
-                .role(roleMapper.entity2DTO(entity.getRole()))
+                .roles(roleMapper.entity2DTO(entity.getRoles()))
                 .createdDate(entity.getCreatedDate())
                 .build();
 

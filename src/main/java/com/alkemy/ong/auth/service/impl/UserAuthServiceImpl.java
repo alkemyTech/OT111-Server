@@ -8,9 +8,7 @@ import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     private JwtUtil jwtTokenUtil;
 
     @Autowired
-    AuthenticationManager authManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private AuthenticationMapper authenticationMapper;
@@ -30,17 +28,17 @@ public class UserAuthServiceImpl implements UserAuthService {
     private UserDetailsCustomService userDetailsCustomService;
 
     @Override
-    public AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) throws Exception {
-        UserDetails userDetails =userDetailsCustomService.loadUserByUsername(authenticationRequest.getUsername());
+    public AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) {
+        UserDetails userDetails = userDetailsCustomService.loadUserByUsername(authenticationRequest.getUsername());
         try {
-            UsernamePasswordAuthenticationToken newTry = new UsernamePasswordAuthenticationToken(
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
                     authenticationRequest.getPassword(),
                     userDetails.getAuthorities()
             );
-            SecurityContextHolder.getContext().setAuthentication(newTry);
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+            authenticationManager.authenticate(authenticationToken);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Incorrect username or password", e);
         }
         // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);

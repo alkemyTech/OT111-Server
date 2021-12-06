@@ -6,16 +6,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static java.time.ZoneOffset.UTC;
+
 @Service
 public class JwtUtil {
 
-    //This MUST be hidden from the code
-    private String SECRET_KEY = "secret";
+    //TODO: This MUST be hidden from the code
+    private static final String SECRET_KEY = "secret";
 
     //Extract the username from token
     public String extractUsername(String token) {
@@ -52,14 +55,14 @@ public class JwtUtil {
 
     //Settings regarding the token, as the expiration date: 24hs
     private String createToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+        var now = LocalDateTime.now();
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(Date.from(now.toInstant(UTC)))
+                .setExpiration(Date.from(now.plusDays(1).toInstant(UTC)))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
     //If the user details is correct and token not expired, validate the token.
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

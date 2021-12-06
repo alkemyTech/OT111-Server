@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -21,7 +22,7 @@ public class UserDTO {
 
     private String photo;
 
-    private RoleDTO role;
+    private List<RoleDTO> roles;
 
     private OffsetDateTime createdDate;
 

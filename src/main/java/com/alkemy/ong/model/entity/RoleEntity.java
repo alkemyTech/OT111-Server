@@ -3,15 +3,18 @@ package com.alkemy.ong.model.entity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
-import java.util.Collection;
 
 @Entity
-@Table(name= "roles")
+@Table(name = "roles")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @SQLDelete(sql = "UPDATE roles SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class RoleEntity {
@@ -20,15 +23,12 @@ public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotNull
     private String name;
 
     private String description;
-
-    @ManyToMany(mappedBy = "role", fetch = FetchType.EAGER)
-    private Collection<UserEntity> user ;
 
     private OffsetDateTime createdDate;
 
@@ -38,6 +38,5 @@ public class RoleEntity {
 
     private String modifiedBy;
 
-    private boolean deleted = Boolean.FALSE;
-
+    private boolean deleted;
 }
