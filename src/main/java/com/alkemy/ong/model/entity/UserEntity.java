@@ -18,9 +18,6 @@ import java.util.Collection;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-
-
-@Entity
 public class UserEntity  {
 
 
