@@ -51,7 +51,9 @@ public class UserDetailsCustomService implements UserDetailsService {
 
         //SendGrid Email:
         if(newUser != null) {
-            System.out.println(newUser.getEmail());
+            // private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
+            // String fullName = newUser.getFirstName() + " " + newUser.getLastName();
+            // TODO: emailService.sendEmailWithTemplate(newUser.getEmail(), fullName, templateId);
             emailService.sendEmail(newUser.getEmail());
         }
 
