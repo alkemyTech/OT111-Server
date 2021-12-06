@@ -19,9 +19,7 @@ import com.sendgrid.helpers.mail.objects.Personalization;
 @Service
 public class EmailServiceImpl implements  EmailService{
 
-
     private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
-
     private String sender = System.getenv("SENDER");
 
     @Autowired
