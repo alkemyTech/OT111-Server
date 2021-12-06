@@ -1,15 +1,15 @@
 package com.alkemy.ong.model.dto;
 
 import com.alkemy.ong.model.entity.OrganizationEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Getter
 @Setter
+@Builder
 public class OrganizationDTO {
+
     private String name;
     private String image;
     private String address;
@@ -18,12 +18,13 @@ public class OrganizationDTO {
     private String welcomeText;
     private String aboutUsText;
 
-    public static Map<String, String> smallOrganization(OrganizationEntity organization){
-        Map<String, String> response = new HashMap<String,String>();
-        response.put("name",organization.getName());
-        response.put("image",organization.getImage());
-        response.put("phone",Integer.toString(organization.getPhone()));
-        response.put("address",organization.getAddress());
-        return response;
+    public static OrganizationDTO buildPublicData(OrganizationEntity organization) {
+        return OrganizationDTO.builder()
+                .name(organization.getName())
+                .image(organization.getImage())
+                .phone(organization.getPhone())
+                .address(organization.getAddress())
+                .build();
     }
+
 }
