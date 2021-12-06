@@ -5,6 +5,7 @@ import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.service.sendgrid.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -25,12 +27,19 @@ public class UserDetailsCustomService implements UserDetailsService {
     private final UserRepository userRepository;
     private final AuthenticationMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @Autowired
-    public UserDetailsCustomService(@Lazy AuthenticationMapper userMapper, @Lazy UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserDetailsCustomService(
+            @Lazy AuthenticationMapper userMapper,
+            @Lazy UserRepository userRepository,
+            @Lazy PasswordEncoder passwordEncoder,
+            @Lazy EmailService emailService
+    ) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     public RegisterResponse signupUser(RegisterRequest userToCreate) {
@@ -39,10 +48,18 @@ public class UserDetailsCustomService implements UserDetailsService {
         userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         UserEntity newUser = userMapper.registerRequestDTO2Entity(userToCreate);
         newUser = userRepository.save(newUser);
+
+        //SendGrid Email:
+        if(newUser != null) {
+            System.out.println(newUser.getEmail());
+            emailService.sendEmail(newUser.getEmail());
+        }
+
         return userMapper.entity2RegisterResponseDTO(newUser);
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var foundUser = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " -> NOT FOUND"));
