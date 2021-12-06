@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 //@Validated
-@RequestMapping("users") //TODO check: en la tarea dice el path "a/users"??.
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
