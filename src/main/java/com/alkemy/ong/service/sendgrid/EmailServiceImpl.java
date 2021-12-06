@@ -60,7 +60,7 @@ public class EmailServiceImpl implements  EmailService{
     }
 
     @Override
-    public String sendWithTemplate(String email, String user) {
+    public String sendWithTemplate(String email, String user, String templateId) {
         Mail mail1 = new Mail();
         Email fromEmail= new Email();
         fromEmail.setEmail(sender);

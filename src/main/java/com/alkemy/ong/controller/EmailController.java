@@ -23,7 +23,7 @@ public class EmailController {
     }
 
     @GetMapping("/sendWhitTemplate/{email}")
-    public String sendWithTemplate(@PathVariable(value = "email", required = true) String mail, @RequestParam String user) throws IOException {
+    public String sendWithTemplate(@PathVariable(value = "email", required = true) String mail, @RequestParam String user, String templateId) throws IOException {
 
-        return emailService.sendWithTemplate(mail, user);}
+        return emailService.sendWithTemplate(mail, user, templateId);}
 }

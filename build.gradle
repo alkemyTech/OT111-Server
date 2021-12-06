@@ -27,7 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.sendgrid:sendgrid-java:4.8.0'
 
-	implementation group: 'com.sendgrid', name: 'sendgrid-java', version: '4.8.1'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
