@@ -8,41 +8,51 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import java.time.OffsetDateTime;
+import java.util.Collection;
 
-@Getter
-@Setter
-@ToString
+@Entity
+@Data
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor //Added annotation while working on OT111-35
+@NoArgsConstructor
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Builder //Added annotation while working on OT111-35
-@Entity
-public class UserEntity {
+public class UserEntity  {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String firstName;
+
     @NotNull
     private String lastName;
+
     @NotNull
     private String email;
+
     @NotNull
     private String password;
 
-    private String photo;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    private String photo;
 
-    private RoleEntity role;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id")
+    )
+    private Collection<RoleEntity> roles;
 
-    private OffsetDateTime createdDate;
+    @Builder.Default
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private String createdBy;
 
@@ -50,5 +60,5 @@ public class UserEntity {
 
     private String modifiedBy;
 
-    private Boolean deleted = Boolean.FALSE;
+    private boolean deleted;
 }
