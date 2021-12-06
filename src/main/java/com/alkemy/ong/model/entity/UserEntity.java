@@ -6,40 +6,64 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.time.OffsetDateTime;
 
-@Getter
-@Setter
-@ToString
+import java.time.OffsetDateTime;
+import java.util.Collection;
+
+@Entity
+@Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+
+
 @Entity
-public class UserEntity {
+public class UserEntity  {
+
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String firstName;
+
     @NotNull
     private String lastName;
+
     @NotNull
     private String email;
+
     @NotNull
     private String password;
 
-   /* private String photo;
+    private String photo;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
-    private Role roleId;*/
+    private Role roleId;
 
-    private OffsetDateTime createdDate;
+    @NotNull
+    private String photo;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id")
+    )
+    private Collection<RoleEntity> roles;
+
+
+    @Builder.Default
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private String createdBy;
 
@@ -47,5 +71,5 @@ public class UserEntity {
 
     private String modifiedBy;
 
-    private Boolean deleted = Boolean.FALSE;
+    private boolean deleted;
 }

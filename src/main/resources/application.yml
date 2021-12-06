@@ -1,5 +1,6 @@
 
 spring:
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ot111_ong
 
@@ -12,3 +13,4 @@ spring:
 sendgrid:
   welcome:
   app.sengrid.templateid : ce151f2bd39347fca69b3b48e2f31aed
+

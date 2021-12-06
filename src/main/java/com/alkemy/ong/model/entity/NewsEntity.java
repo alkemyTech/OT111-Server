@@ -32,8 +32,6 @@ public class NewsEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    //TODO missing CategoryEntity from feature/OT111-18
-    //TODO ask if need in CategoryEntity: @OneToMany(mappedBy="category")
     private CategoryEntity categoryId;
 
     private OffsetDateTime createdDate;
