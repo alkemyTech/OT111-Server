@@ -5,6 +5,8 @@ import com.alkemy.ong.model.response.CategoryResponseDTO;
 
 public interface CategoryService {
 
+    CategoryResponseDTO findCategory(Long id);
+
     CategoryResponseDTO saveCategory(CategoryRequestDTO request);
 
 }

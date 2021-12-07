@@ -16,7 +16,7 @@ public class CategoryMapper {
         return ent;
     }
 
-    public CategoryResponseDTO categoryEntity2DTO(CategoryEntity ent){
+    public CategoryResponseDTO categoryEntity2DTO(CategoryEntity ent) {
         CategoryResponseDTO dto = new CategoryResponseDTO();
         dto.setId(ent.getId());
         dto.setName(ent.getName());
@@ -24,4 +24,5 @@ public class CategoryMapper {
         dto.setImage(ent.getImage());
         return dto;
     }
+
 }
