@@ -24,6 +24,9 @@ public class CategoryController {
     @GetMapping("/{id}")
     private ResponseEntity<CategoryResponseDTO> getCategoryDetails(@PathVariable Long id) {
         CategoryResponseDTO categoryDetails = categoryService.findCategory(id);
+        if(categoryDetails == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoryDetails);
     }
 
