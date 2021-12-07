@@ -38,4 +38,4 @@ public class Testimonial {
     private String modifiedBy;
 
     private boolean deleted = Boolean.FALSE;
-}
+} 
