@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
 
 import com.sendgrid.Method;
@@ -25,7 +25,7 @@ public class EmailServiceImpl implements  EmailService{
     private String sender = System.getenv("SENDER");
 
     //@Value("${app.sendgrid.templateid}") da error revisar
-    private  String templateId = "d-ce151f2bd39347fca69b3b48e2f31aed";
+    private  String templateId = "d-a73c7ef24259456b91f84ffe1841d230";
 
     @Autowired
     SendGrid sendGrid;
