@@ -39,14 +39,7 @@ public class UserEntity  {
     @NotNull
     private String password;
 
-    private String photo;
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private Role roleId;
 
-    @NotNull
-    private String photo;
 
     @ManyToMany
     @JoinTable(
