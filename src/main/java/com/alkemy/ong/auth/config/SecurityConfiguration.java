@@ -37,15 +37,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
                 // TODO: Aca pueden ir agregando sus Endpoints
-                // === .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
-                .antMatchers("/users").hasRole("ADMIN")
+                // TODO: .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
+                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/categories").hasRole("ADMIN")
-                // Test Routes:
-                .antMatchers("/test/auth").authenticated()
-                .antMatchers("/test/user").hasRole("USER")
-                .antMatchers("/test/admin").hasRole("ADMIN")
-                .antMatchers("/test/user-admin").hasAnyRole("ADMIN", "USER")
-                // End Test Routes
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
