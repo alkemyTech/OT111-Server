@@ -18,6 +18,7 @@ public class CategoryMapper {
 
     public CategoryResponseDTO categoryEntity2DTO(CategoryEntity ent){
         CategoryResponseDTO dto = new CategoryResponseDTO();
+        dto.setId(ent.getId());
         dto.setName(ent.getName());
         dto.setDescription(ent.getDescription());
         dto.setImage(ent.getImage());
