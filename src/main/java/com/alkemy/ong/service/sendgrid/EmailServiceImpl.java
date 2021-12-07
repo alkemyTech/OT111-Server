@@ -76,6 +76,7 @@ public class EmailServiceImpl implements  EmailService{
 
         personalization1.addDynamicTemplateData("nombre",user);
         mail1.addPersonalization(personalization1);
+        mail1.setTemplateId(templateId);
 
 
 
