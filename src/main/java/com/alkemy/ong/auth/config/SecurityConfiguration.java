@@ -3,6 +3,7 @@ package com.alkemy.ong.auth.config;
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,12 +36,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
-                // TODO: Add Routes / Roles
+                // TODO: Aca pueden ir agregando sus Endpoints
+                // === .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
                 .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/categories").hasRole("ADMIN")
+                // Test Routes:
                 .antMatchers("/test/auth").authenticated()
                 .antMatchers("/test/user").hasRole("USER")
                 .antMatchers("/test/admin").hasRole("ADMIN")
                 .antMatchers("/test/user-admin").hasAnyRole("ADMIN", "USER")
+                // End Test Routes
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
