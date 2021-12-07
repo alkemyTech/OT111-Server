@@ -1,17 +1,80 @@
+--CREATE ROLES
 INSERT INTO roles
-(id, "name")
-VALUES (1, 'ROLE_USER'),
-       (2, 'ROLE_ADMIN');
+    (id, "name", description)
+VALUES (1, 'ROLE_USER', 'user role'),
+       (2, 'ROLE_ADMIN', 'admin role');
+
+--CREATE 20 USERS/ADMINS
 
 INSERT INTO users
-(id, "name")
-VALUES (1, 'ROLE_USER'),
-       (2, 'ROLE_ADMIN');
+    (first_name, last_name, email, password, photo)
 
-INSERT INTO users
-    (id, first_name, last_name, email, password, photo)
-    VALUES  (1, 'Admin1', 'Admin1', 'Admin1@email.com', '$2a$10$CE8BbdcbEKwo6suHhigUm.0H233zB9QxDH7EWvo3ujligpY6cHP52', 'MyPhoto.jpg')
+VALUES ('admin1', 'admin1', 'admin1@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin1.jpg'),
+       ('admin2', 'admin2', 'admin2@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin2.jpg'),
+       ('admin3', 'admin3', 'admin3@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin3.jpg'),
+       ('admin4', 'admin4', 'admin4@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin4.jpg'),
+       ('admin5', 'admin5', 'admin5@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin5.jpg'),
+       ('admin6', 'admin6', 'admin6@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin6.jpg'),
+       ('admin7', 'admin7', 'admin7@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin7.jpg'),
+       ('admin8', 'admin8', 'admin8@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin8.jpg'),
+       ('admin9', 'admin9', 'admin9@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin9.jpg'),
+       ('admin10', 'admin10', 'admin10@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'admin10.jpg'),
 
+       ('user1', 'user1', 'user1@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user1.jpg'),
+       ('user2', 'user2', 'user2@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user2.jpg'),
+       ('user3', 'user3', 'user3@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user3.jpg'),
+       ('user4', 'user4', 'user4@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user4.jpg'),
+       ('user5', 'user5', 'user5@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user5.jpg'),
+       ('user6', 'user6', 'user6@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user6.jpg'),
+       ('user7', 'user7', 'user7@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user7.jpg'),
+       ('user8', 'user8', 'user8@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user8.jpg'),
+       ('user9', 'user9', 'user9@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user9.jpg'),
+       ('user10', 'user10', 'user10@email.com', '$2a$10$CVXX64MTPSQ3E6Wgscm2QOwEGbaA.RDqDf9TLHJaGimAde8t2eaZS',
+        'user10.jpg');
+
+-- ASSIGN ROLES TO USERS/ADMINS
+INSERT INTO user_role
+    (user_id, role_id)
+values (1, 2),
+       (2, 2),
+       (3, 2),
+       (4, 2),
+       (5, 2),
+       (6, 2),
+       (7, 2),
+       (8, 2),
+       (9, 2),
+       (10, 2),
+       (11, 1),
+       (12, 1),
+       (13, 1),
+       (14, 1),
+       (15, 1),
+       (16, 1),
+       (17, 1),
+       (18, 1),
+       (19, 1),
+       (20, 1)
+;
 
 
 
