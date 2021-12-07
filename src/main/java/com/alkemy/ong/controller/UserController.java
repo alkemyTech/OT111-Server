@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 //@Validated
 @RequestMapping("users") //TODO check: en la tarea dice el path "a/users"??.
@@ -23,14 +21,23 @@ public class UserController {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id){
+        UserResponseDTO userResponseDTO = userService.findById(id);
+        if (userResponseDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userResponseDTO);
+    }
+
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable Long id){
         UserResponseDTO UserResponseDTO = userService.findById(id);
         if (UserResponseDTO == null){
             return ResponseEntity.notFound().build();
         }
         userService.updateUser(userUpdateDTO, id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(userUpdateDTO);
     }
 }
 

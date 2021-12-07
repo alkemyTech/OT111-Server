@@ -38,7 +38,7 @@ public class UserMapper extends AbstractMapper<UserEntity, UserResponseDTO> {
                 .id(entity.getId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
-                .password(entity.getPassword())
+//                .password(entity.getPassword())//TODO Enable when merge security branch, and to show pass, add decoder
                 .email(entity.getEmail())
                 .photo(entity.getPhoto())
                 .role(roleMapper.entity2DTO(entity.getRole()))

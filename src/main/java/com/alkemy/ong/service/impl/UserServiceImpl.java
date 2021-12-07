@@ -34,24 +34,30 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserResponseDTO findById(Long id) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
-        return userMapper.entity2DTO(userEntity.get());
+        if (!userEntity.isEmpty()){
+            return userMapper.entity2DTO(userEntity.get());
+        }
+        return null;
     }
 
     @Override
     @Transactional
     public UserUpdateDTO updateUser(UserUpdateDTO userUpdateDTO, Long id) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
+        if(!userEntity.isEmpty()){
 
-        userEntity.get().setFirstName(userUpdateDTO.getFirstName());
-        userEntity.get().setLastName(userUpdateDTO.getLastName());
-        if (!userUpdateDTO.getPassword().isEmpty()){
-            //userEntity.get().setPassword(userUpdateDTO.getPassword()); //TODO Replace or insert Encoder method
+            userEntity.get().setFirstName(userUpdateDTO.getFirstName());
+            userEntity.get().setLastName(userUpdateDTO.getLastName());
+//        if (!userUpdateDTO.getPassword().isEmpty()){
+//            userEntity.get().setPassword(userUpdateDTO.getPassword()); //TODO Replace or insert Encoder method
+//        }
+            userEntity.get().setEmail(userUpdateDTO.getEmail());
+            userEntity.get().setPhoto(userUpdateDTO.getPhoto());
+
+            userRepository.save(userEntity.get());
+            return userMapper.entityUpdate2DTO(userEntity.get());
         }
-        userEntity.get().setEmail(userUpdateDTO.getEmail());
-        userEntity.get().setPhoto(userUpdateDTO.getPhoto());
-
-        userRepository.save(userEntity.get());
-        return userMapper.entityUpdate2DTO(userEntity.get());
+        return null;
     }
 
 

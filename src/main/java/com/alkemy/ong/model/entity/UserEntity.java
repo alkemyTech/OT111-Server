@@ -33,13 +33,13 @@ public class UserEntity {
     private String lastName;
     @NotNull
     private String email;
-    @NotNull
-    private String password;
+//    @NotNull
+//    private String password; //TODO Enable with the other passwords tasks when completed
 
     private String photo;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role")
+    @JoinColumn(name = "role_id")
     private RoleEntity role; //IMPORTANT! Changed "Role" name to "RoleEntity" in field class name while working on OT111-35.
 
     private OffsetDateTime createdDate;
