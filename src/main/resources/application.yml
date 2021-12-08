@@ -1,16 +1,11 @@
 
 spring:
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ot111_ong
+    datasource:
+        url: jdbc:postgresql://localhost:5432/ot111_ong
 
-    username: postgres
-    password: postgres
+        username: postgres
+        password: postgres
 
-  jpa:
-    show-sql: true
-
-sendgrid:
-  welcome:
-  app.sengrid.templateid : ce151f2bd39347fca69b3b48e2f31aed
-
+    jpa:
+        show-sql: true
