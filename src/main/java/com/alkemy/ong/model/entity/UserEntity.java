@@ -10,15 +10,16 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 
-@Entity
+
 @Data
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor //Added annotation while working on OT111-35
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-public class UserEntity  {
+@Builder //Added annotation while working on OT111-35
+@Entity
+public class UserEntity {
 
     private static final long serialVersionUID = 1L;
 
