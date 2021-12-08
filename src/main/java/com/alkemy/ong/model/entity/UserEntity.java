@@ -63,6 +63,6 @@ public class UserEntity {
 
     private String modifiedBy;
 
-    private Boolean deleted = Boolean.FALSE;
+    private Boolean deleted;
 
 }
