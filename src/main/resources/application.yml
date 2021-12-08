@@ -8,8 +8,8 @@ spring:
 
 amazonProperties:
     endpointUrl: https://s3.us-east-1.amazonaws.com
-    aws.accessKey: AKIAS2JWQJCDCPKXHSSX
-    aws.secretKey: 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
+    aws.accessKey: xxxxx
+    aws.secretKey: xxxxx
     aws.region: us-east-1
-    aws.bucketName: cohorte-noviembre-c218def1
+    aws.bucketName: xxxxx
 
