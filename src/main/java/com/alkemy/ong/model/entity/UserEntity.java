@@ -64,5 +64,4 @@ public class UserEntity {
     private String modifiedBy;
 
     private boolean deleted;
-
 }
