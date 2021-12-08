@@ -1,27 +1,31 @@
 package com.alkemy.ong.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
+import org.springframework.web.bind.annotation.*;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = {ApiRequestException.class})
-    public ResponseEntity<Object> resourceNotFoundException(ApiRequestException apiRequestException){
-        HttpStatus resourceNotFound = HttpStatus.NOT_FOUND;
-        ApiException apiException = new ApiException(
-                apiRequestException.getMessage(),
-                resourceNotFound,
+    @ExceptionHandler(value = {Exception.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiException globalExceptionHandler(Exception exception){
+        return new ApiException(
+                exception.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
-        return new ResponseEntity<>(apiException, resourceNotFound);
+    }
+
+    @ExceptionHandler(value = {ResourceNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ApiException resourceNotFoundException(ResourceNotFoundException apiRequestException){
+        return new ApiException(
+                apiRequestException.getMessage(),
+                HttpStatus.NOT_FOUND,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
     }
 
 }

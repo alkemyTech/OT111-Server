@@ -1,7 +1,6 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.exception.ApiExceptionHandler;
-import com.alkemy.ong.exception.ApiRequestException;
+import com.alkemy.ong.exception.ResourceNotFoundException;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
@@ -10,7 +9,6 @@ import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -24,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponseDTO findCategory(Long id) {
         CategoryEntity foundCategory = categoryRepository.findById(id)
-                .orElseThrow(()-> new ApiRequestException("Categoria con ID " + id + " no encontrada."));
+                .orElseThrow(()-> new ResourceNotFoundException("Categoria con ID " + id + " no encontrada."));
         return categoryMapper.categoryEntity2DTO(foundCategory);
     }
 
