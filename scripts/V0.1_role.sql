@@ -1,15 +1,21 @@
 -- CREATE roles TABLE
 
-CREATE TABLE roles (
+CREATE TABLE roles
+(
 
-    id int8 NOT NULL GENERATED AlWAYS AS IDENTITY,
-    "name" VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NULL,
-    created_date timestamptz(0) NOT NULL DEFAULT NOW(),
-    created_by varchar(100) NULL,
+    id            int2         NOT NULL,
+    "name"        VARCHAR(100) NOT NULL,
+    description   VARCHAR(255) NULL,
+    created_date  timestamptz(0) NOT NULL DEFAULT NOW(),
+    created_by    varchar(100) NULL,
     modified_date timestamptz(0) NULL,
-    modified_by varchar(100) NULL,
-    deleted bool NOT NULL DEFAULT FALSE,
+    modified_by   varchar(100) NULL,
+    deleted       bool         NOT NULL DEFAULT FALSE,
 
     CONSTRAINT role_pk PRIMARY KEY (id)
 );
+
+INSERT INTO roles
+    (id, "name")
+VALUES (1, 'ROLE_USER'),
+       (2, 'ROLE_ADMIN');

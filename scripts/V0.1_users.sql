@@ -1,6 +1,7 @@
 -- CREATE user TABLE
 
-CREATE TABLE users (
+CREATE TABLE users
+(
 
     id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
     first_name VARCHAR(100) NOT NULL,
