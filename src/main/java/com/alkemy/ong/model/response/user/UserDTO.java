@@ -11,7 +11,6 @@ import java.util.List;
 @Data
 public class UserDTO {
 
-
     private Long id; //Check if needed.
 
     private String firstName;
