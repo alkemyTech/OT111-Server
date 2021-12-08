@@ -8,7 +8,10 @@ import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -32,6 +35,17 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity newCategory = categoryMapper.categoryDTO2Entity(request);
         CategoryEntity savedCategory = categoryRepository.save(newCategory);
         return  categoryMapper.categoryEntity2DTO(savedCategory);
+    }
+
+    @Override
+    public List<String> getCategories() {
+
+        List<CategoryEntity> categoriesList = categoryRepository.findAll();
+
+        List<String> filteredList = categoriesList.stream()
+                .map(CategoryEntity::getName)
+                .collect(Collectors.toList());
+        return filteredList;
     }
 
 }

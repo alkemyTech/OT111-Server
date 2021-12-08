@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -34,6 +36,13 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> createNewCategory(@RequestBody CategoryRequestDTO request){
         CategoryResponseDTO response = categoryService.saveCategory(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping
+    public ResponseEntity <List<String>> getCategories(){
+
+        return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
+
     }
 
 }
