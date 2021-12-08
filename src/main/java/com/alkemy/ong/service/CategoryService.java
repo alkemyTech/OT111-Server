@@ -9,4 +9,6 @@ public interface CategoryService {
 
     CategoryResponseDTO saveCategory(CategoryRequestDTO request);
 
+    CategoryResponseDTO deleteCategoryById(Long id);
+
 }

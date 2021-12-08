@@ -35,4 +35,14 @@ public class CategoryServiceImpl implements CategoryService {
         return result;
     }
 
+    @Override
+    public CategoryResponseDTO deleteCategoryById(Long id) {
+        Optional<CategoryEntity> foundCategory = categoryRepository.findById(id);
+        if (foundCategory.isPresent()) {
+            CategoryEntity deletedCategory = categoryMapper.categoryDTO2Entity(foundCategory.get().setDeleted(true));
+
+
+        }
+        return null;
+    }
 }
