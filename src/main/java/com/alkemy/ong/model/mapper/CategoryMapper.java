@@ -1,26 +1,24 @@
 package com.alkemy.ong.model.mapper;
 
-import com.alkemy.ong.model.entity.NewsEntity;
-import com.alkemy.ong.model.response.news.NewsDTO;
+import com.alkemy.ong.model.entity.CategoryEntity;
+import com.alkemy.ong.model.response.category.CategoryDTO;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @NoArgsConstructor
-public class NewsMapper extends AbstractMapper <NewsEntity, NewsDTO> {
+public class CategoryMapper extends AbstractMapper <CategoryEntity, CategoryDTO> {
 
 
     @Override
-    public NewsDTO entity2DTO(NewsEntity entity) {
+    public CategoryDTO entity2DTO(CategoryEntity entity) {
         if (entity == null) return null;
 
-        return NewsDTO.builder()
+        return CategoryDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .content(entity.getContent())
+                .description(entity.getDescription())
                 .image(entity.getImage())
-                .categoryId(entity.getCategoryId())
                 .createdDate(entity.getCreatedDate())
                 .modifiedDate(entity.getModifiedDate())
                 .createdBy(entity.getCreatedBy())
@@ -29,6 +27,5 @@ public class NewsMapper extends AbstractMapper <NewsEntity, NewsDTO> {
     }
 
     @Override
-    public NewsEntity dto2Entity(NewsDTO dto) {return null;}
-
+    public CategoryEntity dto2Entity(CategoryDTO dto) {return null;}
 }

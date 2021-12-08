@@ -1,24 +1,20 @@
-package com.alkemy.ong.model.response.News;
+package com.alkemy.ong.model.response.category;
 
-
-import com.alkemy.ong.model.entity.CategoryEntity;
 import lombok.Builder;
 import lombok.Data;
 import java.time.OffsetDateTime;
 
 @Data
 @Builder
-public class NewsDTO {
+public class CategoryDTO {
 
     private Long id;
 
     private String name;
 
-    private String content;
+    private String description;
 
     private String image;
-
-    //private CategoryEntity categoryId;
 
     private OffsetDateTime createdDate;
 
@@ -29,6 +25,5 @@ public class NewsDTO {
     private String modifiedBy;
 
     private boolean deleted = Boolean.FALSE;
-
 
 }
