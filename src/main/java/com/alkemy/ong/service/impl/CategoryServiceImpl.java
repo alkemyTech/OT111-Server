@@ -31,8 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponseDTO saveCategory(CategoryRequestDTO request) {
         CategoryEntity newCategory = categoryMapper.categoryDTO2Entity(request);
         CategoryEntity savedCategory = categoryRepository.save(newCategory);
-        CategoryResponseDTO result = categoryMapper.categoryEntity2DTO(savedCategory);
-        return result;
+        return  categoryMapper.categoryEntity2DTO(savedCategory);
     }
 
 }
