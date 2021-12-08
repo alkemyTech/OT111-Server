@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 //@Validated
-@RequestMapping("users") //TODO check: en la tarea dice el path "a/users"??.
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
@@ -37,9 +37,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         userService.updateUser(userUpdateDTO, id);
-        return ResponseEntity.ok().body(userUpdateDTO);
+        return ResponseEntity.ok().build();
     }
 }
-
-//TODO Pull Request para agregar Path /users en SecurityConfiguration para que lo pueda solo trabajar un admin
-
