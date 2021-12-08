@@ -39,7 +39,8 @@ public class UserEntity {
     @NotNull
     private String password;
 
-
+    @NotNull
+    private String photo;
 
     @ManyToMany
     @JoinTable(
