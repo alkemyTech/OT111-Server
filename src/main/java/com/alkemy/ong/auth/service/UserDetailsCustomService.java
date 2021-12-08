@@ -30,7 +30,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    @Value("${sendgrid.tomas-template-id}")
+    @Value("${sendgrid.welcome-template}")
     private String emailTemplateId;
 
     @Autowired
