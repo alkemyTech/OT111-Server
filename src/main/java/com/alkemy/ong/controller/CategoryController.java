@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.exception.ApiRequestException;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.service.CategoryService;
@@ -24,9 +25,6 @@ public class CategoryController {
     @GetMapping("/{id}")
     private ResponseEntity<CategoryResponseDTO> getCategoryDetails(@PathVariable Long id) {
         CategoryResponseDTO categoryDetails = categoryService.findCategory(id);
-        if(categoryDetails == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoryDetails);
     }
 
