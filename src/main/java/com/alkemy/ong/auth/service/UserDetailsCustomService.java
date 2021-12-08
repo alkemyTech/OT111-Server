@@ -1,5 +1,6 @@
 package com.alkemy.ong.auth.service;
 
+import com.alkemy.ong.exception.ForbiddenException;
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.request.security.RegisterRequest;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.FormatterClosedException;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +49,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var foundUser = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " -> NOT FOUND"));
+                .orElseThrow(() -> new ForbiddenException("Usuario o Contraseña incorrectos."));
 
         // Authorities List
         Collection<GrantedAuthority> authorities = foundUser.getRoles().stream()

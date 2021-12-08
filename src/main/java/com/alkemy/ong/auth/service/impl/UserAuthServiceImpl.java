@@ -3,6 +3,8 @@ package com.alkemy.ong.auth.service.impl;
 import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
+import com.alkemy.ong.exception.ApiExceptionHandler;
+import com.alkemy.ong.exception.ForbiddenException;
 import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
@@ -38,7 +40,7 @@ public class UserAuthServiceImpl implements UserAuthService {
             );
             authenticationManager.authenticate(authenticationToken);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Incorrect username or password", e);
+            throw new ForbiddenException("Usuario o Contraseña incorrectos.");
         }
         // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);

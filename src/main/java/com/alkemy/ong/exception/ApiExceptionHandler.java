@@ -8,12 +8,12 @@ import java.time.ZonedDateTime;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = {Exception.class})
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiException globalExceptionHandler(Exception exception){
+    @ExceptionHandler(value = {ForbiddenException.class})
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public ApiException forbiddenException(ForbiddenException forbiddenException){
         return new ApiException(
-                exception.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                forbiddenException.getMessage(),
+                HttpStatus.FORBIDDEN,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
     }
