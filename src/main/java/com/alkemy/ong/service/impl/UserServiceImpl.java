@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,7 +30,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean deleteUser(Long id) {
         try {
-            UserEntity user = userRepository.getById(id);
+            Optional<UserEntity> optionalUser = userRepository.findById(id);
+            UserEntity user = optionalUser.get();
             user.setDeleted(true);
             userRepository.save(user);
             return true;
