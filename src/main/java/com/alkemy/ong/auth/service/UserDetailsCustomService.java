@@ -56,7 +56,6 @@ public class UserDetailsCustomService implements UserDetailsService {
             // TODO: emailService.sendEmailWithTemplate(newUser.getEmail(), fullName, templateId);
             emailService.sendEmail(newUser.getEmail());
         }
-
         return userMapper.entity2RegisterResponseDTO(newUser);
     }
 
