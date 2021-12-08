@@ -1,8 +1,10 @@
 package com.alkemy.ong.model.request.user;
 
-import com.alkemy.ong.model.response.role.RoleResponseDTO;
+import com.alkemy.ong.model.response.role.RoleDTO;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.List;
 
 @Builder
 @Data
@@ -21,7 +23,7 @@ public class UserUpdateDTO {
 
     private String photo;
 
-    private RoleResponseDTO role;
+    private List<RoleDTO> roles;
 
     private String modifiedDate;
 

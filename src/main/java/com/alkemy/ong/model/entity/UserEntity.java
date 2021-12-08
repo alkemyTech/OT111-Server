@@ -14,12 +14,12 @@ import java.util.Collection;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor //Added annotation while working on OT111-35
+@NoArgsConstructor
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Builder //Added annotation while working on OT111-35
-@Entity //IMPORTANT - ADDED @Entity annotation (missing in original class) while working on OT111-35
+@Builder
+@Entity
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
@@ -36,15 +36,12 @@ public class UserEntity {
 
     @NotNull
     private String email;
-//    @NotNull
-//    private String password; //TODO Enable with the other passwords tasks when completed
+
+    @NotNull
+    private String password;
 
     @NotNull
     private String photo;
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private RoleEntity role; //IMPORTANT! Changed "Role" name to "RoleEntity" in field class name while working on OT111-35.
 
     @ManyToMany
     @JoinTable(
@@ -60,6 +57,7 @@ public class UserEntity {
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private String createdBy;
+
     @UpdateTimestamp
     private OffsetDateTime modifiedDate;
 

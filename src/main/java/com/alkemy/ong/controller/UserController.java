@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.user.UserResponseDTO;
+import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,17 +23,17 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id){
-        UserResponseDTO userResponseDTO = userService.findById(id);
-        if (userResponseDTO == null){
+        UserDTO userDTO = userService.findById(id);
+        if (userDTO == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(userResponseDTO);
+        return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable Long id){
-        UserResponseDTO UserResponseDTO = userService.findById(id);
-        if (UserResponseDTO == null){
+        UserDTO userDTO = userService.findById(id);
+        if (userDTO == null){
             return ResponseEntity.notFound().build();
         }
         userService.updateUser(userUpdateDTO, id);
