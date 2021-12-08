@@ -7,6 +7,7 @@ import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.sendgrid.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,6 +30,9 @@ public class UserDetailsCustomService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
+    @Value("${sendgrid.tomas-template-id}")
+    private String emailTemplateId;
+
     @Autowired
     public UserDetailsCustomService(
             @Lazy AuthenticationMapper userMapper,
@@ -50,12 +54,12 @@ public class UserDetailsCustomService implements UserDetailsService {
         newUser = userRepository.save(newUser);
 
         //SendGrid Email:
-        if(newUser != null) {
-            // private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
-            // String fullName = newUser.getFirstName() + " " + newUser.getLastName();
-            // TODO: emailService.sendEmailWithTemplate(newUser.getEmail(), fullName, templateId);
-            emailService.sendEmail(newUser.getEmail());
-        }
+        // private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
+        // String fullName = newUser.getFirstName() + " " + newUser.getLastName();
+        // TODO: emailService.sendEmailWithTemplate(newUser.getEmail(), fullName, templateId);
+        System.out.println(emailTemplateId);
+        emailService.sendEmail(newUser.getEmail());
+
         return userMapper.entity2RegisterResponseDTO(newUser);
     }
 
