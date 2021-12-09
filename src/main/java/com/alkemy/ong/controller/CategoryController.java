@@ -38,7 +38,7 @@ public class CategoryController {
         if (!isDeleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return (ResponseEntity<Void>) ResponseEntity.status(HttpStatus.OK);
+         return new ResponseEntity<>(HttpStatus.OK);
 
 
     }
