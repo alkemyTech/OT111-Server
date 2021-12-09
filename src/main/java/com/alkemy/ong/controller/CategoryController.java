@@ -41,9 +41,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity <List<CategoryDTO>> getCategories(){
-
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
-
     }
 
 }
