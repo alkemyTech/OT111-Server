@@ -7,4 +7,4 @@ spring:
         show-sql: true
 
 sendgrid:
-    welcome-template: d-a73c7ef24259456b91f84ffe1841d230
+    welcome-template: d-6d059c03a1dd4b2aa22e9ae894138844

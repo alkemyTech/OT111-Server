@@ -18,8 +18,8 @@ import com.sendgrid.helpers.mail.objects.Personalization;
 public class EmailServiceImpl implements  EmailService{
 
     Logger logger = Logger.getLogger(EmailServiceImpl.class.getName());
-//    private String sender = System.getenv("SENDER");
-    private String sender = "padillatomasagustin@gmail.com";
+    private String sender = System.getenv("SENDER");
+//    private String sender = "padillafirebase@gmail.com";
 
     @Value("${sendgrid.welcome-template}")
     private  String templateId;
