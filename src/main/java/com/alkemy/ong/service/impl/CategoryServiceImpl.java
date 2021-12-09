@@ -3,12 +3,16 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
+import com.alkemy.ong.model.response.CategoryDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -32,6 +36,16 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity newCategory = categoryMapper.categoryDTO2Entity(request);
         CategoryEntity savedCategory = categoryRepository.save(newCategory);
         return  categoryMapper.categoryEntity2DTO(savedCategory);
+    }
+
+    @Override
+    public List<CategoryDTO> getCategories() {
+
+        List<CategoryEntity> categoriesList = categoryRepository.findAll();
+
+        return categoriesList.stream()
+                             .map(c -> new CategoryDTO(c.getName()))
+                             .collect(Collectors.toList());
     }
 
 }
