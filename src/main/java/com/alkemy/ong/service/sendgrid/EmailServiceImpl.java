@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
 
 import com.sendgrid.Method;
@@ -19,18 +19,22 @@ import com.sendgrid.helpers.mail.objects.Personalization;
 @Service
 public class EmailServiceImpl implements  EmailService{
 
+    Logger logger = Logger.getLogger(EmailServiceImpl.class.getName());
 
-    private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
 
     private String sender = System.getenv("SENDER");
+
+    //@Value("${app.sendgrid.templateid}") da error revisar
+    private  String templateId = "d-a73c7ef24259456b91f84ffe1841d230";
 
     @Autowired
     SendGrid sendGrid;
 
+
     @Override
     public String sendEmail(String email)  {
 
-        Logger logger = Logger.getLogger(EmailServiceImpl.class.getName());
+
 
         try {
             Mail mail = customMail(email);
@@ -44,7 +48,52 @@ public class EmailServiceImpl implements  EmailService{
 
 
             if(response!=null) {
-                logger.log(Level.INFO, "codigo respuesta desde sendgrid {0} " , response.getHeaders());
+                logger.log(Level.INFO, "codigo respuesta desde sendgrid {0} " , response.getStatusCode());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error al enviar mail";
+        }
+        return "El mail se envió correctamente.";
+
+    }
+
+    @Override
+    public String sendWithTemplate(String email, String user, String templateId) {
+        Mail mail1 = new Mail();
+        Email fromEmail= new Email();
+        fromEmail.setEmail(sender);
+        mail1.setFrom(fromEmail);
+        Email to = new Email();
+        to.setEmail(email);
+
+
+
+
+        Personalization personalization1 = new Personalization();
+        personalization1.addTo(to);
+
+        personalization1.addDynamicTemplateData("nombre",user);
+        mail1.addPersonalization(personalization1);
+        mail1.setTemplateId(templateId);
+
+
+
+        try {
+
+            Request request = new Request();
+
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail1.build());
+
+            Response response = sendGrid.api(request);
+
+
+            if(response!=null) {
+                logger.log(Level.INFO, "codigo respuesta desde sendgrid {0} " ,response.getStatusCode() );
+
             }
 
         } catch (IOException e) {
@@ -73,5 +122,10 @@ public class EmailServiceImpl implements  EmailService{
         mail.setTemplateId(templateId);
 
         return mail;
+
     }
+
+
+
+
 }
