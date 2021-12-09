@@ -5,3 +5,6 @@ spring:
         password: postgres
     jpa:
         show-sql: true
+
+sendgrid:
+    welcome-template: d-6d059c03a1dd4b2aa22e9ae894138844
