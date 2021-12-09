@@ -47,22 +47,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserUpdateDTO updateUser(UserUpdateDTO userUpdateDTO, Long id) {
+    public void updateUser(UserUpdateDTO userUpdateDTO, Long id) {
         Optional<UserEntity> userEntity = userRepository.findById(id);
-        if(!userEntity.isEmpty()){
+        if(userEntity != null){
 
             userEntity.get().setFirstName(userUpdateDTO.getFirstName());
             userEntity.get().setLastName(userUpdateDTO.getLastName());
-        if (!userUpdateDTO.getPassword().isEmpty()){
+            if (!userUpdateDTO.getPassword().isEmpty()){
             userEntity.get().setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
-        }
+            }
             userEntity.get().setEmail(userUpdateDTO.getEmail());
             userEntity.get().setPhoto(userUpdateDTO.getPhoto());
 
             userRepository.save(userEntity.get());
-            return userMapper.entityUpdate2DTO(userEntity.get());
         }
-        return null;
     }
 
 
