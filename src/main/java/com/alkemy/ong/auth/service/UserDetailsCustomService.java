@@ -54,11 +54,8 @@ public class UserDetailsCustomService implements UserDetailsService {
         newUser = userRepository.save(newUser);
 
         //SendGrid Email:
-        // private String templateId = System.getenv("SENDGRID_TEMPLATE_ID");
-        // String fullName = newUser.getFirstName() + " " + newUser.getLastName();
-        // TODO: emailService.sendEmailWithTemplate(newUser.getEmail(), fullName, templateId);
-        System.out.println(emailTemplateId);
-        emailService.sendEmail(newUser.getEmail());
+        String fullName = newUser.getFirstName() + " " + newUser.getLastName();
+        emailService.sendWithTemplate(newUser.getEmail(), fullName, emailTemplateId );
 
         return userMapper.entity2RegisterResponseDTO(newUser);
     }
