@@ -8,6 +8,8 @@ import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -35,14 +37,19 @@ public class CategoryServiceImpl implements CategoryService {
         return result;
     }
 
+
     @Override
-    public CategoryResponseDTO deleteCategoryById(Long id) {
-        Optional<CategoryEntity> foundCategory = categoryRepository.findById(id);
-        if (foundCategory.isPresent()) {
-            CategoryEntity deletedCategory = categoryMapper.categoryDTO2Entity(foundCategory.get().setDeleted(true));
-
-
+    @Transactional
+    public boolean deleteCategory(Long id){
+        try {
+            Optional<CategoryEntity>categoryEntityOptional = categoryRepository.findById(id);
+            CategoryEntity category = categoryEntityOptional.get();
+            category.setDeleted(true);
+            categoryRepository.save(category);
+            return true;
+        }catch (Exception e) {
+            return false;
         }
-        return null;
+
     }
 }

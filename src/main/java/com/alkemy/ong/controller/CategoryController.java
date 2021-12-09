@@ -29,17 +29,19 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> createNewCategory(@RequestBody CategoryRequestDTO request) {
         CategoryResponseDTO response = categoryService.saveCategory(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
-        @DeleteMapping(value = "/{id}", method = {RequestMethod.DELETE})
-        public ResponseEntity<CategoryResponseDTO> deleteCategoryById (id) {
-            CategoryResponseDTO categoryDetails = categoryService.deleteCategoryById(response.getId(id));
-            if (categoryDetails == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoryDetails);
-
-
-        }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
+        boolean isDeleted = categoryService.deleteCategory(id);
+
+        if (!isDeleted) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return (ResponseEntity<Void>) ResponseEntity.status(HttpStatus.OK);
+
+
+    }
 }
+
+
