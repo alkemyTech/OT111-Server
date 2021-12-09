@@ -23,7 +23,7 @@ public class AWSServiceImpl implements AWSService {
     @Autowired
     private AmazonS3 amazonS3;
 
-    @Value("${aws.bucketName}")
+    @Value("${amazonProperties.aws.bucketName}")
     private String bucketName;
 
     @Override

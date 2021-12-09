@@ -17,7 +17,7 @@ public class AWSBucketController {
     @Autowired
     private AWSService awsService;
 
-    @PostMapping(value = "/upload")
+    @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestPart(value = "file")MultipartFile file) {
         awsService.uploadFile(file);
         String response = "File " + file.getOriginalFilename() + " uploaded successfully.";

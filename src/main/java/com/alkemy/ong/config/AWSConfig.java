@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AWSConfig {
 
-    @Value("${aws.accessKey}")
+    @Value("${amazonProperties.aws.accessKey}")
     private String accessKeyId;
-    @Value("${aws.secretKey}")
+    @Value("${amazonProperties.aws.secretKey}")
     private String secretKey;
-    @Value("${aws.region")
+    @Value("${amazonProperties.aws.region}")
     private String region;
 
     @Bean
