@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CategoriesDTO {
+public class CategoryDTO {
     private String name;
 }

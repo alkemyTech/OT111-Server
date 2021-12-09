@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.CategoryRequestDTO;
-import com.alkemy.ong.model.response.CategoriesDTO;
+import com.alkemy.ong.model.response.CategoryDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity <List<CategoriesDTO>> getCategories(){
+    public ResponseEntity <List<CategoryDTO>> getCategories(){
 
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
 
