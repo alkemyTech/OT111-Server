@@ -13,7 +13,3 @@ public class CategoryResponseDTO {
     private String description;
     private String image;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/category
