@@ -43,7 +43,7 @@ public class UserDetailsCustomService implements UserDetailsService {
             @Lazy AuthenticationMapper userMapper,
             @Lazy UserRepository userRepository,
             @Lazy PasswordEncoder passwordEncoder,
-            @Lazy EmailService emailService
+            @Lazy EmailService emailService,
             @Lazy JwtUtil jwtTokenUtil
     ) {
         this.userMapper = userMapper;
@@ -53,7 +53,6 @@ public class UserDetailsCustomService implements UserDetailsService {
         this.jwtTokenUtil = jwtTokenUtil;
 
     }
-
 
 
     public RegisterResponse signupUser(RegisterRequest userToCreate) {
@@ -72,7 +71,7 @@ public class UserDetailsCustomService implements UserDetailsService {
 
         //SendGrid Email:
         String fullName = newUser.getFirstName() + " " + newUser.getLastName();
-        emailService.sendWithTemplate(newUser.getEmail(), fullName, emailTemplateId );
+        emailService.sendWithTemplate(newUser.getEmail(), fullName, emailTemplateId);
 
         String jwt = jwtTokenUtil.generateToken(newUserDetail);
         return userMapper.entity2RegisterResponseDTO(newUser, jwt);
