@@ -1,7 +1,10 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.request.CategoryRequestDTO;
+import com.alkemy.ong.model.response.CategoryDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
+
+import java.util.List;
 
 public interface CategoryService {
 
@@ -12,5 +15,8 @@ public interface CategoryService {
     boolean deleteCategory(Long id);
 
     CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception;
+
+    List<CategoryDTO> getCategories();
+
 
 }
