@@ -30,3 +30,11 @@ Password para todos los usuarios administradores y usuarios regulares:
     user10@mail.com
 
 
+### OpenApi 3.0 - Swagger documentation:
+#### La descripcion de OpenAPI esta disponible en la ruta:
+
+[http://localhost:8080/api/docs](http://localhost:8080/api/docs)
+
+###La documentacion de la API con Swagger-UI esta disponible en la ruta:
+
+[http://localhost:8080/api/docs/swagger-ui/](http://localhost:8080/api/docs/swagger-ui/)
