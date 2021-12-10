@@ -37,19 +37,16 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
         boolean isDeleted = categoryService.deleteCategory(id);
-
         if (!isDeleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-         return new ResponseEntity<>(HttpStatus.OK);
-
-
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity <List<CategoryDTO>> getCategories(){
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
     }
-
 
 }
 
