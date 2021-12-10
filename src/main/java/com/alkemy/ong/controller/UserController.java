@@ -26,16 +26,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Obtener todos los usuarios.", security = @SecurityRequirement(name = "bearerAuth"),description = "Obtener lista completa de usuarios, solo accesible por administrador")
+    @Operation(summary = "Get all users.", security = @SecurityRequirement(name = "bearerAuth"),description = "Get full list of users in database, only accesible by an Administrator")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Se obtuvieron todos los usuarios en el sistema",
+                    description = "All users retrieved",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserDTO.class))}),
             @ApiResponse(
                     responseCode = "403",
-                    description = "Acceso denegado",
+                    description = "Access Denied, authorization needed",
                     content = @Content)})
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
