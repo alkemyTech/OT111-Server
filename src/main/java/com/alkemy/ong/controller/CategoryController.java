@@ -34,24 +34,18 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
         boolean isDeleted = categoryService.deleteCategory(id);
-
         if (!isDeleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return new ResponseEntity<>(HttpStatus.OK);
-
-
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> updateCategory(@RequestBody CategoryRequestDTO request, @PathVariable Long id) throws Exception {
-
         CategoryResponseDTO response = categoryService.updateCategory(request, id);
-
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
