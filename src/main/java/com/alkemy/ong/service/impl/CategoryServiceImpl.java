@@ -43,10 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public boolean deleteCategory(Long id){
         try {
-            Optional<CategoryEntity>categoryEntityOptional = categoryRepository.findById(id);
-            CategoryEntity category = categoryEntityOptional.get();
-            category.setDeleted(true);
-            categoryRepository.save(category);
+            categoryRepository.deleteById(id);
             return true;
         }catch (Exception e) {
             return false;
