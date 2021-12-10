@@ -40,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void deleteCategory(Long id) throws Exception {
+        //TODO: CHEQUEAR A FUTURO
         Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findById(id);
         if (categoryEntityOptional.isEmpty()) {
             throw new NoSuchElementException("la categoria no existe");
