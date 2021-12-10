@@ -51,4 +51,21 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
     }
+
+    @Override
+    public CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception {
+
+        Optional<CategoryEntity>categoryEntityOptional = categoryRepository.findById(id);
+        if (!categoryEntityOptional.isPresent()){
+            throw  new Exception("la categoria no existe");
+        }
+        CategoryEntity foundCategory = categoryEntityOptional.get();
+        foundCategory.setName(request.getName());
+        foundCategory.setImage(request.getImage());
+        foundCategory.setDescription(request.getDescription());
+        CategoryEntity updatedCategory = categoryRepository.save(foundCategory);
+
+
+        return categoryMapper.categoryEntity2DTO(updatedCategory);
+    }
 }

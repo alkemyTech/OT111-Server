@@ -11,4 +11,6 @@ public interface CategoryService {
 
     boolean deleteCategory(Long id);
 
+    CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception;
+
 }
