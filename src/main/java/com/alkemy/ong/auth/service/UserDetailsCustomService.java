@@ -8,7 +8,9 @@ import com.alkemy.ong.model.request.security.RegisterRequest;
 
 import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.service.sendgrid.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,14 +32,26 @@ public class UserDetailsCustomService implements UserDetailsService {
     private final UserRepository userRepository;
     private final AuthenticationMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
     private final JwtUtil jwtTokenUtil;
 
+    @Value("${sendgrid.welcome-template}")
+    private String emailTemplateId;
+
     @Autowired
-    public UserDetailsCustomService(@Lazy AuthenticationMapper userMapper, @Lazy UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, @Lazy JwtUtil jwtTokenUtil) {
+    public UserDetailsCustomService(
+            @Lazy AuthenticationMapper userMapper,
+            @Lazy UserRepository userRepository,
+            @Lazy PasswordEncoder passwordEncoder,
+            @Lazy EmailService emailService
+            @Lazy JwtUtil jwtTokenUtil
+    ) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
         this.jwtTokenUtil = jwtTokenUtil;
+
     }
 
 
@@ -55,6 +69,10 @@ public class UserDetailsCustomService implements UserDetailsService {
                 newUser.getPassword(),
                 List.of()
         );
+
+        //SendGrid Email:
+        String fullName = newUser.getFirstName() + " " + newUser.getLastName();
+        emailService.sendWithTemplate(newUser.getEmail(), fullName, emailTemplateId );
 
         String jwt = jwtTokenUtil.generateToken(newUserDetail);
         return userMapper.entity2RegisterResponseDTO(newUser, jwt);
