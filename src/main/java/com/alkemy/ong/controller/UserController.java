@@ -32,7 +32,7 @@ public class UserController {
                     responseCode = "200",
                     description = "All users retrieved",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserDTO.class))}),
+                            schema = @Schema(implementation = UserDTO.class))}),//UserDTO or UserEntity??
             @ApiResponse(
                     responseCode = "403",
                     description = "Access Denied, authorization needed",
