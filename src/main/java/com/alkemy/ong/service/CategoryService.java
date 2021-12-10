@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface CategoryService {
 
-    CategoryResponseDTO findCategory(Long id);
+    CategoryResponseDTO findCategoryById(Long id);
 
     CategoryResponseDTO saveCategory(CategoryRequestDTO request);
 
     CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception;
 
-    boolean deleteCategory(Long id);
+    void deleteCategory(Long id) throws Exception;
 
     List<CategoryDTO> getCategories();
 

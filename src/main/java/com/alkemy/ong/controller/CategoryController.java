@@ -21,11 +21,11 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> getCategoryDetails(@PathVariable Long id) {
-        CategoryResponseDTO categoryDetails = categoryService.findCategory(id);
+        CategoryResponseDTO categoryDetails = categoryService.findCategoryById(id);
         if (categoryDetails == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoryDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(categoryDetails);
     }
 
     @PostMapping
@@ -35,12 +35,10 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
-        boolean isDeleted = categoryService.deleteCategory(id);
-        if (!isDeleted) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) throws Exception {
+        categoryService.deleteCategory(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
