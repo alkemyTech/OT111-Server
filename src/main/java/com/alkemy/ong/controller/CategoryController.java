@@ -43,6 +43,12 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> updateCategory(@RequestBody CategoryRequestDTO request, @PathVariable Long id) throws Exception {
+        CategoryResponseDTO response = categoryService.updateCategory(request, id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping
     public ResponseEntity <List<CategoryDTO>> getCategories(){
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);

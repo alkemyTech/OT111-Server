@@ -12,10 +12,10 @@ public interface CategoryService {
 
     CategoryResponseDTO saveCategory(CategoryRequestDTO request);
 
+    CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception;
 
     boolean deleteCategory(Long id);
 
     List<CategoryDTO> getCategories();
-
 
 }

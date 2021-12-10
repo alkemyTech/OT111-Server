@@ -9,12 +9,9 @@ import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
-
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,8 +39,6 @@ public class CategoryServiceImpl implements CategoryService {
         return  categoryMapper.categoryEntity2DTO(savedCategory);
     }
 
-
-
     @Override
     @Transactional
     public boolean deleteCategory(Long id){
@@ -60,14 +55,25 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception {
+        Optional<CategoryEntity>categoryEntityOptional = categoryRepository.findById(id);
+        if (!categoryEntityOptional.isPresent()){
+            throw  new Exception("la categoria no existe");
+        }
+        CategoryEntity foundCategory = categoryEntityOptional.get();
+        foundCategory.setName(request.getName());
+        foundCategory.setImage(request.getImage());
+        foundCategory.setDescription(request.getDescription());
+        CategoryEntity updatedCategory = categoryRepository.save(foundCategory);
+        return categoryMapper.categoryEntity2DTO(updatedCategory);
+    }
+
+    @Override
     public List<CategoryDTO> getCategories() {
-
         List<CategoryEntity> categoriesList = categoryRepository.findAll();
-
         return categoriesList.stream()
                              .map(c -> new CategoryDTO(c.getName()))
                              .collect(Collectors.toList());
     }
-
 
 }
