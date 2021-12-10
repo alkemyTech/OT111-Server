@@ -1,11 +1,11 @@
 package com.alkemy.ong.auth.service;
 
-import com.alkemy.ong.auth.service.impl.UserAuthServiceImpl;
+
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.AuthenticationMapper;
-import com.alkemy.ong.model.request.security.AuthenticationRequest;
+
 import com.alkemy.ong.model.request.security.RegisterRequest;
-import com.alkemy.ong.model.response.security.AuthenticationResponse;
+
 import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +30,17 @@ public class UserDetailsCustomService implements UserDetailsService {
     private final UserRepository userRepository;
     private final AuthenticationMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-
+    private final JwtUtil jwtTokenUtil;
 
     @Autowired
-    public UserDetailsCustomService(@Lazy AuthenticationMapper userMapper, @Lazy UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserDetailsCustomService(@Lazy AuthenticationMapper userMapper, @Lazy UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, @Lazy JwtUtil jwtTokenUtil) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
-    @Autowired
-    private JwtUtil jwtTokenUtil;
+
 
     public RegisterResponse signupUser(RegisterRequest userToCreate) {
         var matchingUser = userRepository.findByEmail(userToCreate.getEmail());
