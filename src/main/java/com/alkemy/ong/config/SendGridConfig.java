@@ -10,12 +10,10 @@ public class SendGridConfig {
 
     private String key = System.getenv("SENDGRID_API_KEY");
 
-
-
     @Bean
     public SendGrid startSendGrid() {
         //inicializa sendgrid con su key
         return new SendGrid(key);
-
     }
+
 }
