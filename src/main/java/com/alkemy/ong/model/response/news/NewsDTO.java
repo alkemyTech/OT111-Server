@@ -19,18 +19,4 @@ public class NewsDTO {
 
     private String image;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private CategoryEntity categoryId;
-
-    private OffsetDateTime createdDate;
-
-    private OffsetDateTime modifiedDate;
-
-    private String createdBy;
-
-    private String modifiedBy;
-
-    private boolean deleted = Boolean.FALSE;
-
-
 }

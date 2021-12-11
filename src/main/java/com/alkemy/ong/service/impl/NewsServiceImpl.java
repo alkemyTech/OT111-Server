@@ -20,7 +20,7 @@ public class NewsServiceImpl implements NewsService {
 
     public NewsDTO findById(Long id){
         Optional <NewsEntity> toBeFound = newsRepository.findById(id);
-        if (!toBeFound.isPresent()){
+        if (toBeFound.isEmpty()){
             throw new IllegalArgumentException("No news for id " + id);
         }
         return newsMapper.entity2DTO(toBeFound.get());

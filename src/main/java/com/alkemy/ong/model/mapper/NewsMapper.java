@@ -20,11 +20,6 @@ public class NewsMapper extends AbstractMapper <NewsEntity, NewsDTO> {
                 .name(entity.getName())
                 .content(entity.getContent())
                 .image(entity.getImage())
-                .categoryId(entity.getCategoryId())
-                .createdDate(entity.getCreatedDate())
-                .modifiedDate(entity.getModifiedDate())
-                .createdBy(entity.getCreatedBy())
-                .modifiedBy(entity.getModifiedBy())
                 .build();
     }
 

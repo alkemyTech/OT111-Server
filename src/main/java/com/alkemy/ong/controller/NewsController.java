@@ -20,7 +20,7 @@ public class NewsController {
     @GetMapping("/{id}")
     public ResponseEntity<NewsDTO> findById(@PathVariable Long id) {
         NewsDTO newsDTO = newsService.findById(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(newsDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(newsDTO);
     }
 
 }

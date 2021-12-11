@@ -19,10 +19,6 @@ public class CategoryMapper extends AbstractMapper <CategoryEntity, CategoryDTO>
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .image(entity.getImage())
-                .createdDate(entity.getCreatedDate())
-                .modifiedDate(entity.getModifiedDate())
-                .createdBy(entity.getCreatedBy())
-                .modifiedBy(entity.getModifiedBy())
                 .build();
     }
 
