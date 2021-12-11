@@ -5,3 +5,19 @@ spring:
         password: postgres
     jpa:
         show-sql: true
+
+sendgrid:
+    welcome-template: d-6d059c03a1dd4b2aa22e9ae894138844
+
+
+#Swagger Configurations
+springdoc:
+    api-docs:
+        path: /api/docs #path para consultar springdoc-openapi doc
+    swagger-ui:
+            path: /api/docs/swagger-ui.html # path para consultar swagger-ui
+            enabled: true #para produccion conviene desactivar swagger-ui (o trabajarla en otro puerto)
+    # Packages to include:
+    packagesToScan: com.alkemy.ong.controller, com.alkemy.ong.auth.controller #Separamos los paquetes a incluir con una coma
+    # Paths to include:
+    pathsToMatch: /users/**, /auth/** #Separamos los paths a incluir con una coma

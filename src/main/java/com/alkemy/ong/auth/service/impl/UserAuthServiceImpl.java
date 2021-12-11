@@ -3,8 +3,6 @@ package com.alkemy.ong.auth.service.impl;
 import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
-import com.alkemy.ong.exception.ApiExceptionHandler;
-import com.alkemy.ong.exception.ForbiddenException;
 import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
@@ -32,16 +30,12 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) {
         UserDetails userDetails = userDetailsCustomService.loadUserByUsername(authenticationRequest.getUsername());
-        try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(),
-                    authenticationRequest.getPassword(),
-                    userDetails.getAuthorities()
-            );
-            authenticationManager.authenticate(authenticationToken);
-        } catch (Exception e) {
-            throw new ForbiddenException("Usuario o Contraseña incorrectos.");
-        }
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                authenticationRequest.getUsername(),
+                authenticationRequest.getPassword(),
+                userDetails.getAuthorities()
+        );
+        authenticationManager.authenticate(authenticationToken);
         // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);
         return authenticationMapper.userDetailsAndJwt2LoginResponseDTO(userDetails, jwt);
