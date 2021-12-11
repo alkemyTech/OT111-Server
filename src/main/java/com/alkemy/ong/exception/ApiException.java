@@ -12,4 +12,5 @@ public class ApiException  {
     private  String message;
     private  int httpStatus;
     private  ZonedDateTime timestamp;
+    // TODO: ConstraintViolationException
 }

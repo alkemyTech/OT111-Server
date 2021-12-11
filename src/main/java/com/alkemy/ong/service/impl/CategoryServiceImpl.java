@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.exception.EmailException;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
@@ -8,6 +9,7 @@ import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,20 +45,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void deleteCategory(Long id) throws Exception {
         //TODO: CHEQUEAR A FUTURO
-        Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findById(id);
-        if (categoryEntityOptional.isEmpty()) {
-            throw new NoSuchElementException("la categoria no existe");
-        }
+        categoryRepository.findById(id).orElseThrow();
         categoryRepository.deleteById(id);
     }
 
     @Override
     public CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception {
-        Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findById(id);
-        if (categoryEntityOptional.isEmpty()) {
-            throw new NoSuchElementException("la categoria no existe");
-        }
-        CategoryEntity foundCategory = categoryEntityOptional.get();
+        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
         foundCategory.setName(request.getName());
         foundCategory.setImage(request.getImage());
         foundCategory.setDescription(request.getDescription());

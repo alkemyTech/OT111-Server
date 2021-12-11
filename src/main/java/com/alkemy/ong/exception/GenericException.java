@@ -1,7 +1,14 @@
 package com.alkemy.ong.exception;
 
-public class GenericException extends RuntimeException{
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
-    // STATUS y MENSAJE
-
+@Getter
+@Setter
+@AllArgsConstructor
+public class GenericException extends RuntimeException {
+    private  String message;
+    private HttpStatus httpStatus;
 }
