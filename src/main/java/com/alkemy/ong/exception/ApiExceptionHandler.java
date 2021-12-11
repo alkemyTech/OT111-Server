@@ -57,18 +57,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {javax.validation.ConstraintViolationException.class})
-    public ResponseEntity<ApiException> constraintVioltaionException(javax.validation.ConstraintViolationException constraintViolationException){
+    public ResponseEntity<ApiConstraintViolationException> constraintVioltaionException(javax.validation.ConstraintViolationException constraintViolationException){
         List<String> details = new ArrayList<>();
         for (ConstraintViolation<?> violation : constraintViolationException.getConstraintViolations()) {
             details.add(violation.getPropertyPath() + ": " + violation.getMessage());
         }
-        var apiException = new ApiException(
+        var apiConstraintVioltaionException = new ApiConstraintViolationException(
                 "Constraint Violations",
                 HttpStatus.BAD_REQUEST.value(),
                 ZonedDateTime.now(ZoneId.of("Z")),
                 details
         );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiException);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintVioltaionException);
     }
 
 }
