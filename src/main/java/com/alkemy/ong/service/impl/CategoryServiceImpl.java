@@ -1,7 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.exception.EmailException;
-import com.alkemy.ong.exception.GenericException;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
@@ -10,13 +8,11 @@ import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -27,10 +23,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Throws -> GenericException
     @Override
     public CategoryResponseDTO findCategoryById(Long id) {
-        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow(()->new GenericException("GenericException Message",HttpStatus.NOT_FOUND));
+        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
         return categoryMapper.categoryEntity2DTO(foundCategory);
     }
 
@@ -41,16 +36,14 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.categoryEntity2DTO(savedCategory);
     }
 
-    // Throws -> EmailException
     @Override
     @Transactional
     public void deleteCategory(Long id) throws Exception {
         //TODO: CHEQUEAR A FUTURO
-        categoryRepository.findById(id).orElseThrow(()-> new EmailException("EmailException Message", HttpStatus.NOT_FOUND));
+        categoryRepository.findById(id).orElseThrow();
         categoryRepository.deleteById(id);
     }
 
-    // Throws -> NoSuchElementException
     @Override
     public CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception {
         CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
