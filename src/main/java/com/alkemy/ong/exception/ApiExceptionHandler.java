@@ -6,8 +6,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolation;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
@@ -53,6 +56,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(emailException.getHttpStatus()).body(apiException);
     }
 
-    // TODO: ConstraintViolationException
+    @ExceptionHandler(value = {javax.validation.ConstraintViolationException.class})
+    public ResponseEntity<ApiException> constraintVioltaionException(javax.validation.ConstraintViolationException constraintViolationException){
+        List<String> details = new ArrayList<>();
+        for (ConstraintViolation<?> violation : constraintViolationException.getConstraintViolations()) {
+            details.add(violation.getPropertyPath() + ": " + violation.getMessage());
+        }
+        var apiException = new ApiException(
+                "Constraint Violations",
+                HttpStatus.BAD_REQUEST.value(),
+                ZonedDateTime.now(ZoneId.of("Z")),
+                details
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiException);
+    }
 
 }

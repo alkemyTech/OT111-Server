@@ -1,6 +1,7 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.exception.EmailException;
+import com.alkemy.ong.exception.GenericException;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
@@ -14,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -28,9 +27,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    // Throws -> GenericException
     @Override
     public CategoryResponseDTO findCategoryById(Long id) {
-        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
+        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow(()->new GenericException("GenericException Message",HttpStatus.NOT_FOUND));
         return categoryMapper.categoryEntity2DTO(foundCategory);
     }
 
@@ -41,14 +41,16 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.categoryEntity2DTO(savedCategory);
     }
 
+    // Throws -> EmailException
     @Override
     @Transactional
     public void deleteCategory(Long id) throws Exception {
         //TODO: CHEQUEAR A FUTURO
-        categoryRepository.findById(id).orElseThrow();
+        categoryRepository.findById(id).orElseThrow(()-> new EmailException("EmailException Message", HttpStatus.NOT_FOUND));
         categoryRepository.deleteById(id);
     }
 
+    // Throws -> NoSuchElementException
     @Override
     public CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception {
         CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
