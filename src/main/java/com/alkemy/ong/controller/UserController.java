@@ -1,6 +1,9 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.entity.UserEntity;
+import com.alkemy.ong.model.request.CategoryRequestDTO;
+import com.alkemy.ong.model.request.user.UserUpdateDTO;
+import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Get all users.", security = @SecurityRequirement(name = "bearerAuth"),description = "Get full list of users in database, only accesible by an Administrator")
+    @Operation(summary = "Get all users.", security = @SecurityRequirement(name = "bearerAuth"), description = "Get full list of users in database, only accesible by an Administrator")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -40,5 +43,27 @@ public class UserController {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Lista el detalle de un usuario")
+    public ResponseEntity<UserDTO> getUserDetails(@PathVariable Long id){
+        UserDTO userResponse = userService.findUserById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un usuario",
+            description = "Actualiza el usuario existente dado el ID pasado como parámetro por url, " +
+                    "y si el usuario a actualizar no existe se lanza un error con código de estado 404")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Usuario actualizado",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
+    })
+    public ResponseEntity<Void> updateUser(@RequestBody UserUpdateDTO request, @PathVariable Long id) {
+        userService.updateUser(request, id);
+        return ResponseEntity.ok().build();
+    }
+}
 
 

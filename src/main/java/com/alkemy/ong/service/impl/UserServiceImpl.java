@@ -37,30 +37,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDTO findById(Long id) {
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        if (!userEntity.isEmpty()){
-            return userMapper.entity2DTO(userEntity.get());
-        }
-        return null;
+    public UserDTO findUserById(Long id) {
+        UserEntity foundUser = userRepository.findById(id).orElseThrow();
+        return userMapper.entity2DTO(foundUser);
     }
 
     @Override
     @Transactional
-    public void updateUser(UserUpdateDTO userUpdateDTO, Long id) {
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        if(userEntity != null){
-
-            userEntity.get().setFirstName(userUpdateDTO.getFirstName());
-            userEntity.get().setLastName(userUpdateDTO.getLastName());
-            if (!userUpdateDTO.getPassword().isEmpty()){
-            userEntity.get().setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
-            }
-            userEntity.get().setEmail(userUpdateDTO.getEmail());
-            userEntity.get().setPhoto(userUpdateDTO.getPhoto());
-
-            userRepository.save(userEntity.get());
-        }
+    public void updateUser(UserUpdateDTO request, Long id) {
+        UserEntity foundUser = userRepository.findById(id).orElseThrow();
+        foundUser.setFirstName(request.getFirstName());
+        foundUser.setLastName(request.getLastName());
+        foundUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        foundUser.setEmail(request.getEmail());
+        foundUser.setPhoto(request.getPhoto());
+        userRepository.save(foundUser);
     }
 
 
