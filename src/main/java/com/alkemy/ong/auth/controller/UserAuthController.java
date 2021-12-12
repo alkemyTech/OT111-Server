@@ -6,13 +6,11 @@ import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import com.alkemy.ong.model.response.security.RegisterResponse;
+import com.alkemy.ong.model.response.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -39,4 +37,8 @@ public class UserAuthController {
         return ResponseEntity.ok(userDetails);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> userData(){
+        return null;
+    }
 }
