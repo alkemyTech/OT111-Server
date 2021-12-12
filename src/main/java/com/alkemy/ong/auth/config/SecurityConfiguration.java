@@ -36,24 +36,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
-
                 // TODO: Aca pueden ir agregando sus Endpoints
                 // TODO: .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/categories").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/categories").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/categories").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole("ADMIN")
-
                 .antMatchers("/api/docs/**").permitAll()
-                // TODO: Add Routes / Roles
-                .antMatchers("/users").hasRole("ADMIN")
-                .antMatchers("/test/auth").authenticated()
-                .antMatchers("/test/user").hasRole("USER")
-                .antMatchers("/test/admin").hasRole("ADMIN")
-                .antMatchers("/test/user-admin").hasAnyRole("ADMIN", "USER")
-
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()

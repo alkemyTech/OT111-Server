@@ -1,6 +1,5 @@
 package com.alkemy.ong.auth.service;
 
-
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.AuthenticationMapper;
 
@@ -82,7 +81,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var foundUser = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " -> NOT FOUND"));
+                .orElseThrow();
 
         // Authorities List
         Collection<GrantedAuthority> authorities = foundUser.getRoles().stream()

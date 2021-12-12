@@ -3,34 +3,30 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
-import com.alkemy.ong.model.response.CategoryDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private CategoryMapper categoryMapper;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public CategoryResponseDTO findCategoryById(Long id) {
-        Optional<CategoryEntity> foundCategory = categoryRepository.findById(id);
-        return foundCategory.map(categoryEntity -> categoryMapper.categoryEntity2DTO(categoryEntity)).orElse(null);
+        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
+        return categoryMapper.categoryEntity2DTO(foundCategory);
     }
 
+    @Override
     public CategoryResponseDTO saveCategory(CategoryRequestDTO request) {
         CategoryEntity newCategory = categoryMapper.categoryDTO2Entity(request);
         CategoryEntity savedCategory = categoryRepository.save(newCategory);
@@ -39,34 +35,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void deleteCategory(Long id) throws Exception {
-        //TODO: CHEQUEAR A FUTURO
-        Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findById(id);
-        if (categoryEntityOptional.isEmpty()) {
-            throw new NoSuchElementException("la categoria no existe");
-        }
-        categoryRepository.deleteById(id);
+    public void deleteCategory(Long id) {
+        var foundCategory = categoryRepository.findById(id).orElseThrow();
+        categoryRepository.delete(foundCategory);
     }
 
     @Override
-    public CategoryResponseDTO updateCategory(CategoryRequestDTO request, Long id) throws Exception {
-        Optional<CategoryEntity> categoryEntityOptional = categoryRepository.findById(id);
-        if (categoryEntityOptional.isEmpty()) {
-            throw new NoSuchElementException("la categoria no existe");
-        }
-        CategoryEntity foundCategory = categoryEntityOptional.get();
+    public void updateCategory(CategoryRequestDTO request, Long id) {
+        CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
         foundCategory.setName(request.getName());
         foundCategory.setImage(request.getImage());
         foundCategory.setDescription(request.getDescription());
-        CategoryEntity updatedCategory = categoryRepository.save(foundCategory);
-        return categoryMapper.categoryEntity2DTO(updatedCategory);
+        categoryRepository.save(foundCategory);
     }
 
     @Override
-    public List<CategoryDTO> getCategories() {
-        List<CategoryEntity> categoriesList = categoryRepository.findAll();
-        return categoriesList.stream()
-                .map(c -> new CategoryDTO(c.getName()))
+    public List<CategoryResponseDTO> getCategories() {
+        return categoryRepository.findAll().stream()
+                .map(categoryMapper::buildToList)
                 .collect(Collectors.toList());
     }
 
