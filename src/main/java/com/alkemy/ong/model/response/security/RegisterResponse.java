@@ -19,4 +19,6 @@ public class RegisterResponse {
     @Email
     private String email;
 
+    private String jwt;
+
 }

@@ -53,6 +53,7 @@ public class UserEntity {
     )
     private Collection<RoleEntity> roles;
 
+
     @Builder.Default
     private OffsetDateTime createdDate = OffsetDateTime.now();
 
