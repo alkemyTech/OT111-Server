@@ -1,9 +1,6 @@
 package com.alkemy.ong.exception;
 
-<<<<<<< Updated upstream
-=======
 import lombok.Builder;
->>>>>>> Stashed changes
 import lombok.Getter;
 import lombok.Setter;
 
