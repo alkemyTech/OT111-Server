@@ -1,5 +1,9 @@
 package com.alkemy.ong.exception;
 
+<<<<<<< Updated upstream
+=======
+import lombok.Builder;
+>>>>>>> Stashed changes
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,15 +12,12 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 public class ApiConstraintViolationException {
-    private  String message;
-    private  int httpStatus;
+
+    private String message;
+    private int httpStatus;
+    @Builder.Default
     private ZonedDateTime timestamp = ZonedDateTime.now();
     private List<String> errors;
-
-    public ApiConstraintViolationException(String message, int httpStatus, List<String> errors) {
-        this.message = message;
-        this.httpStatus = httpStatus;
-        this.errors = errors;
-    }
 }
