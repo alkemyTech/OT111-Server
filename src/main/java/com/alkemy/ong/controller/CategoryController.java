@@ -1,28 +1,32 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.CategoryRequestDTO;
-import com.alkemy.ong.model.response.CategoryDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> getCategoryDetails(@PathVariable Long id) {
         CategoryResponseDTO categoryDetails = categoryService.findCategoryById(id);
         return ResponseEntity.status(HttpStatus.OK).body(categoryDetails);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoryResponseDTO>> getCategories() {
+        var response = categoryService.getCategories();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping
@@ -31,21 +35,16 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) throws Exception {
-        categoryService.deleteCategory(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO> updateCategory(@RequestBody CategoryRequestDTO request, @PathVariable Long id) throws Exception {
-        CategoryResponseDTO response = categoryService.updateCategory(request, id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<Void> updateCategory(@RequestBody CategoryRequestDTO request, @PathVariable Long id) {
+        categoryService.updateCategory(request, id);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity <List<CategoryDTO>> getCategories(){
-        return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

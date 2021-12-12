@@ -25,4 +25,10 @@ public class CategoryMapper {
         return dto;
     }
 
+    public CategoryResponseDTO buildToList(CategoryEntity entity) {
+        return CategoryResponseDTO.builder()
+                .name(entity.getName())
+                .build();
+    }
+
 }
