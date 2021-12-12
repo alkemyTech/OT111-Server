@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
             Optional<UserEntity> optionalUser = userRepository.findById(id);
             UserEntity user = optionalUser.get();
             user.setDeleted(true);
-            userRepository.save(user);
             return true;
         } catch(Exception e) {
             return false;
