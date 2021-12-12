@@ -9,11 +9,10 @@ import java.time.ZonedDateTime;
 public class ApiException  {
     private  String message;
     private  int httpStatus;
-    private  ZonedDateTime timestamp;
+    private  ZonedDateTime timestamp = ZonedDateTime.now();
 
-    public ApiException(String message, int httpStatus, ZonedDateTime timestamp) {
+    public ApiException(String message, int httpStatus) {
         this.message = message;
         this.httpStatus = httpStatus;
-        this.timestamp = timestamp;
     }
 }

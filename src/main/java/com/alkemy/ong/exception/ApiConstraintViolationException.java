@@ -1,6 +1,5 @@
 package com.alkemy.ong.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +8,15 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ApiConstraintViolationException {
     private  String message;
     private  int httpStatus;
-    private ZonedDateTime timestamp;
-    private List errors;
+    private ZonedDateTime timestamp = ZonedDateTime.now();
+    private List<String> errors;
+
+    public ApiConstraintViolationException(String message, int httpStatus, List<String> errors) {
+        this.message = message;
+        this.httpStatus = httpStatus;
+        this.errors = errors;
+    }
 }

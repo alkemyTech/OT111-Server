@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiException> noSuchElementExceptionHandler(NoSuchElementException noSuchElementException){
        var apiException = new ApiException(
                noSuchElementException.getMessage(),
-                HttpStatus.NOT_FOUND.value(),
-                ZonedDateTime.now(ZoneId.of("Z"))
+                HttpStatus.NOT_FOUND.value()
         );
        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiException);
     }
@@ -30,8 +30,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiException> authenticationExceptionHandler(AuthenticationException authenticationException){
         var apiException = new ApiException(
                 authenticationException.getMessage(),
-                HttpStatus.FORBIDDEN.value(),
-                ZonedDateTime.now(ZoneId.of("Z"))
+                HttpStatus.FORBIDDEN.value()
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(apiException);
     }
@@ -40,8 +39,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiException> genericExceptionHandler(GenericException genericException){
         var apiException = new ApiException(
                 genericException.getMessage(),
-                genericException.getHttpStatus().value(),
-                ZonedDateTime.now(ZoneId.of("Z"))
+                genericException.getHttpStatus().value()
         );
         return ResponseEntity.status(genericException.getHttpStatus()).body(apiException);
     }
@@ -50,14 +48,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiException> emailExceptionHandler(EmailException emailException){
         var apiException = new ApiException(
                 emailException.getMessage(),
-                emailException.getHttpStatus().value(),
-                ZonedDateTime.now(ZoneId.of("Z"))
+                emailException.getHttpStatus().value()
         );
         return ResponseEntity.status(emailException.getHttpStatus()).body(apiException);
     }
 
-    @ExceptionHandler(value = {javax.validation.ConstraintViolationException.class})
-    public ResponseEntity<ApiConstraintViolationException> constraintVioltaionException(javax.validation.ConstraintViolationException constraintViolationException){
+    @ExceptionHandler(value = {ConstraintViolationException.class})
+    public ResponseEntity<ApiConstraintViolationException> constraintVioltaionException(ConstraintViolationException constraintViolationException){
         List<String> details = new ArrayList<>();
         for (ConstraintViolation<?> violation : constraintViolationException.getConstraintViolations()) {
             details.add(violation.getPropertyPath() + ": " + violation.getMessage());
@@ -65,7 +62,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var apiConstraintVioltaionException = new ApiConstraintViolationException(
                 "Constraint Violations",
                 HttpStatus.BAD_REQUEST.value(),
-                ZonedDateTime.now(ZoneId.of("Z")),
                 details
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintVioltaionException);
