@@ -8,3 +8,12 @@ spring:
 
 sendgrid:
     welcome-template: d-6d059c03a1dd4b2aa22e9ae894138844
+
+
+#Swagger Configurations
+springdoc:
+    api-docs:
+        path: /api/docs #path para consultar springdoc-openapi doc
+    swagger-ui:
+        path: /api/docs/swagger-ui.html # path para consultar swagger-ui
+        enabled: true #para produccion conviene desactivar swagger-ui (o trabajarla en otro puerto)

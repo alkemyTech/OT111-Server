@@ -44,16 +44,12 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) {
         UserDetails userDetails = userDetailsCustomService.loadUserByUsername(authenticationRequest.getUsername());
-        try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(),
-                    authenticationRequest.getPassword(),
-                    userDetails.getAuthorities()
-            );
-            authenticationManager.authenticate(authenticationToken);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Incorrect username or password", e);
-        }
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                authenticationRequest.getUsername(),
+                authenticationRequest.getPassword(),
+                userDetails.getAuthorities()
+        );
+        authenticationManager.authenticate(authenticationToken);
         // Build Response:
         String jwt = jwtTokenUtil.generateToken(userDetails);
         return authenticationMapper.userDetailsAndJwt2LoginResponseDTO(userDetails, jwt);
