@@ -5,18 +5,15 @@ import com.alkemy.ong.model.mapper.NewsMapper;
 import com.alkemy.ong.model.response.news.NewsDTO;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
 
-    public final NewsRepository newsRepository;
-    public final NewsMapper newsMapper;
-
-    public NewsServiceImpl(NewsRepository newsRepository, NewsMapper newsMapper) {
-        this.newsRepository = newsRepository;
-        this.newsMapper = newsMapper;
-    }
+    private final NewsRepository newsRepository;
+    private final NewsMapper newsMapper;
 
     @Override
     public NewsDTO findById(Long id){

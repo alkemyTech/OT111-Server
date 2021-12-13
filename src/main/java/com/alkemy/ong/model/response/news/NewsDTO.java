@@ -1,11 +1,9 @@
 package com.alkemy.ong.model.response.news;
 
-
-import com.alkemy.ong.model.entity.CategoryEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.alkemy.ong.model.response.CategoryResponseDTO;
 import lombok.Builder;
 import lombok.Data;
-import java.time.OffsetDateTime;
+
 
 @Data
 @Builder
@@ -18,5 +16,7 @@ public class NewsDTO {
     private String content;
 
     private String image;
+
+    private CategoryResponseDTO categoryResponseDTO;
 
 }

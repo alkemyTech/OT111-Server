@@ -1,31 +1,6 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.CategoryEntity;
-<<<<<<< HEAD
-import com.alkemy.ong.model.response.category.CategoryDTO;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-
-@Component
-@NoArgsConstructor
-public class CategoryMapper extends AbstractMapper <CategoryEntity, CategoryDTO> {
-
-
-    @Override
-    public CategoryDTO entity2DTO(CategoryEntity entity) {
-        if (entity == null) return null;
-
-        return CategoryDTO.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .image(entity.getImage())
-                .build();
-    }
-
-    @Override
-    public CategoryEntity dto2Entity(CategoryDTO dto) {return null;}
-=======
 import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import org.springframework.stereotype.Component;
@@ -56,5 +31,4 @@ public class CategoryMapper {
                 .build();
     }
 
->>>>>>> develop
 }
