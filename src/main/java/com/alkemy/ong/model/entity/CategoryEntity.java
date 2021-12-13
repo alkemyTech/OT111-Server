@@ -33,7 +33,7 @@ public class CategoryEntity {
 
     private String image;
 
-    private OffsetDateTime createdDate;
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private OffsetDateTime modifiedDate;
 
@@ -41,6 +41,5 @@ public class CategoryEntity {
 
     private String modifiedBy;
 
-    private boolean deleted = Boolean.FALSE;
-
+    private boolean deleted;
 }

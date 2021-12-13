@@ -3,6 +3,7 @@ package com.alkemy.ong.auth.config;
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
+<<<<<<< HEAD
                 //.antMatchers("/news/**").permitAll() //Usado solo para prueba
                 // TODO: Add Routes / Roles
                 .antMatchers("/users").hasRole("ADMIN")
@@ -43,6 +45,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/test/user").hasRole("USER")
                 .antMatchers("/test/admin").hasRole("ADMIN")
                 .antMatchers("/test/user-admin").hasAnyRole("ADMIN", "USER")
+=======
+                // TODO: Aca pueden ir agregando sus Endpoints
+                // TODO: .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
+                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/categories").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/categories").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole("ADMIN")
+                .antMatchers("/api/docs/**").permitAll()
+>>>>>>> develop
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
