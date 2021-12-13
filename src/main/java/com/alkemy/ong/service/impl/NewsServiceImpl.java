@@ -5,25 +5,23 @@ import com.alkemy.ong.model.mapper.NewsMapper;
 import com.alkemy.ong.model.response.news.NewsDTO;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Service
 public class NewsServiceImpl implements NewsService {
 
-    @Autowired
-    private NewsRepository newsRepository;
+    public final NewsRepository newsRepository;
+    public final NewsMapper newsMapper;
 
-    @Autowired
-    private NewsMapper newsMapper;
+    public NewsServiceImpl(NewsRepository newsRepository, NewsMapper newsMapper) {
+        this.newsRepository = newsRepository;
+        this.newsMapper = newsMapper;
+    }
 
+    @Override
     public NewsDTO findById(Long id){
-        Optional <NewsEntity> toBeFound = newsRepository.findById(id);
-        if (toBeFound.isEmpty()){
-            throw new IllegalArgumentException("No news for id " + id);
-        }
-        return newsMapper.entity2DTO(toBeFound.get());
+        NewsEntity toBeFound = newsRepository.findById(id).orElseThrow();
+        return newsMapper.entity2DTO(toBeFound);
     }
 
 }
