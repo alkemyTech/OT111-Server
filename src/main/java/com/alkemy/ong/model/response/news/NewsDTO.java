@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.response.news;
 
-import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import lombok.Builder;
 import lombok.Data;
