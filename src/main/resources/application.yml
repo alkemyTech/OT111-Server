@@ -6,6 +6,15 @@ spring:
     jpa:
         show-sql: true
 
+
+amazonProperties:
+    endpointUrl: https://s3.us-east-1.amazonaws.com
+    aws.accessKey: xxxxx
+    aws.secretKey: xxxxx
+    aws.region: us-east-1
+    aws.bucketName: xxxxx
+
+
 sendgrid:
     welcome-template: d-6d059c03a1dd4b2aa22e9ae894138844
 
@@ -17,3 +26,4 @@ springdoc:
     swagger-ui:
         path: /api/docs/swagger-ui.html # path para consultar swagger-ui
         enabled: true #para produccion conviene desactivar swagger-ui (o trabajarla en otro puerto)
+
