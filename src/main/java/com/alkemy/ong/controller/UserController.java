@@ -1,7 +1,14 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +26,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Get all users.", security = @SecurityRequirement(name = "bearerAuth"),description = "Get full list of users in database, only accesible by an Administrator")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "All users retrieved",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class))}),//UserDTO or UserEntity??
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Access Denied, authorization needed",
+                    content = @Content)})
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 }
 
-//TODO Pull Request para agregar Path /users en SecurityConfiguration para que lo pueda solo trabajar un admin
+
 
