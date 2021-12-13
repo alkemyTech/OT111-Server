@@ -24,11 +24,12 @@ public class AuthenticationMapper {
         return newUser;
     }
 
-    public RegisterResponse entity2RegisterResponseDTO(UserEntity userEntity) {
+    public RegisterResponse entity2RegisterResponseDTO(UserEntity userEntity, String jwt) {
         return RegisterResponse.builder()
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
+                .jwt(jwt)
                 .build();
     }
 
