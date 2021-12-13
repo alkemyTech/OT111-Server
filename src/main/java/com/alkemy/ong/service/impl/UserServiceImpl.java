@@ -29,13 +29,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean deleteUser(Long id) {
-        try {
-            Optional<UserEntity> optionalUser = userRepository.findById(id);
-            UserEntity user = optionalUser.get();
-            user.setDeleted(true);
-            return true;
-        } catch(Exception e) {
-            return false;
-        }
+
+        var foundUser = userRepository.findById(id).orElseThrow();
+        userRepository.delete(foundUser);
     }
 }
