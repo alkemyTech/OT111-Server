@@ -1,7 +1,6 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -10,10 +9,12 @@ import javax.validation.constraints.NotEmpty;
 import java.time.OffsetDateTime;
 import com.alkemy.ong.model.entity.CategoryEntity;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "news") //Both singular and plural of "news" word it's the same.
 @Entity
+@Builder
 @SQLDelete(sql = "UPDATE news SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class NewsEntity {
@@ -34,7 +35,8 @@ public class NewsEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryId;
 
-    private OffsetDateTime createdDate;
+    @Builder.Default
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private OffsetDateTime modifiedDate;
 

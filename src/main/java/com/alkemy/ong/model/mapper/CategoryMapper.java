@@ -10,6 +10,7 @@ public class CategoryMapper {
 
     public CategoryEntity categoryDTO2Entity(CategoryRequestDTO dto) {
         CategoryEntity ent = new CategoryEntity();
+        ent.setId(dto.getId());
         ent.setName(dto.getName());
         ent.setDescription(dto.getDescription());
         ent.setImage(dto.getImage());

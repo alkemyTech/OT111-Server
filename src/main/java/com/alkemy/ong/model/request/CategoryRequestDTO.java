@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class CategoryRequestDTO {
 
+    private Long id;
+
     @NotEmpty(message = "El nombre es obligatorio")
     private String name;
 
