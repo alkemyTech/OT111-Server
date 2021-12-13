@@ -14,9 +14,9 @@ import java.time.OffsetDateTime;
 @Table(name = "testimonial")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE organization SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE testimonial SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-public class Testimonial {
+public class TestimonialEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
