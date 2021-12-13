@@ -3,6 +3,7 @@ package com.alkemy.ong.model.response.user;
 import com.alkemy.ong.model.response.role.RoleDTO;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -28,7 +29,7 @@ public class UserDTO {
 
     private String createdBy;
 
-    private String modifiedDate;
+    private OffsetDateTime modifiedDate;
 
     private String modifiedBy;
 

@@ -2,17 +2,26 @@ package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
+import com.alkemy.ong.model.entity.UserEntity;
+import com.alkemy.ong.model.mapper.RoleMapper;
+import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
+import com.alkemy.ong.model.response.security.DecodedToken;
 import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -23,6 +32,8 @@ public class UserAuthController {
 
     @Autowired
     private UserAuthService userAuthServ;
+
+
 
     // Signup
     @PostMapping("/register")
@@ -37,8 +48,9 @@ public class UserAuthController {
         return ResponseEntity.ok(userDetails);
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<UserDTO> userData(){
-        return null;
+    @GetMapping(value = "/me")
+    public ResponseEntity<UserDTO> all(@RequestHeader String authorization) throws UnsupportedEncodingException {
+        return ResponseEntity.ok(userAuthServ.meData(authorization));
     }
+
 }
