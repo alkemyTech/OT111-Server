@@ -2,7 +2,9 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.ActivityRequestDTO;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
+import com.alkemy.ong.model.response.ActivityResponseDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
+import com.alkemy.ong.service.ActivityService;
 import com.alkemy.ong.service.sendgrid.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +21,8 @@ public class ActivityController {
     ActivityController activityController;
 
     @GetMapping("/activities")
-    public String createActivity(@RequestBody ActivityRequestDTO request) {
-        ActivityRequestDTO response = activityController.createActivity(request);
+    public ResponseEntity<ActivityResponseDTO> createActivity(@RequestBody ActivityRequestDTO request) {
+        ActivityResponseDTO response = ActivityService.createActivity(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
