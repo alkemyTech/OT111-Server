@@ -9,10 +9,10 @@ spring:
 #Reemplazar las: Acces, Secret y Bucket con "xxxxxx"
 amazonProperties:
     endpointUrl: https://s3.us-east-1.amazonaws.com
-    aws.accessKey: xxxxxx
-    aws.secretKey: xxxxxx
+    aws.accessKey: AKIAS2JWQJCDCPKXHSSX
+    aws.secretKey: 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
     aws.region: us-east-1
-    aws.bucketName: xxxxxx
+    aws.bucketName: cohorte-noviembre-c218def1
 
 
 sendgrid:
