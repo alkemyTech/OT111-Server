@@ -1,8 +1,8 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.response.user.UserDTO;
-import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -27,10 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean deleteUser(Long id) {
+    public void deleteUser(Long id) {
         var foundUser = userRepository.findById(id).orElseThrow();
         userRepository.delete(foundUser);
-        return true;
     }
 
 }
