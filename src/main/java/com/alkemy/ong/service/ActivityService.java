@@ -7,5 +7,5 @@ import com.alkemy.ong.model.response.ActivityResponseDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 
 public interface ActivityService {
-    ActivityResponseDTO createActivity(ActivityRequestDTO request);
+    static ActivityResponseDTO createActivity(ActivityRequestDTO request);
 }
