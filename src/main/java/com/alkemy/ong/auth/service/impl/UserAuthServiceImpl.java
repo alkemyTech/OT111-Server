@@ -8,7 +8,6 @@ import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.mapper.RoleMapper;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
-import com.alkemy.ong.model.response.security.DecodedToken;
 import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 @Service
@@ -60,11 +58,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public UserDTO meData(String authorization) throws UnsupportedEncodingException {
-
-        DecodedToken response = DecodedToken.getDecoded(authorization);
-
-        String userMail = String.valueOf(response.sub);
+    public UserDTO meData(String userMail){
 
         Optional<UserEntity> user = userRepository.findByEmail(userMail);
 

@@ -10,10 +10,11 @@ import com.alkemy.ong.model.response.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,9 +39,11 @@ public class UserAuthController {
         return ResponseEntity.ok(userDetails);
     }
 
-    @GetMapping(value = "/me")
-    public ResponseEntity<UserDTO> all(@RequestHeader String authorization) throws UnsupportedEncodingException {
-        return ResponseEntity.ok(userAuthServ.meData(authorization));
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> meData(@CurrentSecurityContext(expression = "authentication")
+                                        Authentication authentication) {
+        return ResponseEntity.ok(userAuthServ.meData(authentication.getName()));
+
     }
 
 }
