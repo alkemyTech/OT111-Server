@@ -30,6 +30,6 @@ public class ContactEntity {
 
     private String message;
 
-    private boolean deletedAt;
+    private boolean deleted;
 
 }

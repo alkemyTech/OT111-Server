@@ -1,4 +1,4 @@
-create table contacts (
+create table contact (
 --  Fields
     id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(100) NOT NULL,
