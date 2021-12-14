@@ -1,11 +1,14 @@
 # OT111-Server
+
 ONG-Java
 
-
 ## Datos de usuarios cargados:
+
 Password para todos los usuarios administradores y usuarios regulares:
 `"password"`
+
 ##### Lista usuarios administradores:
+
     admin1@mail.com
     admin2@mail.com
     admin3@mail.com
@@ -18,6 +21,7 @@ Password para todos los usuarios administradores y usuarios regulares:
     admin10@mail.com
 
 ##### Lista usuarios regulares:
+
     user1@mail.com
     user2@mail.com
     user3@mail.com
@@ -29,4 +33,12 @@ Password para todos los usuarios administradores y usuarios regulares:
     user9@mail.com
     user10@mail.com
 
+### OpenApi 3.0 - Swagger documentation:
 
+#### La descripcion de OpenAPI esta disponible en la ruta:
+
+[http://localhost:8080/api/docs](http://localhost:8080/api/docs)
+
+### La documentacion de la API con Swagger-UI esta disponible en la ruta:
+
+[http://localhost:8080/api/docs/swagger-ui.html](http://localhost:8080/api/docs/swagger-ui/)
