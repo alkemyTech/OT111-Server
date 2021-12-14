@@ -6,7 +6,7 @@ create table contact (
     email VARCHAR(100) NOT NULL,
     message VARCHAR(100) NOT NULL,
 --  SoftDelete
-    deleted_at bool NOT NULL DEFAULT FALSE,
+    deleted bool NOT NULL DEFAULT FALSE,
 
     CONSTRAINT contact_pk PRIMARY KEY (id)
 );
