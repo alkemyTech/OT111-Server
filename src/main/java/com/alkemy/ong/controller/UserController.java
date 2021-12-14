@@ -1,9 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

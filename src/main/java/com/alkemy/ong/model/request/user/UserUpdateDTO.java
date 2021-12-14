@@ -1,32 +1,30 @@
 package com.alkemy.ong.model.request.user;
 
-import com.alkemy.ong.model.response.role.RoleDTO;
 import lombok.Builder;
 import lombok.Data;
-
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Builder
 @Data
 public class UserUpdateDTO {
 
-
-    private Long id; //Check if needed.
-
+    @NotEmpty
     private String firstName;
 
+    @NotEmpty
     private String lastName;
 
+    @NotEmpty
     private String password;
 
+    @NotEmpty
     private String email;
 
+    @NotEmpty
     private String photo;
 
-    private List<RoleDTO> roles;
-
-    private String modifiedDate;
-
-    private String modifiedBy;
+    @NotEmpty
+    private List<Integer> roles;
 
 }
