@@ -1,14 +1,10 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.UserEntity;
+import com.alkemy.ong.model.request.user.UserUpdateDTO;
 import com.alkemy.ong.model.response.user.UserDTO;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +29,24 @@ public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
 
     @Override
     public UserEntity dto2Entity(UserDTO dto) {
+        return null;
+    }
+
+    public UserUpdateDTO entityUpdate2DTO(UserEntity entity) {
+        if (entity == null) return null;
+        return UserUpdateDTO.builder()
+                .id(entity.getId())
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .password(entity.getPassword())
+                .email(entity.getEmail())
+                .photo(entity.getPhoto())
+                .roles(roleMapper.entity2DTO(entity.getRoles()))
+                .build();
+
+    }
+
+    public UserEntity updateDTO2Entity(UserUpdateDTO userUpdateDTO) {
         return null;
     }
 }
