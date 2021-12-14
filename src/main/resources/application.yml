@@ -6,13 +6,13 @@ spring:
     jpa:
         show-sql: true
 
-
+#Reemplazar las: Acces, Secret y Bucket con "xxxxxx"
 amazonProperties:
     endpointUrl: https://s3.us-east-1.amazonaws.com
-    aws.accessKey: xxxxx
-    aws.secretKey: xxxxx
+    aws.accessKey: AKIAS2JWQJCDCPKXHSSX
+    aws.secretKey: 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
     aws.region: us-east-1
-    aws.bucketName: xxxxx
+    aws.bucketName: cohorte-noviembre-c218def1
 
 
 sendgrid:

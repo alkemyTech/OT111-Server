@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/test/user").hasRole("USER")
                 .antMatchers("/test/admin").hasRole("ADMIN")
                 .antMatchers("/test/user-admin").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/storage/*").hasRole("ADMIN")
+                .antMatchers("/storage/*").permitAll()
 
                 // TODO: Aca pueden ir agregando sus Endpoints
                 // TODO: .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
