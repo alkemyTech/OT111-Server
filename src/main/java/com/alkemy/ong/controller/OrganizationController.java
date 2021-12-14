@@ -16,6 +16,7 @@ class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
 
+
     @GetMapping("/{id}/public")
     public ResponseEntity<OrganizationDTO> getOrganization(@PathVariable Long id) {
         return ResponseEntity.ok(OrganizationDTO.buildPublicData(organizationService.readOrganization(id)));

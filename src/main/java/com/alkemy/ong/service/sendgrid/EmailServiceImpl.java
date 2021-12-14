@@ -3,11 +3,9 @@ package com.alkemy.ong.service.sendgrid;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -20,16 +18,13 @@ import com.sendgrid.helpers.mail.objects.Personalization;
 public class EmailServiceImpl implements  EmailService{
 
     Logger logger = Logger.getLogger(EmailServiceImpl.class.getName());
-
-
     private String sender = System.getenv("SENDER");
 
-    //@Value("${app.sendgrid.templateid}") da error revisar
-    private  String templateId = "d-a73c7ef24259456b91f84ffe1841d230";
+    @Value("${sendgrid.welcome-template}")
+    private  String templateId;
 
     @Autowired
     SendGrid sendGrid;
-
 
     @Override
     public String sendEmail(String email)  {
