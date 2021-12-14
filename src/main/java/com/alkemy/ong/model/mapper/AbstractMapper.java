@@ -25,5 +25,4 @@ public abstract class AbstractMapper<E, D> { //From sonarsource.com: "This chang
     }
 
 
-
 }
