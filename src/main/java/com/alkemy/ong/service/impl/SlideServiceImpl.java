@@ -19,7 +19,7 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public SlideResponseDTO saveSlide(SlideRequestDTO request) {
         SlideEntity newSlide = slideMapper.slideDTO2Entity(request);
-        SlideEntity savedSlide= slideRepository.save(newSlide);
+        SlideEntity savedSlide = slideRepository.save(newSlide);
         return slideMapper.slideEntity2DTO(savedSlide);
     }
 }

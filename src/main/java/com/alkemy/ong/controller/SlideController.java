@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/slides")
 @RequiredArgsConstructor
-@Tag(name= "slides")
+@Tag(name = "slides")
 public class SlideController {
     private final SlideService slideService;
 
@@ -29,7 +29,7 @@ public class SlideController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "slide creado", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = SlideResponseDTO.class))})
     })
-    public ResponseEntity<SlideResponseDTO> createNewSlide(@RequestBody SlideRequestDTO request){
+    public ResponseEntity<SlideResponseDTO> createNewSlide(@RequestBody SlideRequestDTO request) {
         SlideResponseDTO response = slideService.saveSlide(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

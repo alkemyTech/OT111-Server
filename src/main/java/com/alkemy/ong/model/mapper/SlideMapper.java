@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SlideMapper {
 
-    public SlideEntity slideDTO2Entity(SlideRequestDTO dto){
+    public SlideEntity slideDTO2Entity(SlideRequestDTO dto) {
         SlideEntity ent = new SlideEntity();
         ent.setImageUrl(dto.getImageUrl());
         ent.setText(dto.getText());
@@ -17,7 +17,7 @@ public class SlideMapper {
         return ent;
     }
 
-    public SlideResponseDTO slideEntity2DTO(SlideEntity ent){
+    public SlideResponseDTO slideEntity2DTO(SlideEntity ent) {
         SlideResponseDTO dto = new SlideResponseDTO();
         dto.setId(ent.getId());
         dto.setImageUrl(ent.getImageUrl());
@@ -27,7 +27,7 @@ public class SlideMapper {
         return dto;
     }
 
-    public SlideResponseDTO buildToList(SlideEntity entity){
+    public SlideResponseDTO buildToList(SlideEntity entity) {
         return SlideResponseDTO.builder()
                 .imageUrl(entity.getImageUrl())
                 .build();
