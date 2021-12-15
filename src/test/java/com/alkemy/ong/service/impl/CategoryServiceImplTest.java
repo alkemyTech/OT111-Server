@@ -6,6 +6,7 @@ import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -70,6 +71,7 @@ class CategoryServiceImplTest {
     void updateCategory() {
     }
 
+    @DisplayName("GetCategoires - Should Pass")
     @Test
     void getCategories_success() throws Exception {
         when(categoryRepository.findAll()).thenReturn(myCategories);
