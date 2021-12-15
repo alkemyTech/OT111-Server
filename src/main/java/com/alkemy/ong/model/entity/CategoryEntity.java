@@ -42,4 +42,8 @@ public class CategoryEntity {
     private String modifiedBy;
 
     private boolean deleted;
+
+
+    public CategoryEntity(int i, String s, String s1, String s2) {
+    }
 }
