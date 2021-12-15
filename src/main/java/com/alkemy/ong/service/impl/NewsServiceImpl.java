@@ -8,6 +8,8 @@ import com.alkemy.ong.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
@@ -16,9 +18,16 @@ public class NewsServiceImpl implements NewsService {
     private final NewsMapper newsMapper;
 
     @Override
-    public NewsDTO findById(Long id){
+    public NewsDTO findById(Long id) {
         NewsEntity toBeFound = newsRepository.findById(id).orElseThrow();
         return newsMapper.entity2DTO(toBeFound);
     }
+
+    //TODO hacer metodo para get all news
+    @Override
+    public List<NewsDTO> getNews() {
+        return null;
+    }
+
 
 }
