@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.model.response.AWSResponseDTO;
 import com.alkemy.ong.service.AWSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,8 @@ public class AWSBucketController {
     private AWSService awsService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestPart(value = "file")MultipartFile file) {
-        awsService.uploadFile(file);
-        String response = "File " + file.getOriginalFilename() + " uploaded successfully.";
-        return new ResponseEntity<String>(response, HttpStatus.OK);
+    public ResponseEntity<AWSResponseDTO> uploadFile(@RequestPart(value = "file")MultipartFile file) {
+        AWSResponseDTO response = awsService.uploadFile(file);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
