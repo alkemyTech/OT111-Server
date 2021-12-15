@@ -32,4 +32,5 @@ public class UserServiceImpl implements UserService {
         var foundUser = userRepository.findById(id).orElseThrow();
         userRepository.delete(foundUser);
     }
+
 }
