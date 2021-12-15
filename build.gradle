@@ -33,8 +33,14 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	implementation 'com.amazonaws:aws-java-sdk:1.12.126'
+
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.13'
+
+
 }
+
 
 test {
 	useJUnitPlatform()

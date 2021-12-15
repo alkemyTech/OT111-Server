@@ -18,6 +18,7 @@ import java.util.List;
 
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     private RoleRepository roleRepository;
@@ -64,7 +65,12 @@ public class UserServiceImpl implements UserService {
         foundUser.setPhoto(request.getPhoto());
         foundUser.setRoles(roleEntities);
         userRepository.save(foundUser);
+    }
 
+    @Transactional
+    public void deleteUser(Long id) {
+        var foundUser = userRepository.findById(id).orElseThrow();
+        userRepository.delete(foundUser);
     }
 
 }

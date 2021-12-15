@@ -17,28 +17,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@Validated
 @RequestMapping("users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Get all users.", security = @SecurityRequirement(name = "bearerAuth"), description = "Get full list of users in database, only accesible by an Administrator")
+    @GetMapping
+    @Operation(summary = "Lista todos los usuarios.", security = @SecurityRequirement(name = "bearerAuth"), description = "Obtiene la lista completa de usuarios, solo accesible por un Administrador")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200",
-                    description = "All users retrieved",
+                    responseCode = "200", description = "OK",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserDTO.class))}),//UserDTO or UserEntity??
+                            schema = @Schema(implementation = UserDTO.class))}),
             @ApiResponse(
                     responseCode = "403",
-                    description = "Access Denied, authorization needed",
+                    description = "Forbidden",
                     content = @Content)})
-    @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un usuario",
+            description = "Elimina el usuario existente dado el ID pasado como parámetro por url, " +
+                    "y si el usuario a eliminar no existe se lanza un error con código de estado 404. " +
+                    "Solo accesible por un usuario regular")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Usuario eliminado",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
+    })
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 
     @GetMapping("/{id}")
     @Operation(summary = "Lista el detalle de un usuario")
