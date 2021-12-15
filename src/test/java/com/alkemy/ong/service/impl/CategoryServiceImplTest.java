@@ -5,12 +5,13 @@ import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
 
     @InjectMocks
@@ -32,8 +34,8 @@ class CategoryServiceImplTest {
     @Mock
     CategoryService categoryService;
 
-    @Mock
-    CategoryMapper categoryMapper;
+    @Spy
+    CategoryMapper categoryMapper = new CategoryMapper();
 
     CategoryEntity cat1 = new CategoryEntity(1, "Category 1", "Description 1", "Image 1");
     CategoryEntity cat2 = new CategoryEntity(2, "Category 2", "Description 2", "Image 2");
@@ -45,18 +47,21 @@ class CategoryServiceImplTest {
     CategoryResponseDTO cat3Dto = new CategoryResponseDTO(3L, "Category 3", "Description 3", "Image 3");
     List<CategoryResponseDTO> myCategoriesDTO = new ArrayList<>(Arrays.asList(cat1Dto, cat2Dto, cat3Dto));
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        MockitoAnnotations.openMocks(this);
+//    }
 
+    @DisplayName("FindCategoryByID - Should Pass")
     @Test
     void findCategoryById_success() throws Exception {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(cat1));
-        when(categoryMapper.categoryEntity2DTO(any(CategoryEntity.class))).thenReturn(cat1Dto);
+        // Ver como usar el Mapper sin MOCK
+//        when(categoryMapper.categoryEntity2DTO(any(CategoryEntity.class))).thenReturn(cat1Dto);
         CategoryResponseDTO foundCat = categoryServiceImpl.findCategoryById(1L);
         assertEquals("Category 1", foundCat.getName());
         assertEquals("Description 1", foundCat.getDescription());
+        assertEquals("Image 1", foundCat.getImage());
     }
 
     @Test
@@ -77,6 +82,6 @@ class CategoryServiceImplTest {
         when(categoryRepository.findAll()).thenReturn(myCategories);
         when(categoryMapper.buildToList(any(CategoryEntity.class))).thenCallRealMethod();
         List<CategoryResponseDTO> myList = categoryServiceImpl.getCategories();
-        assertEquals(2, myList.size());
+        assertEquals(3, myList.size());
     }
 }
