@@ -41,4 +41,6 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.OK).body(newsDTO);
     }
 
+
+    //TODO add documentation to others endpoints
 }
