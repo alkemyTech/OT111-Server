@@ -6,7 +6,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -25,21 +24,22 @@ public class SlideEntity {
 
     private String text;
 
+    @Column(name = "order_number")
     private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
     //TODO: Create the organization entity to relate the tables (Foreign Key)
     private OrganizationEntity organization;
-    
+
     //Auditory fields
-    private OffsetDateTime created_date;
+    private OffsetDateTime created_date = OffsetDateTime.now();
 
     private String created_by;
 
-    private OffsetDateTime modify_date;
+    private OffsetDateTime modified_date;
 
-    private String modify_by;
+    private String modified_by;
 
     //Soft delete
     private Boolean deleted = Boolean.FALSE;
