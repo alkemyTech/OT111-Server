@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.model.request.user.UserUpdateDTO;
 import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,7 +53,29 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-}
 
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Lista el detalle de un usuario")
+    public ResponseEntity<UserDTO> getUserDetails(@PathVariable Long id){
+        UserDTO userResponse = userService.findUserById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un usuario",
+            description = "Actualiza el usuario existente dado el ID pasado como parámetro por url, " +
+                    "y si el usuario a actualizar no existe se lanza un error con código de estado 404")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Usuario actualizado",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserUpdateDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
+    })
+    public ResponseEntity<Void> updateUser(@RequestBody UserUpdateDTO request, @PathVariable Long id) {
+        userService.updateUser(request, id);
+        return ResponseEntity.ok().build();
+    }
+}
 
 
