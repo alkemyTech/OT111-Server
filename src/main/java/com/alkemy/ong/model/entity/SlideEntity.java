@@ -33,13 +33,13 @@ public class SlideEntity {
     private OrganizationEntity organization;
 
     //Auditory fields
-    private OffsetDateTime created_date = OffsetDateTime.now();
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
-    private String created_by;
+    private String createdBy;
 
-    private OffsetDateTime modified_date;
+    private OffsetDateTime modifiedDate;
 
-    private String modified_by;
+    private String modifiedBy;
 
     //Soft delete
     private Boolean deleted = Boolean.FALSE;

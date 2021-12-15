@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.response;
 
+import com.alkemy.ong.model.dto.OrganizationDTO;
 import com.alkemy.ong.model.entity.OrganizationEntity;
 import lombok.*;
 
@@ -18,5 +19,5 @@ public class SlideResponseDTO {
 
     private Integer order;
 
-    private OrganizationEntity organization;
+    private OrganizationDTO organization;
 }

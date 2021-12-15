@@ -27,10 +27,5 @@ public class SlideMapper {
         return dto;
     }
 
-    public SlideResponseDTO buildToList(SlideEntity entity) {
-        return SlideResponseDTO.builder()
-                .imageUrl(entity.getImageUrl())
-                .build();
 
-    }
 }

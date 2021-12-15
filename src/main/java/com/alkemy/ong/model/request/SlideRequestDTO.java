@@ -16,5 +16,5 @@ public class SlideRequestDTO {
     private String text;
 
     private Integer order;
-    private OrganizationEntity organization;
+    private long organization_id;
 }
