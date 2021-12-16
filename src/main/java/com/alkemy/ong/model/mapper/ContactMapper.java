@@ -30,6 +30,12 @@ public class ContactMapper {
     }
 
     public ContactResponseDTO buildToList(ContactEntity entity) {
-        return ContactResponseDTO.builder().id(entity.getId()).name(entity.getName()).phone(entity.getPhone()).email(entity.getEmail()).message(entity.getMessage()).build();
+        return ContactResponseDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .phone(entity.getPhone())
+                .email(entity.getEmail())
+                .message(entity.getMessage())
+                .build();
     }
 }

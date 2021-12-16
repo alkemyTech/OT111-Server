@@ -7,7 +7,6 @@ import com.alkemy.ong.model.response.ContactResponseDTO;
 import com.alkemy.ong.repository.ContactRepository;
 import com.alkemy.ong.service.ContactService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +16,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ContactServiceImpl implements ContactService {
 
-    @Autowired
-    private ContactRepository contactRepository;
-
-    @Autowired
-    private ContactMapper contactMapper;
+    private final ContactRepository contactRepository;
+    private final ContactMapper contactMapper;
 
     @Override
     public ContactResponseDTO saveContact(ContactRequestDTO request) {
@@ -32,6 +28,8 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<ContactResponseDTO> getContacts() {
-        return contactRepository.findAll().stream().map(contactMapper::buildToList).collect(Collectors.toList());
+        return contactRepository.findAll().stream()
+                .map(contactMapper::buildToList)
+                .collect(Collectors.toList());
     }
 }
