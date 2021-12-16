@@ -31,9 +31,9 @@ public class NewsController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Obtener novedad por ID",
-            description = "Obtiene la novedad por el ID pasado como parámetro por url, " +
-                    "y si no existe se lanza un error con código de estado 404")
+    @Operation(summary = "Actualizar novedad por ID",
+            description = "Se actualiza la novedad por el ID pasado como parámetro por url, " +
+                    "y si la novedad a actualzizar no existe se lanza un error con código de estado 404")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Novedad actualizada",
                     content = {@Content(mediaType = "application/json",
