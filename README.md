@@ -41,4 +41,4 @@ Password para todos los usuarios administradores y usuarios regulares:
 
 ### La documentacion de la API con Swagger-UI esta disponible en la ruta:
 
-[http://localhost:8080/api/docs/swagger-ui.html](http://localhost:8080/api/docs/swagger-ui/)
+[http://localhost:8080/api/docs/swagger-ui.html](http://localhost:8080/api/docs/swagger-ui.html)
