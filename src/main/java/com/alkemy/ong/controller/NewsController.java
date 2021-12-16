@@ -44,4 +44,10 @@ public class NewsController {
         newsService.updateNews(newsDTO, id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> deleteNewsById(@PathVariable Long id) {
+        newsService.deleteNews(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

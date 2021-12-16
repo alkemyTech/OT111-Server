@@ -30,4 +30,10 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.save(foundNews);
     }
 
+    @Override
+    public void deleteNews(Long id) {
+        var foundNews = newsRepository.findById(id).orElseThrow();
+        newsRepository.delete(foundNews);
+    }
+
 }
