@@ -6,13 +6,12 @@ spring:
     jpa:
         show-sql: true
 
-
 amazonProperties:
     endpointUrl: https://s3.us-east-1.amazonaws.com
-    aws.accessKey: xxxxx
-    aws.secretKey: xxxxx
+    aws.accessKey: ${ACCESS_KEY}
+    aws.secretKey: ${SECRET_KEY}
     aws.region: us-east-1
-    aws.bucketName: xxxxx
+    aws.bucketName: ${BUCKET_NAME}
 
 
 sendgrid:
