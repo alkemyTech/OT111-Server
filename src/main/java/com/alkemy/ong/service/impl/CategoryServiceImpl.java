@@ -22,9 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDTO findCategoryById(Long id) {
-        System.out.println(id);
         CategoryEntity foundCategory = categoryRepository.findById(id).orElseThrow();
-        System.out.println(foundCategory);
         return categoryMapper.categoryEntity2DTO(foundCategory);
     }
 
