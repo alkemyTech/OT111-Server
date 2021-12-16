@@ -1,6 +1,8 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
+import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,20 +39,8 @@ class CategoryServiceImplTest {
     @Spy
     CategoryMapper categoryMapper = new CategoryMapper();
 
-
-    CategoryResponseDTO cat1Dto = new CategoryResponseDTO(1L, "Category 1", "Description 1", "Image 1");
-    CategoryResponseDTO cat2Dto = new CategoryResponseDTO(2L, "Category 2", "Description 2", "Image 2");
-    CategoryResponseDTO cat3Dto = new CategoryResponseDTO(3L, "Category 3", "Description 3", "Image 3");
-    List<CategoryResponseDTO> myCategoriesDTO = new ArrayList<>(Arrays.asList(cat1Dto, cat2Dto, cat3Dto));
-
-//    @BeforeEach
-//    void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//    }
-
-    @DisplayName("FindCategoryByID - Should Pass")
     @Test
-    void findCategoryById_success() throws Exception {
+    void findCategoryById_shouldMapEntityToDTO() throws Exception {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(Mocks.newCategory()));
         CategoryResponseDTO foundCat = categoryServiceImpl.findCategoryById(1L);
         assertEquals(Mocks.newCategory().getName(), foundCat.getName());
@@ -59,6 +50,15 @@ class CategoryServiceImplTest {
 
     @Test
     void saveCategory() {
+        CategoryRequestDTO catDTO = new CategoryRequestDTO();
+        when(categoryRepository.save(any(CategoryEntity.class))).thenReturn(Mocks.newCategory());
+        CategoryResponseDTO savedCategory = categoryServiceImpl.saveCategory(catDTO);
+
+        // TODO: Como verifico que mappea mi DTO a Entidad, antes del SAVE?
+
+        assertEquals(Mocks.newCategory().getName(), savedCategory.getName());
+        assertEquals(Mocks.newCategory().getDescription(), savedCategory.getDescription());
+        assertEquals(Mocks.newCategory().getImage(), savedCategory.getImage());
     }
 
     @Test
@@ -68,11 +68,17 @@ class CategoryServiceImplTest {
 
     @Test
     void updateCategory() {
+        CategoryRequestDTO catDTO = new CategoryRequestDTO();
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(Mocks.newCategory()));
+        categoryServiceImpl.updateCategory(catDTO, 1L);
+
+        // TODO: Como pasar verificar que el save es distinto al find? En caso de haber realizado un cambio
+
+
     }
 
-    @DisplayName("GetCategoires - Should Pass")
     @Test
-    void getCategories_success() throws Exception {
+    void getCategories_shouldMapEntityListToDTOList() throws Exception {
         when(categoryRepository.findAll()).thenReturn(List.of(Mocks.newCategory()));
         List<CategoryResponseDTO> myList = categoryServiceImpl.getCategories();
         assertEquals(Mocks.newCategory().getName(), myList.get(0).getName());
