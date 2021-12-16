@@ -2,6 +2,7 @@ package com.alkemy.ong.model.request.user;
 
 import lombok.Builder;
 import lombok.Data;
+
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -14,9 +15,6 @@ public class UserUpdateDTO {
 
     @NotEmpty
     private String lastName;
-
-    @NotEmpty
-    private String password;
 
     @NotEmpty
     private String email;
