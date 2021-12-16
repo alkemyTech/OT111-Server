@@ -18,7 +18,6 @@ public class NewsMapper extends AbstractMapper<NewsEntity, NewsDTO> {
         if (entity == null) return null;
 
         return NewsDTO.builder()
-                .id(entity.getId())
                 .name(entity.getName())
                 .content(entity.getContent())
                 .image(entity.getImage())

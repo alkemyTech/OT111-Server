@@ -24,7 +24,6 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateNews(NewsDTO newsDTO, Long id) {
         NewsEntity foundNews = newsRepository.findById(id).orElseThrow();
-        foundNews.setId(newsDTO.getId());
         foundNews.setName(newsDTO.getName());
         foundNews.setContent(newsDTO.getContent());
         foundNews.setImage(newsDTO.getImage());
