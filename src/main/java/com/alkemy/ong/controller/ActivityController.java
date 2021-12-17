@@ -20,8 +20,6 @@ public class ActivityController {
 
     @PostMapping("/activities")
     public ResponseEntity<ActivityResponseDTO> createActivity(@RequestBody ActivityRequestDTO request) {
-        System.out.println("request");
-        System.out.println(request);
         ActivityResponseDTO response = activityService.createActivity(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
