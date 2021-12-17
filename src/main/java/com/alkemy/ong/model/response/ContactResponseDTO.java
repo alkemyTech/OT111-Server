@@ -7,14 +7,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryResponseDTO {
+public class ContactResponseDTO {
 
     private Long id;
-
     private String name;
-
-    private String description;
-
-    private String image;
+    private String phone;
+    private String email;
+    private String message;
 }
-

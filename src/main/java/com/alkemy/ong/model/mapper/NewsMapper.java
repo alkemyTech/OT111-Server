@@ -6,11 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @NoArgsConstructor
 public class NewsMapper extends AbstractMapper<NewsEntity, NewsDTO> {
-
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -20,7 +18,6 @@ public class NewsMapper extends AbstractMapper<NewsEntity, NewsDTO> {
         if (entity == null) return null;
 
         return NewsDTO.builder()
-                .id(entity.getId())
                 .name(entity.getName())
                 .content(entity.getContent())
                 .image(entity.getImage())

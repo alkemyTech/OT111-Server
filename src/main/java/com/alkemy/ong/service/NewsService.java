@@ -9,4 +9,8 @@ public interface NewsService {
     NewsDTO findById(Long id);
 
     CustomPage<NewsDTO> getNewsPageable(Pageable pageable);
+    
+    void updateNews(NewsDTO newsDTO, Long id);
+    
+
 }

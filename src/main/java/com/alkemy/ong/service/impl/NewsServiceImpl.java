@@ -30,4 +30,12 @@ public class NewsServiceImpl implements NewsService {
     }
 
 
+    public void updateNews(NewsDTO newsDTO, Long id) {
+        NewsEntity foundNews = newsRepository.findById(id).orElseThrow();
+        foundNews.setName(newsDTO.getName());
+        foundNews.setContent(newsDTO.getContent());
+        foundNews.setImage(newsDTO.getImage());
+        newsRepository.save(foundNews);
+    }
+
 }
