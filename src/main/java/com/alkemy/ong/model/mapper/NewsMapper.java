@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @NoArgsConstructor
-public class NewsMapper extends AbstractMapper <NewsEntity, NewsDTO> {
+public class NewsMapper extends AbstractMapper<NewsEntity, NewsDTO> {
 
 
     @Autowired
@@ -29,6 +29,8 @@ public class NewsMapper extends AbstractMapper <NewsEntity, NewsDTO> {
     }
 
     @Override
-    public NewsEntity dto2Entity(NewsDTO dto) {return null;}
+    public NewsEntity dto2Entity(NewsDTO dto) {
+        return null;
+    }
 
 }

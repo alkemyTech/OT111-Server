@@ -3,12 +3,12 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.model.entity.NewsEntity;
 import com.alkemy.ong.model.mapper.NewsMapper;
 import com.alkemy.ong.model.response.news.NewsDTO;
+import com.alkemy.ong.model.response.pagination.CustomPage;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +23,10 @@ public class NewsServiceImpl implements NewsService {
         return newsMapper.entity2DTO(toBeFound);
     }
 
-    //TODO hacer metodo para get all news
     @Override
-    public List<NewsDTO> getNews() {
-        return null;
+    public CustomPage<NewsDTO> getNewsPageable(Pageable pageRequest) {
+        return new CustomPage<>(newsRepository.findAll(pageRequest)
+                .map(newsMapper::entity2DTO));
     }
 
 
