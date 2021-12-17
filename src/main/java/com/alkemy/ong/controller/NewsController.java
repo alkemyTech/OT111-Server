@@ -31,6 +31,7 @@ public class NewsController {
     }
 
     @PutMapping("/{id}")
+
     @Operation(summary = "Actualizar novedad por ID",
             description = "Se actualiza la novedad por el ID pasado como parámetro por url, " +
                     "y si la novedad a actualzizar no existe se lanza un error con código de estado 404")
@@ -50,4 +51,5 @@ public class NewsController {
         newsService.deleteNews(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }
