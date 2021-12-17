@@ -2,6 +2,7 @@ package com.alkemy.ong.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -13,11 +14,11 @@ import java.util.Collection;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor //Added annotation while working on OT111-35
+@NoArgsConstructor
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Builder //Added annotation while working on OT111-35
+@Builder
 @Entity
 public class UserEntity {
 
@@ -58,6 +59,7 @@ public class UserEntity {
 
     private String createdBy;
 
+    @UpdateTimestamp
     private OffsetDateTime modifiedDate;
 
     private String modifiedBy;
