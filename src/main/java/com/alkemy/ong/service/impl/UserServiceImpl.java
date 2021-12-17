@@ -1,9 +1,9 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.model.entity.RoleEntity;
+import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.response.user.UserDTO;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
@@ -51,10 +51,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void updateUser(UserUpdateDTO request, Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow();
-        List <Integer> roleId = request.getRoles();
-        List <RoleEntity> roleEntities = new ArrayList<>();
+        List<Integer> roleId = request.getRoles();
+        List<RoleEntity> roleEntities = new ArrayList<>();
 
-        for (Integer roleIntegerId: roleId){
+        for (Integer roleIntegerId : roleId) {
             roleEntities.add(roleRepository.getById(roleIntegerId));
         }
 

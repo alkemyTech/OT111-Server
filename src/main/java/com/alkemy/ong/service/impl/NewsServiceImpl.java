@@ -16,9 +16,18 @@ public class NewsServiceImpl implements NewsService {
     private final NewsMapper newsMapper;
 
     @Override
-    public NewsDTO findById(Long id){
+    public NewsDTO findById(Long id) {
         NewsEntity toBeFound = newsRepository.findById(id).orElseThrow();
         return newsMapper.entity2DTO(toBeFound);
+    }
+
+    @Override
+    public void updateNews(NewsDTO newsDTO, Long id) {
+        NewsEntity foundNews = newsRepository.findById(id).orElseThrow();
+        foundNews.setName(newsDTO.getName());
+        foundNews.setContent(newsDTO.getContent());
+        foundNews.setImage(newsDTO.getImage());
+        newsRepository.save(foundNews);
     }
 
 }

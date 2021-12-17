@@ -36,16 +36,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
-
                 // TODO: Aca pueden ir agregando sus Endpoints
                 // TODO: .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
                 .antMatchers("/users").hasRole("ADMIN")
                 .antMatchers("/storage/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole("ADMIN")    
+                .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/{id}").hasRole("ADMIN")//Creo que no esta en uso. Ver si esta en alguna tarea.
                 .antMatchers(HttpMethod.DELETE, "/users/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/news").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/categories").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/categories").hasRole("ADMIN")
