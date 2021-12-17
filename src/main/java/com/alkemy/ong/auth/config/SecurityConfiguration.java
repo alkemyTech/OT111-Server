@@ -42,10 +42,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users").hasRole("ADMIN")
                 .antMatchers("/storage/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole("ADMIN")    
+                .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/{id}").hasRole("ADMIN")//Creo que no esta en uso. Ver si esta en alguna tarea.
                 .antMatchers(HttpMethod.DELETE, "/users/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/news").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/news").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/categories").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/categories").hasRole("ADMIN")
