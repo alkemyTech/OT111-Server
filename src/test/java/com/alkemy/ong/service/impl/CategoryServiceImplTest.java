@@ -7,7 +7,6 @@ import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import com.alkemy.ong.utils.Mocks;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,8 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +38,8 @@ class CategoryServiceImplTest {
 
     @Test
     void findCategoryById_shouldMapEntityToDTO() throws Exception {
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(Mocks.newCategory()));
-        CategoryResponseDTO foundCat = categoryServiceImpl.findCategoryById(1L);
+        when(categoryRepository.findById(999L)).thenReturn(Optional.of(Mocks.newCategory()));
+        CategoryResponseDTO foundCat = categoryServiceImpl.findCategoryById(999L);
         assertEquals(Mocks.newCategory().getName(), foundCat.getName());
         assertEquals(Mocks.newCategory().getDescription(), foundCat.getDescription());
         assertEquals(Mocks.newCategory().getImage(), foundCat.getImage());
@@ -52,9 +49,11 @@ class CategoryServiceImplTest {
     void saveCategory() {
         CategoryRequestDTO catDTO = new CategoryRequestDTO();
         when(categoryRepository.save(any(CategoryEntity.class))).thenReturn(Mocks.newCategory());
+
         CategoryResponseDTO savedCategory = categoryServiceImpl.saveCategory(catDTO);
 
-        // TODO: Como verifico que mappea mi DTO a Entidad, antes del SAVE?
+        // TODO: Como verifico que mappea mi DTO de Entrada a Entidad a ser saved, antes del SAVE?
+        // TODO: Podriamos crear un newCategoryDTO() dentro de MOCKS?
 
         assertEquals(Mocks.newCategory().getName(), savedCategory.getName());
         assertEquals(Mocks.newCategory().getDescription(), savedCategory.getDescription());
@@ -68,12 +67,11 @@ class CategoryServiceImplTest {
 
     @Test
     void updateCategory() {
-        CategoryRequestDTO catDTO = new CategoryRequestDTO();
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(Mocks.newCategory()));
-        categoryServiceImpl.updateCategory(catDTO, 1L);
+        CategoryRequestDTO catReqDTO = new CategoryRequestDTO();
+        when(categoryRepository.findById(999L)).thenReturn(Optional.of(Mocks.newCategory()));
+        categoryServiceImpl.updateCategory(catReqDTO, 999L);
 
-        // TODO: Como pasar verificar que el save es distinto al find? En caso de haber realizado un cambio
-
+        // TODO: Como pasar verificar que el save es distinto al find (una vez updated)? En caso de haber realizado un cambio
 
     }
 

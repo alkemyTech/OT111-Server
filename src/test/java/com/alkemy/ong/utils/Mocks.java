@@ -7,10 +7,10 @@ public class Mocks {
 
     public static CategoryEntity newCategory() {
         return CategoryEntity.builder()
-                .id(1L)
-                .name("Category 1")
-                .description("Description 1")
-                .image("Image 1")
+                .id(999L)
+                .name("Mock Category")
+                .description("Mock Description")
+                .image("Mock Image")
                 .build();
     }
 
