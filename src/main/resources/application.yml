@@ -2,16 +2,17 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/ot111_ong
         username: postgres
-        password: postgres
+        password: postgresql
     jpa:
         show-sql: true
 
+
 amazonProperties:
     endpointUrl: https://s3.us-east-1.amazonaws.com
-    aws.accessKey: ${ACCESS_KEY}
-    aws.secretKey: ${SECRET_KEY}
+    aws.accessKey: xxxxx
+    aws.secretKey: xxxxx
     aws.region: us-east-1
-    aws.bucketName: ${BUCKET_NAME}
+    aws.bucketName: xxxxx
 
 
 sendgrid:
