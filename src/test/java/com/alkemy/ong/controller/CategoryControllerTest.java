@@ -73,8 +73,42 @@ class CategoryControllerTest {
         result.andExpect(jsonPath("$.name").value("Mock Category"));
     }
 
-    // PUT notfound ID de PATH y en caso correcto: EXISTS cada atributo
+    //TODO: Me gustaria crear una Category la cual modificar
+    @Test
+    void updateCategory_statusOk() throws Exception {
+        // PUT notfound ID de PATH y en caso correcto: EXISTS cada atributo
+        // When
+        var result = mockMvc
+                .perform(
+                        put("/categories/17")
+                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(categoryMapper.categoryEntity2DTO(Mocks.updatedCategory())))
+                );
+        // Then
+        result.andExpect(status().isOk());
+        var toVerify = mockMvc.perform(
+                get("/categories/17")
+                        .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
+        );
+        toVerify.andExpect(jsonPath("$.name").value("Updated Category"));
+    }
 
-    // DELETE hacer un GET y NOT FOUND (optional empty)
-
+    @Test
+    void deleteCategoryById_statusNotFound() throws Exception {
+        // DELETE hacer un GET y NOT FOUND (optional empty)
+        var result = mockMvc
+                .perform(
+                        delete("/categories/17")
+                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
+                );
+        result.andExpect(status().isNoContent());
+        var toVerify = mockMvc.perform(
+                get("/categories/17")
+                        .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
+        );
+//        toVerify.andExpect(status().isOk());
+        toVerify.andExpect(status().isNotFound());
+    }
 }

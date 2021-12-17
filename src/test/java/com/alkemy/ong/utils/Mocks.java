@@ -14,5 +14,14 @@ public class Mocks {
                 .build();
     }
 
+    public static CategoryEntity updatedCategory() {
+        return CategoryEntity.builder()
+                .id(999L)
+                .name("Updated Category")
+                .description("Updated Description")
+                .image("Updated Image")
+                .build();
+    }
+
 
 }
