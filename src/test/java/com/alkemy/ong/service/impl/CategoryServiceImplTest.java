@@ -36,9 +36,6 @@ class CategoryServiceImplTest {
     CategoryService categoryService;
 
     @Spy
-    ApiExceptionHandler apiExceptionHandler = new ApiExceptionHandler();
-
-    @Spy
     CategoryMapper categoryMapper = new CategoryMapper();
 
     @Test
