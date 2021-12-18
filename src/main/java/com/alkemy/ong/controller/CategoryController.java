@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
+import com.alkemy.ong.model.response.pagination.CustomPage;
 import com.alkemy.ong.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,11 +11,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
@@ -40,9 +49,18 @@ public class CategoryController {
     }
 
     @GetMapping
-    @Operation(summary = "Lista todas las categorías")
-    public ResponseEntity<List<CategoryResponseDTO>> getCategories() {
-        var response = categoryService.getCategories();
+    @Operation(summary = "Lista todas las categorías",
+            description = "Obtiene todas las categorías, con un tamaño por defecto de pagina de 10 elementos, " +
+                    "ademas retorna el numero de pagina, cantidad de elementos en la pagina, cantidad de elementos total y " +
+                    "cantidad total de paginas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomPage.class))})})
+    public ResponseEntity<CustomPage<CategoryResponseDTO>> getCategoriesPage(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                                                             @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        Pageable pageRequest = PageRequest.of(page, size);
+        var response = categoryService.getCategoriesPageable(pageRequest);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

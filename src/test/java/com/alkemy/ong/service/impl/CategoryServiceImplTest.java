@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.exception.ApiExceptionHandler;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
@@ -15,11 +16,12 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
@@ -32,6 +34,9 @@ class CategoryServiceImplTest {
 
     @Mock
     CategoryService categoryService;
+
+    @Spy
+    ApiExceptionHandler apiExceptionHandler = new ApiExceptionHandler();
 
     @Spy
     CategoryMapper categoryMapper = new CategoryMapper();
@@ -63,6 +68,10 @@ class CategoryServiceImplTest {
     @Test
     void deleteCategory() {
         // Verify que repo fue llamado.
+        CategoryEntity toDelete = Mocks.newCategory();
+        when(categoryRepository.findById(999L)).thenReturn(Optional.of(toDelete));
+        categoryServiceImpl.deleteCategory(999L);
+        verify(categoryRepository, times(1)).delete(toDelete);
     }
 
     @Test

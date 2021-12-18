@@ -1,16 +1,23 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.mapper.CategoryMapper;
+import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.utils.Mocks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,11 +30,15 @@ class CategoryControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
+    @MockBean
+    private CategoryRepository categoryRepository;
+
     @Autowired
     private CategoryMapper categoryMapper;
 
     @Autowired
     private ObjectMapper objectMapper;
+
 
     //TODO: Me gustaria agregar un Query para INSERT una category y tomar un valor de este ultimo item.
     @Test
@@ -56,6 +67,19 @@ class CategoryControllerTest {
     }
 
     @Test
+    void getCategoryDetails_noSuchElementException() throws Exception {
+//        Mockito.when(categoryRepository.findById(17L)).thenThrow(new NoSuchElementException());
+        var result = mockMvc
+                .perform(
+                        get("/categories/17000")
+                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
+                );
+//        result.andExpect(status().isNotFound());
+        result.andExpect(jsonPath("$.message").value("No value presentttt"));
+        result.andExpect(status().isOk());
+    }
+
+    @Test
     void createNewCategory_statusOK() throws Exception {
         // Category POST , sin nombre = 40x
         // When
@@ -73,7 +97,7 @@ class CategoryControllerTest {
         result.andExpect(jsonPath("$.name").value("Mock Category"));
     }
 
-    //TODO: Me gustaria crear una Category la cual modificar
+    //TODO: Me gustaria crear una Category la cual modificar por ID (Query)
     @Test
     void updateCategory_statusOk() throws Exception {
         // PUT notfound ID de PATH y en caso correcto: EXISTS cada atributo
@@ -95,6 +119,7 @@ class CategoryControllerTest {
         toVerify.andExpect(jsonPath("$.name").value("Updated Category"));
     }
 
+    //TODO: Me gustaria crear una, para luego eliminarla por ID
     @Test
     void deleteCategoryById_statusNotFound() throws Exception {
         // DELETE hacer un GET y NOT FOUND (optional empty)
