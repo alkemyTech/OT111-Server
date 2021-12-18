@@ -1,5 +1,7 @@
 package com.alkemy.ong.model.mapper;
 
+import com.alkemy.ong.model.dto.OrganizationDTO;
+import com.alkemy.ong.model.entity.OrganizationEntity;
 import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.model.request.SlideRequestDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
@@ -8,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class SlideMapper {
 
-    public SlideEntity slideDTO2Entity(SlideRequestDTO dto) {
+    public SlideEntity slideDTO2Entity(SlideRequestDTO dto, OrganizationEntity org, String awsImage) {
         SlideEntity ent = new SlideEntity();
-        ent.setImageUrl(dto.getImageUrl());
+        ent.setImageUrl(awsImage);
         ent.setText(dto.getText());
         ent.setOrder(dto.getOrder());
-        ent.setOrganization(dto.getOrganization());
+        ent.setOrganization(org);
         return ent;
     }
 
@@ -23,7 +25,15 @@ public class SlideMapper {
         dto.setImageUrl(ent.getImageUrl());
         dto.setText(ent.getText());
         dto.setOrder(ent.getOrder());
-        dto.setOrganization(ent.getOrganization());
+        dto.setOrganization(OrganizationDTO.builder()
+                        .name(ent.getOrganization().getName())
+                        .image(ent.getOrganization().getImage())
+                        .address(ent.getOrganization().getAddress())
+                        .phone(ent.getOrganization().getPhone())
+                        .email(ent.getOrganization().getEmail())
+                        .aboutUsText(ent.getOrganization().getAboutUsText())
+                        .welcomeText(ent.getOrganization().getWelcomeText())
+                .build());
         return dto;
     }
 

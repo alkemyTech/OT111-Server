@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.Base64;
 
-public class imageUtils {
+public class ImageUtilsImpl implements ImageUtilsService{
 
 
     private static String encodeImage(String imagePath, String savePath) throws Exception{
