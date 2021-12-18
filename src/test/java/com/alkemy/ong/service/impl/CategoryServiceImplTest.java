@@ -1,6 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.exception.ApiExceptionHandler;
 import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
@@ -16,7 +15,6 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,12 +71,10 @@ class CategoryServiceImplTest {
 
     @Test
     void updateCategory() {
-        CategoryRequestDTO catReqDTO = new CategoryRequestDTO();
         when(categoryRepository.findById(999L)).thenReturn(Optional.of(Mocks.newCategory()));
-        categoryServiceImpl.updateCategory(catReqDTO, 999L);
-
-        // TODO: Como pasar verificar que el save es distinto al find (una vez updated)? En caso de haber realizado un cambio
-
+        categoryServiceImpl.updateCategory(Mocks.newCategoryRequestDTO(), 999L);
+        // Verify los Setter?
+        verify(categoryRepository, times(1)).save(any(CategoryEntity.class));
     }
 
     @Test

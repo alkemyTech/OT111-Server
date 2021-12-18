@@ -2,6 +2,7 @@ package com.alkemy.ong.utils;
 
 
 import com.alkemy.ong.model.entity.CategoryEntity;
+import com.alkemy.ong.model.request.CategoryRequestDTO;
 
 public class Mocks {
 
@@ -21,6 +22,14 @@ public class Mocks {
                 .description("Updated Description")
                 .image("Updated Image")
                 .build();
+    }
+
+    public static CategoryRequestDTO newCategoryRequestDTO() {
+        CategoryRequestDTO req = new CategoryRequestDTO();
+        req.setName("Request");
+        req.setName("Request");
+        req.setName("Request");
+        return req;
     }
 
 
