@@ -1,8 +1,9 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.request.ActivityUpdateRequestDTO;
+import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
 
 public interface ActivityService {
 
-    void updateActivity(ActivityUpdateRequestDTO request, Long id, String userName);
+    ActivityUpdateResponseDTO updateActivity(ActivityUpdateRequestDTO request, Long id, String userName);
 }

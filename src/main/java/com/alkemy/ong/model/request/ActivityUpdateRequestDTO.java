@@ -2,12 +2,11 @@ package com.alkemy.ong.model.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-
 @Data
 public class ActivityUpdateRequestDTO {
 
-    @NotEmpty(message = "El nombre es obligatorio")
+    private Long id;
+
     private String name;
 
     private String content;

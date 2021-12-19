@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.ActivityUpdateRequestDTO;
+import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
 import com.alkemy.ong.service.ActivityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,12 +35,14 @@ public class ActivityController {
                             schema = @Schema(implementation = ActivityUpdateRequestDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
     })
-    public ResponseEntity<Void> updateCategory(@CurrentSecurityContext(expression = "authentication")
+    public ResponseEntity<ActivityUpdateResponseDTO> updateCategory(@CurrentSecurityContext(expression = "authentication")
                                                            Authentication authentication,
-                                               @RequestBody ActivityUpdateRequestDTO request,
-                                               @PathVariable Long id) {
+                                                                    @RequestBody ActivityUpdateRequestDTO request,
+                                                                    @PathVariable Long id) {
         String userName = authentication.getName();
-        activityService.updateActivity(request, id, userName);
-        return ResponseEntity.ok().build();
+
+        ActivityUpdateResponseDTO updateActivity = activityService.updateActivity(request, id, userName);
+
+        return ResponseEntity.ok(updateActivity);
     }
 }

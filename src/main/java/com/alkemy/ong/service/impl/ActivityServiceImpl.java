@@ -2,7 +2,9 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.model.entity.ActivityEntity;
+import com.alkemy.ong.model.mapper.ActivityMapper;
 import com.alkemy.ong.model.request.ActivityUpdateRequestDTO;
+import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
 import com.alkemy.ong.repository.ActivityRepository;
 import com.alkemy.ong.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private UserAuthService userAuthServ;
 
+    @Autowired
+    private ActivityMapper activityMapper;
+
     @Override
-    public void updateActivity(ActivityUpdateRequestDTO request, Long id,  String userName) {
+    public ActivityUpdateResponseDTO updateActivity(ActivityUpdateRequestDTO request, Long id, String userName) {
 
         OffsetDateTime updateTime = OffsetDateTime.now();
 
@@ -32,6 +37,10 @@ public class ActivityServiceImpl implements ActivityService {
         foundActivity.setModifiedBy(userName);
 
 
-        activityRepository.save(foundActivity);
+        ActivityEntity saved = activityRepository.save(foundActivity);
+
+        ActivityUpdateResponseDTO response = activityMapper.activityUpdateEntity2DTO(saved);
+
+        return response;
     }
 }
