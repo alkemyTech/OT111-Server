@@ -27,6 +27,7 @@ public class SlideServiceImpl implements SlideService {
     public SlideResponseDTO saveSlide(SlideRequestDTO request) {
         Base64 imagen64 = request.getImagenCodificada();
         Long organizationID = request.getOrganizationId();
+        Base64.getDecoder().decode(String.valueOf(imagen64));
 
         OrganizationEntity orgEnt = organizationRepository.getById(organizationID);
 
