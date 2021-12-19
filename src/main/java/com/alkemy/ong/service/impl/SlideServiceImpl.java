@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor //TODO: Se esta usando dos formas de injeccion de dependencia porfa normalizar auna
@@ -36,5 +38,12 @@ public class SlideServiceImpl implements SlideService {
         return slideMapper.slideEntity2DTO(savedSlide);
 
 
+    }
+
+    @Override
+    public List<SlideResponseDTO> getSlides() {
+        return slideRepository.findAll().stream()
+                .map(slideMapper::buildToList)
+                .collect(Collectors.toList());
     }
 }

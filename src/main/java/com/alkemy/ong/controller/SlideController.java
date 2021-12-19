@@ -12,10 +12,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/slides")
@@ -32,5 +31,12 @@ public class SlideController {
     public ResponseEntity<SlideResponseDTO> createNewSlide(@RequestBody SlideRequestDTO request) {
         SlideResponseDTO response = slideService.saveSlide(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping
+    @Operation(summary = "lista todos los slides")
+    public ResponseEntity<List<SlideResponseDTO>> getSlides(){
+        var response = slideService.getSlides();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
