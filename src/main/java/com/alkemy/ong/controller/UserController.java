@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.request.user.UserRequestDTO;
+import com.alkemy.ong.model.response.user.UserResponseDTO;
 import com.alkemy.ong.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,12 +29,12 @@ public class UserController {
             @ApiResponse(
                     responseCode = "200", description = "OK",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserDTO.class))}),
+                            schema = @Schema(implementation = UserResponseDTO.class))}),
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden",
                     content = @Content)})
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
@@ -46,7 +46,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Usuario eliminado",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserDTO.class))}),
+                            schema = @Schema(implementation = UserResponseDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
     })
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
@@ -57,8 +57,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Lista el detalle de un usuario")
-    public ResponseEntity<UserDTO> getUserDetails(@PathVariable Long id){
-        UserDTO userResponse = userService.findUserById(id);
+    public ResponseEntity<UserResponseDTO> getUserDetails(@PathVariable Long id){
+        UserResponseDTO userResponse = userService.findUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 
@@ -69,10 +69,10 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Usuario actualizado",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserUpdateDTO.class))}),
+                            schema = @Schema(implementation = UserRequestDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
     })
-    public ResponseEntity<Void> updateUser(@RequestBody UserUpdateDTO request, @PathVariable Long id) {
+    public ResponseEntity<Void> updateUser(@RequestBody UserRequestDTO request, @PathVariable Long id) {
         userService.updateUser(request, id);
         return ResponseEntity.ok().build();
     }

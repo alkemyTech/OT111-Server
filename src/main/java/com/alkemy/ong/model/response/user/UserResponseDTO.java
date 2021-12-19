@@ -10,7 +10,7 @@ import java.util.List;
 
 @Builder
 @Data
-public class UserDTO {
+public class UserResponseDTO {
 
     private Long id; //Check if needed.
 

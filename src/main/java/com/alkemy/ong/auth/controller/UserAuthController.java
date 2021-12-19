@@ -6,7 +6,7 @@ import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import com.alkemy.ong.model.response.security.RegisterResponse;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.user.UserResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -58,7 +58,7 @@ public class UserAuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDTO> meData(@CurrentSecurityContext(expression = "authentication")
+    public ResponseEntity<UserResponseDTO> meData(@CurrentSecurityContext(expression = "authentication")
                                                   Authentication authentication) {
         return ResponseEntity.ok(userAuthServ.meData(authentication.getName()));
 

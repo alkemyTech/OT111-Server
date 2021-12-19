@@ -1,16 +1,16 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.request.user.UserRequestDTO;
+import com.alkemy.ong.model.response.user.UserResponseDTO;
 
 import java.util.List;
 
 public interface UserService {
-    List<UserDTO> findAllUsers();
+    List<UserResponseDTO> findAllUsers();
 
-    UserDTO findUserById(Long id);
+    UserResponseDTO findUserById(Long id);
 
-    void updateUser(UserUpdateDTO request, Long id);
+    void updateUser(UserRequestDTO request, Long id);
 
     void deleteUser(Long id);
 }

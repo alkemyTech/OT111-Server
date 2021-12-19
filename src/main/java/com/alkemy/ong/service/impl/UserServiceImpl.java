@@ -2,9 +2,9 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.model.entity.RoleEntity;
 import com.alkemy.ong.model.mapper.UserMapper;
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
+import com.alkemy.ong.model.request.user.UserRequestDTO;
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.user.UserResponseDTO;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
@@ -36,21 +36,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDTO> findAllUsers() {
+    public List<UserResponseDTO> findAllUsers() {
         List<UserEntity> userEntityList = userRepository.findAll();
         return userMapper.entity2DTO(userEntityList);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public UserDTO findUserById(Long id) {
+    public UserResponseDTO findUserById(Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow();
         return userMapper.entity2DTO(foundUser);
     }
 
     @Override
     @Transactional
-    public void updateUser(UserUpdateDTO request, Long id) {
+    public void updateUser(UserRequestDTO request, Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow();
         List <Integer> roleId = request.getRoles();
         List <RoleEntity> roleEntities = new ArrayList<>();

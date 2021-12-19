@@ -1,21 +1,20 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.user.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
+public class UserMapper extends AbstractMapper<UserEntity, UserResponseDTO> {
 
     private final RoleMapper roleMapper;
 
     @Override
-    public UserDTO entity2DTO(UserEntity entity) {
+    public UserResponseDTO entity2DTO(UserEntity entity) {
         if (entity == null) return null;
-        return UserDTO.builder()
+        return UserResponseDTO.builder()
                 .id(entity.getId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
@@ -28,13 +27,13 @@ public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
     }
 
     @Override
-    public UserEntity dto2Entity(UserDTO dto) {
+    public UserEntity dto2Entity(UserResponseDTO dto) {
         return null;
     }
 
-    /*public UserUpdateDTO entityUpdate2DTO(UserEntity entity) {
+    /*public UserRequestDTO entityUpdate2DTO(UserEntity entity) {
         if (entity == null) return null;
-        return UserUpdateDTO.builder()
+        return UserRequestDTO.builder()
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .password(entity.getPassword())
@@ -45,7 +44,7 @@ public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
 
     }*/
 
-    /*public UserEntity updateDTO2Entity(UserUpdateDTO userUpdateDTO) {
+    /*public UserEntity updateDTO2Entity(UserRequestDTO userUpdateDTO) {
         return null;
     }*/
 }

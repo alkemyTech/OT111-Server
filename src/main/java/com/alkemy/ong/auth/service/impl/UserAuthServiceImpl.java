@@ -8,7 +8,7 @@ import com.alkemy.ong.model.mapper.AuthenticationMapper;
 import com.alkemy.ong.model.mapper.RoleMapper;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.user.UserResponseDTO;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,11 +54,11 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public UserDTO meData(String userMail){
+    public UserResponseDTO meData(String userMail){
 
         Optional<UserEntity> user = userRepository.findByEmail(userMail);
 
-        return UserDTO.builder()
+        return UserResponseDTO.builder()
                 .id(user.get().getId())
                 .firstName(user.get().getFirstName())
                 .lastName(user.get().getLastName())
