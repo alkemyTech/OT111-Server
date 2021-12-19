@@ -62,7 +62,6 @@ class CategoryServiceImplTest {
 
     @Test
     void deleteCategory() {
-        // Verify que repo fue llamado.
         CategoryEntity toDelete = Mocks.newCategory();
         when(categoryRepository.findById(999L)).thenReturn(Optional.of(toDelete));
         categoryServiceImpl.deleteCategory(999L);

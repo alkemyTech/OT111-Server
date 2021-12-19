@@ -5,8 +5,6 @@ import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.utils.Mocks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,9 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,9 +24,6 @@ class CategoryControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
-
-    @MockBean
-    private CategoryRepository categoryRepository;
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -51,7 +43,7 @@ class CategoryControllerTest {
                 );
         // Then
         result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$[-1].name").value("TEST Category"));
+        result.andExpect(jsonPath("$.content[-1].name").value("TEST Category"));
     }
 
     //TODO: Agregar Query que meta una Entity con ID a pasar en /categoires/ID
@@ -66,9 +58,9 @@ class CategoryControllerTest {
         result.andExpect(jsonPath("$.name").value("TEST Category"));
     }
 
+    // TODO: Como puedo forzar una busqueda a algo inexistente sin Mock?
     @Test
     void getCategoryDetails_noSuchElementException() throws Exception {
-//        Mockito.when(categoryRepository.findById(17L)).thenThrow(new NoSuchElementException());
         var result = mockMvc
                 .perform(
                         get("/categories/17000")
@@ -136,4 +128,5 @@ class CategoryControllerTest {
 //        toVerify.andExpect(status().isOk());
         toVerify.andExpect(status().isNotFound());
     }
+
 }
