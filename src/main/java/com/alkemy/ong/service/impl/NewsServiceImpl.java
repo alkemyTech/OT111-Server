@@ -2,7 +2,9 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.model.entity.NewsEntity;
 import com.alkemy.ong.model.mapper.NewsMapper;
-import com.alkemy.ong.model.response.news.NewsDTO;
+import com.alkemy.ong.model.request.NewsRequestDTO;
+import com.alkemy.ong.model.response.news.NewsResponseDTO;
+import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import lombok.RequiredArgsConstructor;
@@ -13,21 +15,31 @@ import org.springframework.stereotype.Service;
 public class NewsServiceImpl implements NewsService {
 
     private final NewsRepository newsRepository;
+    private final CategoryRepository categoryRepository;
     private final NewsMapper newsMapper;
 
     @Override
-    public NewsDTO findById(Long id) {
+    public NewsResponseDTO findById(Long id) {
+
         NewsEntity toBeFound = newsRepository.findById(id).orElseThrow();
         return newsMapper.entity2DTO(toBeFound);
     }
 
     @Override
-    public void updateNews(NewsDTO newsDTO, Long id) {
+    public void updateNews(NewsResponseDTO newsResponseDTO, Long id) {
         NewsEntity foundNews = newsRepository.findById(id).orElseThrow();
-        foundNews.setName(newsDTO.getName());
-        foundNews.setContent(newsDTO.getContent());
-        foundNews.setImage(newsDTO.getImage());
+        foundNews.setName(newsResponseDTO.getName());
+        foundNews.setContent(newsResponseDTO.getContent());
+        foundNews.setImage(newsResponseDTO.getImage());
         newsRepository.save(foundNews);
+    }
+
+    @Override
+    public NewsResponseDTO saveNews(NewsRequestDTO request) {
+        var foundCategory = categoryRepository.findById(request.getCategoryId()).orElseThrow();
+        NewsEntity newNews = newsMapper.dtoRequest2Entity(request, foundCategory);
+        NewsEntity savedNews = newsRepository.save(newNews);
+        return newsMapper.entity2DTOResponse(savedNews, foundCategory);
     }
 
 }
