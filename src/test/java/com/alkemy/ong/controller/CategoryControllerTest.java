@@ -1,14 +1,12 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.mapper.CategoryMapper;
-import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.utils.Mocks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +49,7 @@ class CategoryControllerTest {
     void getCategoryDetails_statusOK() throws Exception {
         var result = mockMvc
                 .perform(
-                        get("/categories/17")
+                        get("/categories/999")
                                 .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
                 );
         result.andExpect(status().isOk());
