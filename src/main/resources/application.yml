@@ -6,6 +6,7 @@ spring:
     jpa:
         show-sql: true
 
+
 amazonProperties:
     endpointUrl: https://s3.us-east-1.amazonaws.com
     aws.accessKey: ${ACCESS_KEY}
