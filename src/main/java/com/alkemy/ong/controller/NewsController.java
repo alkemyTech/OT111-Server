@@ -31,9 +31,10 @@ public class NewsController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Obtener novedad por ID",
-            description = "Obtiene la novedad por el ID pasado como parámetro por url, " +
-                    "y si no existe se lanza un error con código de estado 404")
+
+    @Operation(summary = "Actualizar novedad por ID",
+            description = "Se actualiza la novedad por el ID pasado como parámetro por url, " +
+                    "y si la novedad a actualzizar no existe se lanza un error con código de estado 404")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Novedad actualizada",
                     content = {@Content(mediaType = "application/json",
@@ -44,4 +45,11 @@ public class NewsController {
         newsService.updateNews(newsDTO, id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}") //TODO: Dberia ser un deleted
+    public ResponseEntity<Void> deleteNewsById(@PathVariable Long id) {
+        newsService.deleteNews(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }
