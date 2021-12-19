@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class NewsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<NewsResponseDTO> findById(@PathVariable Long id) {
-        NewsResponseDTO newsResponseDTO = newsService.findById(id);
+        NewsResponseDTO newsResponseDTO = newsService.findNewsById(id);
         return ResponseEntity.status(HttpStatus.OK).body(newsResponseDTO);
     }
 
@@ -52,7 +53,6 @@ public class NewsController {
     }
 
     @PutMapping("/{id}")
-
     @Operation(summary = "Actualizar novedad por ID",
             description = "Se actualiza la novedad por el ID pasado como parámetro por url, " +
                     "y si la novedad a actualzizar no existe se lanza un error con código de estado 404")
@@ -62,12 +62,12 @@ public class NewsController {
                             schema = @Schema(implementation = NewsResponseDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
     })
-    public ResponseEntity<Void> updateNews(@RequestBody NewsResponseDTO newsResponseDTO, @PathVariable Long id) {
-        newsService.updateNews(newsResponseDTO, id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<NewsResponseDTO> updateNews(@RequestBody NewsRequestDTO NewsRequestDTO, @PathVariable Long id) {
+        NewsResponseDTO response = newsService.updateNews(NewsRequestDTO, id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping("/{id}") //TODO: Dberia ser un deleted
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNewsById(@PathVariable Long id) {
         newsService.deleteNews(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
