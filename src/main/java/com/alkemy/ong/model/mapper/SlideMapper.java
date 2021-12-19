@@ -25,7 +25,7 @@ public class SlideMapper {
         dto.setImageUrl(ent.getImageUrl());
         dto.setText(ent.getText());
         dto.setOrder(ent.getOrder());
-        dto.setOrganization(OrganizationDTO.builder()
+        dto.setOrganization(OrganizationDTO.builder() //TODO: usar el mapper de organization
                         .name(ent.getOrganization().getName())
                         .image(ent.getOrganization().getImage())
                         .address(ent.getOrganization().getAddress())
