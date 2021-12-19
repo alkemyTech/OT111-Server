@@ -6,4 +6,5 @@ import com.alkemy.ong.model.response.SlideResponseDTO;
 
 public interface SlideService {
     SlideResponseDTO saveSlide(SlideRequestDTO request);
+    void deleteSlide(Long id);
 }

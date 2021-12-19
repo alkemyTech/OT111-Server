@@ -11,6 +11,7 @@ import com.alkemy.ong.service.SlideService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
 
@@ -36,5 +37,12 @@ public class SlideServiceImpl implements SlideService {
         return slideMapper.slideEntity2DTO(savedSlide);
 
 
+    }
+
+    @Override
+    @Transactional
+    public void deleteSlide(Long id) {
+        var foundSlide = slideRepository.findById(id).orElseThrow();
+        slideRepository.delete(foundSlide);
     }
 }
