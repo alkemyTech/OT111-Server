@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Base64;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor //TODO: Se esta usando dos formas de injeccion de dependencia porfa normalizar auna
 public class SlideServiceImpl implements SlideService {
     private final SlideMapper slideMapper;
     private final SlideRepository slideRepository;
