@@ -46,7 +46,7 @@ public class NewsController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") //TODO: Dberia ser un deleted
     public ResponseEntity<Void> deleteNewsById(@PathVariable Long id) {
         newsService.deleteNews(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
