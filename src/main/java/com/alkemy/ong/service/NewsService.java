@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface NewsService {
 
-    NewsResponseDTO findById(Long id);
+    NewsResponseDTO findNewsById(Long id);
 
-    void updateNews(NewsResponseDTO newsResponseDTO, Long id);
+    NewsResponseDTO updateNews(NewsRequestDTO newsRequestDTO, Long id);
 
     NewsResponseDTO saveNews(NewsRequestDTO request);
 

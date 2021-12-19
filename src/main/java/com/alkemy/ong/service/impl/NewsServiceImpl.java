@@ -21,7 +21,7 @@ public class NewsServiceImpl implements NewsService {
     private final NewsMapper newsMapper;
 
     @Override
-    public NewsResponseDTO findById(Long id) {
+    public NewsResponseDTO findNewsById(Long id) {
         NewsEntity toBeFound = newsRepository.findById(id).orElseThrow();
         return newsMapper.entity2DTO(toBeFound);
     }
@@ -32,19 +32,23 @@ public class NewsServiceImpl implements NewsService {
                 .map(newsMapper::entity2DTO));
     }
 
+    @Override
+    public NewsResponseDTO updateNews(NewsRequestDTO newsRequestDTO, Long id) {
+        var foundNewsEntity = newsRepository.findById(id).orElseThrow();
+        var foundCategoryEntity = categoryRepository.findById(newsRequestDTO.getCategoryId()).orElseThrow();
 
-    public void updateNews(NewsResponseDTO newsResponseDTO, Long id) {
-        NewsEntity foundNews = newsRepository.findById(id).orElseThrow();
-        foundNews.setName(newsResponseDTO.getName());
-        foundNews.setContent(newsResponseDTO.getContent());
-        foundNews.setImage(newsResponseDTO.getImage());
-        newsRepository.save(foundNews);
+        foundNewsEntity.setName(newsRequestDTO.getName());
+        foundNewsEntity.setContent(newsRequestDTO.getContent());
+        foundNewsEntity.setImage(newsRequestDTO.getImage());
+        foundNewsEntity.setCategory(foundCategoryEntity);
+
+        return newsMapper.entity2DTO(newsRepository.save(foundNewsEntity));
     }
 
     @Override
-    public NewsResponseDTO saveNews(NewsRequestDTO request) {
-        var foundCategory = categoryRepository.findById(request.getCategoryId()).orElseThrow();
-        NewsEntity newNews = newsMapper.dtoRequest2Entity(request, foundCategory);
+    public NewsResponseDTO saveNews(NewsRequestDTO newsRequestDTO) {
+        var foundCategory = categoryRepository.findById(newsRequestDTO.getCategoryId()).orElseThrow();
+        NewsEntity newNews = newsMapper.dtoRequest2Entity(newsRequestDTO, foundCategory);
         NewsEntity savedNews = newsRepository.save(newNews);
         return newsMapper.entity2DTOResponse(savedNews, foundCategory);
     }
