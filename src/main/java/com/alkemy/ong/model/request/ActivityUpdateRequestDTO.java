@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class ActivityRequestDTO {
+public class ActivityUpdateRequestDTO {
 
     @NotEmpty(message = "El nombre es obligatorio")
     private String name;

@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.request.ActivityRequestDTO;
+import com.alkemy.ong.model.request.ActivityUpdateRequestDTO;
 import com.alkemy.ong.service.ActivityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,11 +31,15 @@ public class ActivityController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Actividad actualizada",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ActivityRequestDTO.class))}),
+                            schema = @Schema(implementation = ActivityUpdateRequestDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
     })
-    public ResponseEntity<Void> updateCategory(@RequestBody ActivityRequestDTO request, @PathVariable Long id) {
-        activityService.updateActivity(request, id);
+    public ResponseEntity<Void> updateCategory(@CurrentSecurityContext(expression = "authentication")
+                                                           Authentication authentication,
+                                               @RequestBody ActivityUpdateRequestDTO request,
+                                               @PathVariable Long id) {
+        String userName = authentication.getName();
+        activityService.updateActivity(request, id, userName);
         return ResponseEntity.ok().build();
     }
 }
