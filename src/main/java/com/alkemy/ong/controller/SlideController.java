@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/slides")
@@ -32,5 +29,20 @@ public class SlideController {
     public ResponseEntity<SlideResponseDTO> createNewSlide(@RequestBody SlideRequestDTO request) {
         SlideResponseDTO response = slideService.saveSlide(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Obtener slide por Id",
+    description = "Obtiene el slide creado por el id pasado como parametro, " +
+    "y si no existe lanza un error con codigo de estado 404")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+            content = {@Content(mediaType = "application/json",
+            schema = @Schema(implementation = SlideResponseDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "Slide no encontrado", content = @Content)
+    })
+    public ResponseEntity<SlideResponseDTO> getSlideDetails(@PathVariable Long id){
+        SlideResponseDTO slideDetails = slideService.findSlideById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(slideDetails);
     }
 }
