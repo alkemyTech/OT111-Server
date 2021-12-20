@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("news")
 @Tag(name = "Novedades")
@@ -97,7 +99,7 @@ public class NewsController {
             }
     )
     @PostMapping
-    public ResponseEntity<NewsResponseDTO> createNews(@RequestBody NewsRequestDTO newsRequestDTO) {
+    public ResponseEntity<NewsResponseDTO> createNews(@Valid @RequestBody NewsRequestDTO newsRequestDTO) {
         NewsResponseDTO response = newsService.saveNews(newsRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -155,8 +157,8 @@ public class NewsController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<NewsResponseDTO> updateNews(@RequestBody NewsRequestDTO NewsRequestDTO, @PathVariable Long id) {
-        NewsResponseDTO response = newsService.updateNews(NewsRequestDTO, id);
+    public ResponseEntity<NewsResponseDTO> updateNews(@Valid @RequestBody NewsRequestDTO newsRequestDTO, @PathVariable Long id) {
+        NewsResponseDTO response = newsService.updateNews(newsRequestDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
