@@ -17,9 +17,9 @@ import java.util.NoSuchElementException;
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {NoSuchElementException.class})
-    public ResponseEntity<ApiException> noSuchElementExceptionHandler(NoSuchElementException noSuchElementException){
-       var apiException = new ApiException(
-               noSuchElementException.getMessage(),
+    public ResponseEntity<ApiException> noSuchElementExceptionHandler(NoSuchElementException noSuchElementException) {
+        var apiException = new ApiException(
+                noSuchElementException.getMessage(),
                 HttpStatus.NOT_FOUND.value()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiException);
@@ -32,6 +32,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.FORBIDDEN.value()
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(apiException);
+    }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<ApiException> illegalArgumentExceptionHandler(IllegalArgumentException illegalArgumentException) {
+        var apiException = new ApiException(
+                illegalArgumentException.getMessage(),
+                HttpStatus.BAD_REQUEST.value()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiException);
     }
 
     @ExceptionHandler(value = {GenericException.class})
