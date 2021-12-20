@@ -2,6 +2,7 @@ package com.alkemy.ong.model.request.user;
 
 import lombok.Builder;
 import lombok.Data;
+
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 

@@ -9,8 +9,6 @@ import lombok.Data;
 @Builder
 public class NewsDTO {
 
-    private Long id;
-
     private String name;
 
     private String content;

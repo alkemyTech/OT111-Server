@@ -4,9 +4,11 @@ import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.mapper.CategoryMapper;
 import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.response.CategoryResponseDTO;
+import com.alkemy.ong.model.response.pagination.CustomPage;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,4 +58,9 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public CustomPage<CategoryResponseDTO> getCategoriesPageable(Pageable pageRequest) {
+        return new CustomPage<>(categoryRepository.findAll(pageRequest)
+                .map(categoryMapper::categoryEntity2DTO));
+    }
 }
