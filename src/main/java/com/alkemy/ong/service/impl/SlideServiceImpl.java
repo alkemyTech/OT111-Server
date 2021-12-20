@@ -38,4 +38,10 @@ public class SlideServiceImpl implements SlideService {
 
 
     }
+
+    @Override
+    public SlideResponseDTO findSlideById(Long id) {
+        SlideEntity foundSlide = slideRepository.findById(id).orElseThrow();
+        return slideMapper.slideEntity2DTO(foundSlide);
+    }
 }
