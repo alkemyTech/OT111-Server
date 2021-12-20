@@ -16,7 +16,7 @@ public class BASE64DecodedMultipartFile implements MultipartFile {
 
     @Override
     public String getName() {
-        return "null";
+        return null;
     }
 
     @Override
