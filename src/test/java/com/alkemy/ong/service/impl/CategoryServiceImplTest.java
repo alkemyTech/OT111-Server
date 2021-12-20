@@ -38,8 +38,8 @@ class CategoryServiceImplTest {
 
     @Test
     void findCategoryById_shouldMapEntityToDTO() throws Exception {
-        when(categoryRepository.findById(999L)).thenReturn(Optional.of(Mocks.newCategory()));
-        CategoryResponseDTO foundCat = categoryServiceImpl.findCategoryById(999L);
+        when(categoryRepository.findById(9999L)).thenReturn(Optional.of(Mocks.newCategory()));
+        CategoryResponseDTO foundCat = categoryServiceImpl.findCategoryById(9999L);
         assertEquals(Mocks.newCategory().getName(), foundCat.getName());
         assertEquals(Mocks.newCategory().getDescription(), foundCat.getDescription());
         assertEquals(Mocks.newCategory().getImage(), foundCat.getImage());
@@ -47,32 +47,28 @@ class CategoryServiceImplTest {
 
     @Test
     void saveCategory() {
-        CategoryRequestDTO catDTO = new CategoryRequestDTO();
-        when(categoryRepository.save(any(CategoryEntity.class))).thenReturn(Mocks.newCategory());
-
-        CategoryResponseDTO savedCategory = categoryServiceImpl.saveCategory(catDTO);
-
-        // TODO: Como verifico que mappea mi DTO de Entrada a Entidad a ser saved, antes del SAVE?
-        // TODO: Podriamos crear un newCategoryDTO() dentro de MOCKS?
-
-        assertEquals(Mocks.newCategory().getName(), savedCategory.getName());
-        assertEquals(Mocks.newCategory().getDescription(), savedCategory.getDescription());
-        assertEquals(Mocks.newCategory().getImage(), savedCategory.getImage());
+        CategoryEntity toBeSaved = categoryMapper.categoryDTO2Entity(Mocks.newCategoryRequestDTO());
+        when(categoryRepository.save(any(CategoryEntity.class))).thenReturn(toBeSaved);
+        CategoryResponseDTO savedCategory = categoryServiceImpl.saveCategory(Mocks.newCategoryRequestDTO());
+        // TODO: Deberia ser assertNotEquals() y when(save).thenReturn(Mocks.newCategory())???
+        assertEquals(Mocks.newCategoryRequestDTO().getName(), savedCategory.getName());
+        assertEquals(Mocks.newCategoryRequestDTO().getDescription(), savedCategory.getDescription());
+        assertEquals(Mocks.newCategoryRequestDTO().getImage(), savedCategory.getImage());
     }
 
     @Test
     void deleteCategory() {
         CategoryEntity toDelete = Mocks.newCategory();
-        when(categoryRepository.findById(999L)).thenReturn(Optional.of(toDelete));
-        categoryServiceImpl.deleteCategory(999L);
+        when(categoryRepository.findById(9999L)).thenReturn(Optional.of(toDelete));
+        categoryServiceImpl.deleteCategory(9999L);
         verify(categoryRepository, times(1)).delete(toDelete);
     }
 
     @Test
     void updateCategory() {
-        when(categoryRepository.findById(999L)).thenReturn(Optional.of(Mocks.newCategory()));
-        categoryServiceImpl.updateCategory(Mocks.newCategoryRequestDTO(), 999L);
-        // Verify los Setter?
+        when(categoryRepository.findById(9999L)).thenReturn(Optional.of(Mocks.newCategory()));
+        categoryServiceImpl.updateCategory(Mocks.newCategoryRequestDTO(), 9999L);
+        // TODO: Como verificar que los Setter fueron usado? foundCategory.setName(request.getName());
         verify(categoryRepository, times(1)).save(any(CategoryEntity.class));
     }
 
