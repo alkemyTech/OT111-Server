@@ -32,14 +32,14 @@ public class SlideController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "obtener slide por Id",
-    description = "obtiene el slide creado por el id pasado como parametro, " +
+    @Operation(summary = "Obtener slide por Id",
+    description = "Obtiene el slide creado por el id pasado como parametro, " +
     "y si no existe lanza un error con codigo de estado 404")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
             content = {@Content(mediaType = "application/json",
             schema = @Schema(implementation = SlideResponseDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Slide no encontrado", content = @Content)
     })
     public ResponseEntity<SlideResponseDTO> getSlideDetails(@PathVariable Long id){
         SlideResponseDTO slideDetails = slideService.findSlideById(id);
