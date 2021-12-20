@@ -7,9 +7,9 @@ import com.alkemy.ong.model.request.SlideRequestDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.repository.SlideRepository;
+import com.alkemy.ong.service.AWSService;
 import com.alkemy.ong.service.SlideService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -19,23 +19,19 @@ import java.util.Base64;
 public class SlideServiceImpl implements SlideService {
     private final SlideMapper slideMapper;
     private final SlideRepository slideRepository;
-
-    @Autowired
-    OrganizationRepository organizationRepository;
+    private final OrganizationRepository organizationRepository;
+    private final AWSService awsService;
 
     @Override
     public SlideResponseDTO saveSlide(SlideRequestDTO request) {
-        Base64 imagen64 = request.getImagenCodificada();
         Long organizationID = request.getOrganizationId();
-        Base64.getDecoder().decode(String.valueOf(imagen64));
-
         OrganizationEntity orgEnt = organizationRepository.getById(organizationID);
+        byte[] misBytes = Base64.getDecoder().decode(request.getImagenCodificada());
 
+        String imagenUrl = awsService.uploadFile();
 
-        SlideEntity newSlide = slideMapper.slideDTO2Entity(request,orgEnt,"hola");
+        SlideEntity newSlide = slideMapper.slideDTO2Entity(request, orgEnt, imagenUrl);
         SlideEntity savedSlide = slideRepository.save(newSlide);
         return slideMapper.slideEntity2DTO(savedSlide);
-
-
     }
 }

@@ -11,8 +11,8 @@ import java.util.Base64;
 @Setter
 public class SlideRequestDTO {
 
-   @NotNull
-    private Base64 imagenCodificada;
+    @NotNull
+    private String imagenCodificada;
 
     private String text;
 
