@@ -50,9 +50,9 @@ class UserControllerTest {
     @Test
     void deleteUser() throws Exception {
         var result = mockMvc
-                .perform(delete("/users/1"));
+                .perform(delete("/users/1")
+                        .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYzMTE1MDQsImlhdCI6MTYzOTkxMTUwNH0.Rh8k3T4b1VwZ-9-JtWlLz94R4lt9lsj88FwV9QeQDFw"));
         result.andExpect(status().isNoContent());
-
     }
 
     @Test
