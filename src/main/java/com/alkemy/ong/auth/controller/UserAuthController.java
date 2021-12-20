@@ -112,7 +112,7 @@ public class UserAuthController {
                             description = "Datos del Usuario",
                             content = {
                                     @Content(mediaType = "application/json",
-                                            schema = @Schema(implementation = UserDTO.class))
+                                            schema = @Schema(implementation = UserResponseDTO.class))
                             }
                     ),
                     @ApiResponse(
