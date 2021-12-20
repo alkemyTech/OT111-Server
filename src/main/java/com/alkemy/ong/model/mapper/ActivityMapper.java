@@ -11,11 +11,11 @@ import java.time.OffsetDateTime;
 @Service
 public class ActivityMapper {
 
-    public static ActivityEntity activityDTO2Entity(ActivityRequestDTO dto) {
+    public static ActivityEntity activityDTO2Entity(ActivityRequestDTO dto, String userName) {
         OffsetDateTime createdDate = OffsetDateTime.now();
         ActivityEntity ent = new ActivityEntity();
         ent.setName(dto.getName());
-        ent.setCreatedBy(dto.getCreatedBy());
+        ent.setCreatedBy(userName);
         ent.setCreatedDate(createdDate);
         ent.setContent(dto.getContent());
         return ent;

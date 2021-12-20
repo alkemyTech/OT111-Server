@@ -22,8 +22,8 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
 
-    public ActivityResponseDTO createActivity(ActivityRequestDTO request){
-        ActivityEntity newActivity = ActivityMapper.activityDTO2Entity(request);
+    public ActivityResponseDTO createActivity(ActivityRequestDTO request, String userName){
+        ActivityEntity newActivity = ActivityMapper.activityDTO2Entity(request, userName);
         ActivityEntity savedActivity = activityRepository.save(newActivity);
         return ActivityMapper.activityEntity2DTO(savedActivity);
     }

@@ -29,8 +29,11 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @PostMapping
-    public ResponseEntity<ActivityResponseDTO> createActivity(@RequestBody ActivityRequestDTO request) {
-        ActivityResponseDTO response = activityService.createActivity(request);
+    public ResponseEntity<ActivityResponseDTO> createActivity(@CurrentSecurityContext(expression = "authentication")
+                                                                          Authentication authentication,
+                                                              @RequestBody ActivityRequestDTO request) {
+        String userName = authentication.getName();
+        ActivityResponseDTO response = activityService.createActivity(request, userName);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

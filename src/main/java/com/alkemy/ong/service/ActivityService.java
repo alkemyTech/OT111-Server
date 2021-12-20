@@ -6,6 +6,6 @@ import com.alkemy.ong.model.response.ActivityResponseDTO;
 import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
 
 public interface ActivityService {
-    ActivityResponseDTO createActivity(ActivityRequestDTO request);
+    ActivityResponseDTO createActivity(ActivityRequestDTO request, String userName);
     ActivityUpdateResponseDTO updateActivity(ActivityUpdateRequestDTO request, Long id, String userName);
 }
