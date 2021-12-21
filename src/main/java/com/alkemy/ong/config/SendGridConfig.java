@@ -1,5 +1,6 @@
 package com.alkemy.ong.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +9,8 @@ import com.sendgrid.SendGrid;
 @Configuration
 public class SendGridConfig {
 
-    private String key = System.getenv("SENDGRID_API_KEY");
+    @Value("${sendgrid.sendgrid.apiKey}")
+    private String key;
 
     @Bean
     public SendGrid startSendGrid() {
