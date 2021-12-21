@@ -1,11 +1,16 @@
 package com.alkemy.ong.model.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -26,7 +31,7 @@ public class OrganizationEntity {
 
     private String address;
 
-    private int phone;
+    private Integer phone;
 
     private String email;
 
@@ -34,8 +39,15 @@ public class OrganizationEntity {
 
     private String aboutUsText;
 
-//    Timestamps
-    private OffsetDateTime createdDate;
+    private String facebookUrl;
+
+    private String instagramUrl;
+
+    private String linkedinUrl;
+
+    //    Timestamps
+    @Builder.Default
+    private OffsetDateTime createdDate = OffsetDateTime.now();
 
     private String createdBy;
 
@@ -43,6 +55,7 @@ public class OrganizationEntity {
 
     private String modifiedBy;
 
-//    Soft Delete
+    //    Soft Delete
     private boolean deleted = Boolean.FALSE;
+
 }
