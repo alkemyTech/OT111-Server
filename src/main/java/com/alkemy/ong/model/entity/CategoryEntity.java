@@ -1,10 +1,7 @@
 package com.alkemy.ong.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -14,6 +11,7 @@ import java.time.OffsetDateTime;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @AllArgsConstructor//Se agrego en tarea de 45
 @NoArgsConstructor//Se agrego en tarea de 45
@@ -42,4 +40,5 @@ public class CategoryEntity {
     private String modifiedBy;
 
     private boolean deleted;
+
 }
