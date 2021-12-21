@@ -1,10 +1,15 @@
 package com.alkemy.ong.exception;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
@@ -17,6 +22,7 @@ import java.util.NoSuchElementException;
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {NoSuchElementException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiException> noSuchElementExceptionHandler(NoSuchElementException noSuchElementException) {
         var apiException = new ApiException(
                 noSuchElementException.getMessage(),
@@ -26,6 +32,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {AuthenticationException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<ApiException> authenticationExceptionHandler(AuthenticationException authenticationException) {
         var apiException = new ApiException(
                 authenticationException.getMessage(),
@@ -35,6 +42,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiException> illegalArgumentExceptionHandler(IllegalArgumentException illegalArgumentException) {
         var apiException = new ApiException(
                 illegalArgumentException.getMessage(),
@@ -62,6 +70,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiConstraintViolationException> constraintViolationException(ConstraintViolationException constraintViolationException) {
         List<String> details = new ArrayList<>();
         for (ConstraintViolation<?> violation : constraintViolationException.getConstraintViolations()) {
@@ -74,5 +83,24 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintViolationException);
     }
+
+    @Override
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> details = new ArrayList<>();
+        List<FieldError> errorFields = ex.getBindingResult().getFieldErrors();
+
+        for (FieldError e : errorFields) {
+            details.add(e.getField() + " : " + e.getDefaultMessage());
+        }
+        var apiConstraintViolationException = ApiConstraintViolationException.builder()
+                .message("Constraint Violations")
+                .httpStatus(HttpStatus.BAD_REQUEST.value())
+                .errors(details)
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintViolationException);
+    }
+
 
 }
