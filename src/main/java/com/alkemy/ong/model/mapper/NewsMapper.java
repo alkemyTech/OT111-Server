@@ -19,7 +19,7 @@ public class NewsMapper extends AbstractMapper<NewsEntity, NewsResponseDTO> {
                 .name(entity.getName())
                 .content(entity.getContent())
                 .image(entity.getImage())
-                .categoryResponseDTO(categoryMapper.categoryEntity2DTO(categoryEntity))
+                .category(categoryMapper.categoryEntity2DTO(categoryEntity))
                 .build();
     }
 
@@ -40,7 +40,7 @@ public class NewsMapper extends AbstractMapper<NewsEntity, NewsResponseDTO> {
                 .name(entity.getName())
                 .content(entity.getContent())
                 .image(entity.getImage())
-                .categoryResponseDTO(categoryMapper.categoryEntity2DTO(entity.getCategory()))
+                .category(categoryMapper.categoryEntity2DTO(entity.getCategory()))
                 .build();
     }
 
