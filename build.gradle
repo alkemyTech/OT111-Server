@@ -1,4 +1,4 @@
-plugins {
+    plugins {
     id 'org.springframework.boot' version '2.6.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
@@ -25,12 +25,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.sendgrid:sendgrid-java:4.8.0'
+    implementation 'org.mockito:mockito-core:4.1.0'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation(platform('org.junit:junit-bom:5.8.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation 'org.assertj:assertj-core:3.21.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
@@ -44,4 +48,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
