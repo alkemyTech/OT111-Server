@@ -16,9 +16,9 @@ amazonProperties:
 
 
 sendgrid:
-  sendgrid.apiKey: ${SG_API_KEY}
-  sendgrid.sender: ${SG_SENDER}
-  welcome-template: ${SG_TEMPLATE_ID}
+  sendgrid.apiKey: ${SG_API_KEY:12345}
+  sendgrid.sender: ${SG_SENDER:12345}
+  welcome-template: ${SG_TEMPLATE_ID:12345}
 
 
 #Swagger Configurations
