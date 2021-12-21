@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "contact")
 @Getter
 @Setter
 @NoArgsConstructor
