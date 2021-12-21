@@ -67,6 +67,7 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNewsById(@PathVariable Long id) {
         newsService.deleteNews(id);
