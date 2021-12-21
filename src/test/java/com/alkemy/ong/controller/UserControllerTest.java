@@ -35,7 +35,7 @@ class UserControllerTest {
                 .perform(get("/users")
                         .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYzMTE1MDQsImlhdCI6MTYzOTkxMTUwNH0.Rh8k3T4b1VwZ-9-JtWlLz94R4lt9lsj88FwV9QeQDFw"));
         result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$[0].firstName").value("admin1"));
+        result.andExpect(jsonPath("$[1].firstName").value("admin1"));
     }
 
     @Test
