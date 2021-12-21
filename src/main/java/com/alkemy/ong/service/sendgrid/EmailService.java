@@ -6,4 +6,6 @@ public interface EmailService {
 
     public String sendWithTemplate(String email, String user, String templateId);
 
+    void sendContactConfirmation(String email);
+
 }

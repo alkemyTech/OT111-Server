@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.sendgrid.helpers.mail.objects.Content;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -96,6 +97,34 @@ public class EmailServiceImpl implements EmailService {
         }
         return "El mail se envió correctamente.";
 
+    }
+
+    @Override
+    public void sendContactConfirmation(String email) {
+        // Email Data:
+        Email fromEmail = new Email(sender);
+        Email toEmail = new Email(email);
+        Content content = new Content(
+                "text/plain",
+                "Gracias por su contacto, recibirá una respuesta brevemente."
+        );
+        String subject = "Fundacion Somos Mas";
+        // Create:
+        Mail mail = new Mail(fromEmail, subject, toEmail, content);
+        Request request = new Request();
+
+        try {
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+            Response response = sendGrid.api(request);
+            if (response != null) {
+                logger.log(Level.INFO, "codigo respuesta desde sendgrid {0} ", response.getStatusCode());
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Mail customMail(String email) {
