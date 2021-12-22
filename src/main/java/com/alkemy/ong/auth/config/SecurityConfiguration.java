@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        final String ORGANIZATION_URL = "/organization/public";
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
@@ -59,10 +60,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/contacts").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/activities").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/organization/public").hasRole("ADMIN")
+
+                .antMatchers(HttpMethod.GET, ORGANIZATION_URL).permitAll()
+                .antMatchers(HttpMethod.POST, ORGANIZATION_URL).hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, ORGANIZATION_URL).hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, ORGANIZATION_URL + "/{id}").hasRole("ADMIN")
 
                 .antMatchers("/api/docs/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/organization/public").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
