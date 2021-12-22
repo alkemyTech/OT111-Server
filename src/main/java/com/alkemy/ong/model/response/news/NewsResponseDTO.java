@@ -7,7 +7,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class NewsDTO {
+
+public class NewsResponseDTO {
 
     private String name;
 
@@ -15,6 +16,6 @@ public class NewsDTO {
 
     private String image;
 
-    private CategoryResponseDTO categoryResponseDTO;
+    private CategoryResponseDTO category;
 
 }

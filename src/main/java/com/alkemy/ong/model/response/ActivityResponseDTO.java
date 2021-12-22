@@ -9,15 +9,10 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryResponseDTO {
-
+public class ActivityResponseDTO {
     private Long id;
-
     private String name;
-
-    private String description;
-
-    private String image;
+    private String content;
     private OffsetDateTime createdDate;
+    private String createdBy;
 }
-
