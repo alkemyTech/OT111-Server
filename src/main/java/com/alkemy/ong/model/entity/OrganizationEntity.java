@@ -1,25 +1,21 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.OffsetDateTime;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "organization")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @SQLDelete(sql = "UPDATE organization SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-public class OrganizationEntity {
+public class OrganizationEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,18 +40,5 @@ public class OrganizationEntity {
     private String instagramUrl;
 
     private String linkedinUrl;
-
-    //    Timestamps
-    @Builder.Default
-    private OffsetDateTime createdDate = OffsetDateTime.now();
-
-    private String createdBy;
-
-    private OffsetDateTime modifiedDate;
-
-    private String modifiedBy;
-
-    //    Soft Delete
-    private boolean deleted = Boolean.FALSE;
 
 }
