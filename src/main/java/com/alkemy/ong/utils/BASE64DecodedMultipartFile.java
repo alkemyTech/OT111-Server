@@ -1,14 +1,16 @@
 package com.alkemy.ong.utils;
 
-import com.amazonaws.util.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.UUID;
 
 @Service
 public class BASE64DecodedMultipartFile implements MultipartFile {
     private final byte[] imgContent;
+
+    private final UUID myId = UUID.randomUUID();
 
     public BASE64DecodedMultipartFile(byte[] imgContent) {
         this.imgContent = imgContent;
@@ -16,12 +18,12 @@ public class BASE64DecodedMultipartFile implements MultipartFile {
 
     @Override
     public String getName() {
-        return null;
+        return myId.toString();
     }
 
     @Override
     public String getOriginalFilename() {
-        return "Hola.png";
+        return myId + ".jpg";
     }
 
     @Override

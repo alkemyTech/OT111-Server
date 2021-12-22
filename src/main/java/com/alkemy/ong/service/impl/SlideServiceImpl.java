@@ -29,20 +29,12 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public SlideResponseDTO saveSlide(SlideRequestDTO request) {
         Long organizationID = request.getOrganizationId();
-        OrganizationEntity orgEnt = organizationRepository.getById(organizationID);
+        var orgEnt = organizationRepository.findById(organizationID).orElseThrow();
 
-        BASE64DecodedMultipartFile cosa = new BASE64DecodedMultipartFile(Base64.decodeBase64(request.getImagenCodificada()));
-        System.out.println("===============");
-        System.out.println(request.getImagenCodificada());
-        System.out.println(cosa.getOriginalFilename());
-        System.out.println("===============");
+        BASE64DecodedMultipartFile multiPart = new BASE64DecodedMultipartFile(Base64.decodeBase64(request.getImagenCodificada()));
+        AWSResponseDTO imagenUrl = awsService.uploadFile(multiPart);
 
-        AWSResponseDTO imagenUrl = awsService.uploadFile(cosa);
-        System.out.println("=========");
-        System.out.println(imagenUrl.getImageUrl());
-        System.out.println("=========");
         SlideEntity newSlide = slideMapper.slideDTO2Entity(request, orgEnt, imagenUrl.getImageUrl());
-
         SlideEntity savedSlide = slideRepository.save(newSlide);
         return slideMapper.slideEntity2DTO(savedSlide);
     }
