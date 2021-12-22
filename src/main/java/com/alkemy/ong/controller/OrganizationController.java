@@ -27,15 +27,15 @@ class OrganizationController {
             description = "Muestra los datos públicos al usuario: nombre, imagen, teléfono, dirección y " +
                     "redes sociales de la organización.")
     @GetMapping
-    public OrganizationPublicResponse getOrganization() {
-        return organizationService.readOrganization();
+    public OrganizationPublicResponse getOrganizationPublic() {
+        return organizationService.getOrganization();
     }
 
     @Operation(summary = "Crea una nueva organización",
             description = "Crea una organización como usuario administrador, validando los campos requeridos")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public OrganizationFullResponse create(@Valid @RequestBody OrganizationRequest request) {
+    public OrganizationFullResponse createOrganization(@Valid @RequestBody OrganizationRequest request) {
         return organizationService.saveOrganization(request);
     }
 

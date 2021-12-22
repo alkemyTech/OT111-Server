@@ -6,7 +6,7 @@ import com.alkemy.ong.model.response.OrganizationPublicResponse;
 
 public interface OrganizationService {
 
-    OrganizationPublicResponse readOrganization();
+    OrganizationPublicResponse getOrganization();
 
     OrganizationFullResponse updateOrganization(OrganizationRequest organizationRequest);
 

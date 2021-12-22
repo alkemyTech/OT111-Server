@@ -16,7 +16,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationRepository organizationRepository;
 
     @Override
-    public OrganizationPublicResponse readOrganization() {
+    public OrganizationPublicResponse getOrganization() {
         var organization = organizationRepository.findTopByOrderByIdDesc().orElseThrow();
         return OrganizationPublicResponse.toDTO(organization);
     }
@@ -37,6 +37,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    @Transactional
     public void deleteOrganization(Long id) {
         var foundOrganization = organizationRepository.findById(id).orElseThrow();
         organizationRepository.delete(foundOrganization);
