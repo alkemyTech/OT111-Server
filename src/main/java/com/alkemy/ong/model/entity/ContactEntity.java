@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
