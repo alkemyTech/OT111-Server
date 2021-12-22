@@ -1,10 +1,15 @@
 package com.alkemy.ong.exception;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
@@ -75,4 +80,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintViolationException);
     }
 
+    @Override
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> details = new ArrayList<>();
+        List<FieldError> errorFields = ex.getBindingResult().getFieldErrors();
+
+        for (FieldError e : errorFields) {
+            details.add(e.getField() + " : " + e.getDefaultMessage());
+        }
+        var apiConstraintViolationException = ApiConstraintViolationException.builder()
+                .message("Constraint Violations")
+                .httpStatus(HttpStatus.BAD_REQUEST.value())
+                .errors(details)
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintViolationException);
+    }
 }
