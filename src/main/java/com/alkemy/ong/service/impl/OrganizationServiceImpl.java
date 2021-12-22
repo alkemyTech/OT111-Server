@@ -30,4 +30,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     }
 
+    @Override
+    @Transactional
+    public OrganizationFullResponse saveOrganization(OrganizationRequest request) {
+        return OrganizationFullResponse.toDTO(organizationRepository.save(OrganizationFullResponse.toEntity(request)));
+    }
+
+    @Override
+    public void deleteOrganization(Long id) {
+        var foundOrganization = organizationRepository.findById(id).orElseThrow();
+        organizationRepository.delete(foundOrganization);
+    }
+
 }

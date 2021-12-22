@@ -9,4 +9,8 @@ public interface OrganizationService {
     OrganizationPublicResponse readOrganization();
 
     OrganizationFullResponse updateOrganization(OrganizationRequest organizationRequest);
+
+    OrganizationFullResponse saveOrganization(OrganizationRequest request);
+
+    void deleteOrganization(Long id);
 }

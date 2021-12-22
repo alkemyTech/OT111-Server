@@ -4,16 +4,12 @@ import com.alkemy.ong.model.request.OrganizationRequest;
 import com.alkemy.ong.model.response.OrganizationFullResponse;
 import com.alkemy.ong.model.response.OrganizationPublicResponse;
 import com.alkemy.ong.service.OrganizationService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,14 +23,36 @@ class OrganizationController {
     private final OrganizationService organizationService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/public")
+    @Operation(summary = "Obtiene los datos públicos de la organización",
+            description = "Muestra los datos públicos al usuario: nombre, imagen, teléfono, dirección y " +
+                    "redes sociales de la organización.")
+    @GetMapping("public")
     public OrganizationPublicResponse getOrganization() {
         return organizationService.readOrganization();
     }
 
+    @Operation(summary = "Crea una nueva organización",
+            description = "Crea una organización como usuario administrador, validando los campos requeridos")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("public")
+    public OrganizationFullResponse create(@Valid @RequestBody OrganizationRequest request) {
+        return organizationService.saveOrganization(request);
+    }
+
+    @Operation(summary = "Actualiza los datos de la organización",
+            description = "Editar todos los datos de la  como usuario administrador, validando los campos requeridos")
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/public")
+    @PutMapping("public")
     public OrganizationFullResponse updateOrganization(@Valid @RequestBody OrganizationRequest organizationRequest) {
         return organizationService.updateOrganization(organizationRequest);
+    }
+
+    @Operation(summary = "Elimina una organización",
+            description = "Elimina la organización existente pasando el ID como parámetro por url," +
+                    "si la organización a eliminar no existe lanza error")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("public/{id}")
+    public void deleteOrganizationById(@PathVariable Long id) {
+        organizationService.deleteOrganization(id);
     }
 }
