@@ -17,7 +17,7 @@ public interface CategoryService {
 
     void deleteCategory(Long id);
 
-    List<CategoryResponseDTO> getCategories();
+    List<String> getCategories();
 
     CustomPage<CategoryResponseDTO> getCategoriesPageable(Pageable pageable);
 }

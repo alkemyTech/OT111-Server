@@ -15,6 +15,6 @@ public class NewsResponseDTO {
 
     private String image;
 
-    private CategoryResponseDTO categoryResponseDTO;
+    private CategoryResponseDTO category;
 
 }

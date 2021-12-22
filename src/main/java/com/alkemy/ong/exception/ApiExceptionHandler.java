@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {NoSuchElementException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiException> noSuchElementExceptionHandler(NoSuchElementException noSuchElementException) {
         var apiException = new ApiException(
                 noSuchElementException.getMessage(),
@@ -31,6 +32,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {AuthenticationException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<ApiException> authenticationExceptionHandler(AuthenticationException authenticationException) {
         var apiException = new ApiException(
                 authenticationException.getMessage(),
@@ -40,6 +42,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiException> illegalArgumentExceptionHandler(IllegalArgumentException illegalArgumentException) {
         var apiException = new ApiException(
                 illegalArgumentException.getMessage(),
@@ -67,6 +70,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiConstraintViolationException> constraintViolationException(ConstraintViolationException constraintViolationException) {
         List<String> details = new ArrayList<>();
         for (ConstraintViolation<?> violation : constraintViolationException.getConstraintViolations()) {
