@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/organization")
+@RequestMapping("/organization/public")
 @RequiredArgsConstructor
 @Tag(name = "Organización")
 @Validated
@@ -26,7 +26,7 @@ class OrganizationController {
     @Operation(summary = "Obtiene los datos públicos de la organización",
             description = "Muestra los datos públicos al usuario: nombre, imagen, teléfono, dirección y " +
                     "redes sociales de la organización.")
-    @GetMapping("public")
+    @GetMapping
     public OrganizationPublicResponse getOrganization() {
         return organizationService.readOrganization();
     }
@@ -34,7 +34,7 @@ class OrganizationController {
     @Operation(summary = "Crea una nueva organización",
             description = "Crea una organización como usuario administrador, validando los campos requeridos")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("public")
+    @PostMapping
     public OrganizationFullResponse create(@Valid @RequestBody OrganizationRequest request) {
         return organizationService.saveOrganization(request);
     }
@@ -42,7 +42,7 @@ class OrganizationController {
     @Operation(summary = "Actualiza los datos de la organización",
             description = "Editar todos los datos de la  como usuario administrador, validando los campos requeridos")
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("public")
+    @PutMapping
     public OrganizationFullResponse updateOrganization(@Valid @RequestBody OrganizationRequest organizationRequest) {
         return organizationService.updateOrganization(organizationRequest);
     }
@@ -51,7 +51,7 @@ class OrganizationController {
             description = "Elimina la organización existente pasando el ID como parámetro por url," +
                     "si la organización a eliminar no existe lanza error")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("public/{id}")
+    @DeleteMapping("/{id}")
     public void deleteOrganizationById(@PathVariable Long id) {
         organizationService.deleteOrganization(id);
     }
