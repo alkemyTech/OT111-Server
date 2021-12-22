@@ -40,7 +40,7 @@ class OrganizationController {
     }
 
     @Operation(summary = "Actualiza los datos de la organización",
-            description = "Editar todos los datos de la  como usuario administrador, validando los campos requeridos")
+            description = "Editar todos los datos de la organización como usuario administrador, validando los campos requeridos")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping
     public OrganizationFullResponse updateOrganization(@Valid @RequestBody OrganizationRequest organizationRequest) {
