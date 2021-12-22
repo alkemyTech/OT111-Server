@@ -1,18 +1,21 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.mapper.CategoryMapper;
+import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.utils.Mocks;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alkemy.ong.utils.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
+
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,129 +25,160 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class CategoryControllerTest {
 
+    private static final String PATH = "/categories";
+
     @Autowired
     protected MockMvc mockMvc;
 
     @Autowired
-    private CategoryMapper categoryMapper;
-
-    @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private CategoryEntity categorySaved;
 
     @BeforeEach
     void setUp() {
-        categoryRepository.save(Mocks.newCategory());
-    }
-
-    // =================
-    // ==== Success ====
-    // =================
-
-    @Test
-    void getCategories_statusOK() throws Exception {
-        var result = mockMvc
-                .perform(
-                        get("/categories")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                );
-        result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$.content[-1].name").value("Mock Category"));
+        categorySaved = categoryRepository.save(Mocks.buildCategoryEntity());
     }
 
     @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
     void getCategoryDetails_statusOK() throws Exception {
-        // TODO: Como agregar una Entity con ID forzado? Para luego Buscarla en "/categories/id".
-        // 17 existe en mi DB.
-        var result = mockMvc
-                .perform(
-                        get("/categories/17")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                );
+
+        //Given
+
+        //When
+        var result = mockMvc.perform(get(PATH + "/{id}", categorySaved.getId()));
+
         result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$.name").value("TEST Category"));
+        result.andExpect(jsonPath("$.id").value(categorySaved.getId()));
+        result.andExpect(jsonPath("$.name").value(categorySaved.getName()));
+        result.andExpect(jsonPath("$.description").value(categorySaved.getDescription()));
+        result.andExpect(jsonPath("$.image").value(categorySaved.getImage()));
+        result.andExpect(jsonPath("$.createdDate").exists());
     }
 
     @Test
-    void createNewCategory_statusOK() throws Exception {
-        var result = mockMvc
-                .perform(
-                        post("/categories")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(categoryMapper.categoryEntity2DTO(Mocks.newCategory())))
-                );
-        result.andExpect(status().isCreated());
-        result.andExpect(jsonPath("$").isNotEmpty());
-        result.andExpect(jsonPath("$.name").value("Mock Category"));
-    }
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void getCategoryDetails_Expect_NotFound() throws Exception {
 
-    @Test
-    void updateCategory_statusOk() throws Exception {
-        // TODO: Como agregar una Entity con ID forzado? Para luego UPDATE en "/categories/id".
-        var result = mockMvc
-                .perform(
-                        put("/categories/17")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(categoryMapper.categoryEntity2DTO(Mocks.updatedCategory())))
-                );
-        result.andExpect(status().isOk());
-        var toVerify = mockMvc.perform(
-                get("/categories/17")
-                        .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-        );
-        toVerify.andExpect(jsonPath("$.name").value("Updated Category"));
-    }
+        //Given
+        final long ID_NOT_FOUND = -1;
 
-    @Test
-    void deleteCategoryById_statusNotFound() throws Exception {
-        // TODO: Como agregar una Entity con ID forzado? Para luego DELETE en "/categories/id".
-        var result = mockMvc
-                .perform(
-                        delete("/categories/17")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                );
-        result.andExpect(status().isNoContent());
-        var toVerify = mockMvc.perform(
-                get("/categories/17")
-                        .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-        );
-        toVerify.andExpect(status().isNotFound());
-    }
+        //When
+        var result = mockMvc.perform(get(PATH + "/{id}", ID_NOT_FOUND));
 
-    // ====================
-    // ==== Exceptions ====
-    // ====================
-
-    @Test
-    void getCategoryDetails_noSuchElementException() throws Exception {
-        // TODO: Como buscar un ID Inexistente?
-        var result = mockMvc
-                .perform(
-                        get("/categories/17000")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                );
+        //Then
         result.andExpect(status().isNotFound());
-        result.andExpect(jsonPath("$.message").value("No value present"));
+        result.andExpect(jsonPath("$.message").exists());
     }
 
     @Test
-    void createNewCategory_constraintViolationException() throws Exception {
-        var result = mockMvc
-                .perform(
-                        post("/categories")
-                                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJbm1vcnRhbEBlbWFpbC5jb20iLCJleHAiOjE3MjYxNDI0NTQsImlhdCI6MTYzOTc0MjQ1NH0.INSQ84JDdLwviHHa3RXDLv1V2wJlKk_6OMVPuQ5PCM4")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(Mocks.categoryEntityWithConstraintViolation()))
-                );
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void getAllPage_statusOK() throws Exception {
+
+        //Given
+
+        //When
+        var result = mockMvc.perform(get(PATH));
+
+        //Then
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$.content[0].id").exists());
+        result.andExpect(jsonPath("$.content[0].name").isNotEmpty());
+        result.andExpect(jsonPath("$.pageable.pageNumber").value(0));
+        result.andExpect(jsonPath("$.pageable.numberOfElements").exists());
+        result.andExpect(jsonPath("$.pageable.totalElements").exists());
+        result.andExpect(jsonPath("$.pageable.totalPages").exists());
+    }
+
+    @Test
+    @WithMockUser(username = "userMock", roles = "USER")
+    void getAllByCombo_statusOK() throws Exception {
+
+        //Given
+
+        //When
+        var result = mockMvc.perform(get(PATH + "/by-combo"));
+
+        //Then
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$[0]").exists());
+    }
+
+
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void createNewCategory_statusOK() throws Exception {
+
+        //Given
+        var request = Mocks.buildCategoryRequest();
+
+        //When
+        var result = mockMvc.perform(post(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
+        //Then
+        result.andExpect(status().isCreated());
+        result.andExpect(jsonPath("$.id").exists());
+        result.andExpect(jsonPath("$.name").value(request.getName()));
+    }
+
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void createNewCategory_With_BadRequest_Expect_Error() throws Exception {
+
+        //Given
+        var request = Mocks.buildCategoryRequestInvalid();
+
+        //When
+        var result = mockMvc.perform(post(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
+        //Then
         result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.errors").isNotEmpty());
+        result.andExpect(jsonPath("$.errors.length()").value(1));
+    }
+
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void updateCategory_statusOk() throws Exception {
+
+        //Given
+        final String NEW_NAME = "CATEGORY-NAME-23";
+        var request = Mocks.buildCategoryRequest();
+        request.setName(NEW_NAME);
+
+        //When
+        var result = mockMvc.perform(put(PATH + "/{id}", categorySaved.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
+        //Then
+        result.andExpect(status().isNoContent());
+
+        categoryRepository.flush();
+        var entityUpdated = categoryRepository.findById(categorySaved.getId()).orElseThrow();
+        then(entityUpdated.getName()).isEqualTo(NEW_NAME);
+        then(entityUpdated.getModifiedDate()).isNotNull();
+    }
+
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void deleteCategoryById_statusOk() throws Exception {
+
+        //Given
+        var CATEGORY_ID = categorySaved.getId();
+
+        //When
+        var result = mockMvc.perform(delete(PATH + "/{id}", CATEGORY_ID));
+
+        //Then
+        result.andExpect(status().isNoContent());
+
+        var entityDeleted = categoryRepository.findById(CATEGORY_ID);
+        then(entityDeleted.isPresent()).isFalse();
     }
 
 }
