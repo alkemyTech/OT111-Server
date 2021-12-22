@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "contact")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE contacts SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
