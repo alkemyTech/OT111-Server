@@ -62,5 +62,21 @@ public class OrganizationFullResponse {
         organizationEntity.setLinkedinUrl(organizationRequest.getLinkedinUrl());
         return organizationEntity;
     }
+
+    public static OrganizationEntity toEntity(OrganizationRequest request) {
+
+        return OrganizationEntity.builder()
+                .name(request.getName())
+                .image(request.getImage())
+                .address(request.getAddress())
+                .phone(request.getPhone())
+                .email(request.getEmail())
+                .welcomeText(request.getWelcomeText())
+                .aboutUsText(request.getAboutUsText())
+                .instagramUrl(request.getInstagramUrl())
+                .facebookUrl(request.getFacebookUrl())
+                .linkedinUrl(request.getLinkedinUrl())
+                .build();
+    }
 }
 
