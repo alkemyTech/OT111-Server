@@ -60,6 +60,7 @@ class ContactControllerTest {
         result.andExpect(jsonPath("$[0].name").isNotEmpty());
         result.andExpect(jsonPath("$[0].email").isNotEmpty());
         result.andExpect(jsonPath("$[0].message").isNotEmpty());
+
     }
 
     @Test
@@ -80,6 +81,7 @@ class ContactControllerTest {
         result.andExpect(jsonPath("$.email").value(request.getEmail()));
         result.andExpect(jsonPath("$.message").value(request.getMessage()));
         // Como verificar que se llama al EmailService ?
+
     }
 
     @Test
@@ -94,7 +96,8 @@ class ContactControllerTest {
 
         // Then:
         result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.errors.length()").value(1));
+        result.andExpect(jsonPath("$.errors.length()").value(3));
+
     }
 
 }
