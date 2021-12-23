@@ -4,7 +4,7 @@ import com.alkemy.ong.model.entity.ContactEntity;
 import com.alkemy.ong.model.request.ContactRequestDTO;
 import com.alkemy.ong.model.response.ContactResponseDTO;
 
-public class ContactMocks {
+public class MocksContact {
 
     public static ContactEntity buildContactEntity() {
         return ContactEntity.builder()
