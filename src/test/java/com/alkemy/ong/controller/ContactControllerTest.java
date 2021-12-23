@@ -2,19 +2,27 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.entity.ContactEntity;
 import com.alkemy.ong.repository.ContactRepository;
+import com.alkemy.ong.service.AWSService;
+import com.alkemy.ong.service.ContactService;
+import com.alkemy.ong.service.sendgrid.EmailService;
 import com.alkemy.ong.utils.MocksContact;
+import com.alkemy.ong.utils.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @Transactional
@@ -46,16 +54,32 @@ class ContactControllerTest {
         var result = mockMvc.perform(get(PATH));
 
         // Then:
-        result.andExpect(status().isBadRequest());
-        // FUNCIONA
-
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$").isNotEmpty());
+        result.andExpect(jsonPath("$[0].id").exists());
+        result.andExpect(jsonPath("$[0].name").isNotEmpty());
+        result.andExpect(jsonPath("$[0].email").isNotEmpty());
+        result.andExpect(jsonPath("$[0].message").isNotEmpty());
     }
 
     @Test
-    void createNewContact() {
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void createNewContact() throws Exception {
         // Given:
+        var request = MocksContact.buildContactRequest();
+
         // When:
+        var result = mockMvc.perform(post(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
         // Then:
+        result.andExpect(status().isCreated());
+        result.andExpect(jsonPath("$.id").exists());
+        result.andExpect(jsonPath("$.name").value(request.getName()));
+        result.andExpect(jsonPath("$.email").value(request.getEmail()));
+        result.andExpect(jsonPath("$.message").value(request.getMessage()));
+        // Como verificar que se llama al EmailService ?
     }
 
     @Test
