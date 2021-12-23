@@ -74,8 +74,8 @@ public class NewsController {
                     "y si la categoría a eliminar no existe se lanza un error con código de estado 404")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Void deleteNewsById(@PathVariable Long id) {
-        return newsService.deleteNews(id);
+    public void deleteNewsById(@PathVariable Long id) {
+        newsService.deleteNews(id);
     }
 
 }

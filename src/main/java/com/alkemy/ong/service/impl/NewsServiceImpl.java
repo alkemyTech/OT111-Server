@@ -53,10 +53,9 @@ public class NewsServiceImpl implements NewsService {
         return newsMapper.toDto(savedNews, foundCategory);
     }
 
-    public Void deleteNews(Long id) {
+    public void deleteNews(Long id) {
         var foundNews = newsRepository.findById(id).orElseThrow();
         newsRepository.delete(foundNews);
-        return null;
     }
 
 }

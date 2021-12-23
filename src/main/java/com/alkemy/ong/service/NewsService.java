@@ -17,6 +17,6 @@ public interface NewsService {
 
     CustomPage<NewsResponseDTO> getNewsPageable(Pageable pageable);
 
-    Void deleteNews(Long id);
+    void deleteNews(Long id);
 
 }
