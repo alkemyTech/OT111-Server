@@ -73,7 +73,7 @@ class OrganizationControllerTest {
         result.andExpect(jsonPath("$.message").exists());
     }
 
-    // ** POST /organization/public ** TESTS WITH REPOSITORY
+    // ** POST /organization/public **
 
     //POST like ADMIN -> OK
     @Test
@@ -209,8 +209,6 @@ class OrganizationControllerTest {
         var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
         then(entityUpdate.getName()).isEqualTo(NEW_NAME);
         then(entityUpdate.getModifiedDate()).isNotNull();
-
-        //TODO getModifiedBy() no funciona ya que devuelve "anonymous", es como que el @PreUpdate no esta funcionando bien.
         //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
     }
 
@@ -232,7 +230,6 @@ class OrganizationControllerTest {
         var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
         then(entityUpdate.getImage()).isEqualTo(NEW_IMAGE);
         then(entityUpdate.getModifiedDate()).isNotNull();
-
         //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
     }
 
@@ -254,7 +251,6 @@ class OrganizationControllerTest {
         var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
         then(entityUpdate.getEmail()).isEqualTo(NEW_EMAIL);
         then(entityUpdate.getModifiedDate()).isNotNull();
-
         //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
     }
 
@@ -276,7 +272,6 @@ class OrganizationControllerTest {
         var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
         then(entityUpdate.getWelcomeText()).isEqualTo(NEW_WELCOME_TEXT);
         then(entityUpdate.getModifiedDate()).isNotNull();
-
         //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
     }
 
@@ -344,7 +339,7 @@ class OrganizationControllerTest {
         var entityUpdated = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
         then(entityUpdated.getModifiedDate()).isNotNull();
         then(entityUpdated.getCreatedBy()).isEqualTo("userMock");
-        //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
+        //then(entityUpdated.getModifiedBy()).isEqualTo("userMock");
     }
 
 
