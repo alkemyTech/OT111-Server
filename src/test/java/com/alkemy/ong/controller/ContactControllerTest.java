@@ -96,6 +96,7 @@ class ContactControllerTest {
 
         // Then:
         result.andExpect(status().isBadRequest());
+        result.andExpect(jsonPath("$.message").value("Constraint Violations"));
         result.andExpect(jsonPath("$.errors.length()").value(3));
 
     }
