@@ -14,7 +14,7 @@ public class NewsMapper extends AbstractMapper<NewsEntity, NewsResponseDTO> {
     private final CategoryMapper categoryMapper;
 
 
-    public NewsResponseDTO entity2DTOResponse(NewsEntity entity, CategoryEntity categoryEntity) {
+    public NewsResponseDTO toDto(NewsEntity entity, CategoryEntity categoryEntity) {
         if (entity == null) return null;
         return NewsResponseDTO.builder()
                 .name(entity.getName())
@@ -24,7 +24,7 @@ public class NewsMapper extends AbstractMapper<NewsEntity, NewsResponseDTO> {
                 .build();
     }
 
-    public NewsEntity dtoRequest2Entity(NewsRequestDTO dto, CategoryEntity categoryEntity) {
+    public NewsEntity toEntity(NewsRequestDTO dto, CategoryEntity categoryEntity) {
         if (dto == null) return null;
         return NewsEntity.builder()
                 .name(dto.getName())
