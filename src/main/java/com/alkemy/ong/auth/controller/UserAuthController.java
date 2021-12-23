@@ -4,6 +4,7 @@ import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
+import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import com.alkemy.ong.model.response.security.RegisterResponse;
 import com.alkemy.ong.model.response.user.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +42,7 @@ public class UserAuthController {
     )
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public Object login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public AuthenticationResponse login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         return userAuthServ.loginAttempt(authenticationRequest);
     }
 
