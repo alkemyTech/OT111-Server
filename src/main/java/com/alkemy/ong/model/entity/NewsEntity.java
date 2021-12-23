@@ -55,7 +55,6 @@ public class NewsEntity {
 
     private String modifiedBy;
 
-    @Builder.Default
     private boolean deleted = Boolean.FALSE;
 
 

@@ -29,7 +29,6 @@ public class ContactEntity {
 
     private String message;
 
-    @Builder.Default
     private boolean deleted = Boolean.FALSE;
 
 }

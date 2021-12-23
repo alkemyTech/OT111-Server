@@ -2,9 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.entity.ContactEntity;
 import com.alkemy.ong.repository.ContactRepository;
-import com.alkemy.ong.service.AWSService;
-import com.alkemy.ong.service.ContactService;
-import com.alkemy.ong.service.sendgrid.EmailService;
+import com.alkemy.ong.service.sendgrid.EmailServiceImpl;
 import com.alkemy.ong.utils.MocksContact;
 import com.alkemy.ong.utils.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,6 +36,9 @@ class ContactControllerTest {
 
     @Autowired
     private ContactRepository contactRepository;
+
+    @MockBean
+    private EmailServiceImpl emailServiceImpl;
 
     private ContactEntity savedContact;
 
@@ -80,7 +82,7 @@ class ContactControllerTest {
         result.andExpect(jsonPath("$.name").value(request.getName()));
         result.andExpect(jsonPath("$.email").value(request.getEmail()));
         result.andExpect(jsonPath("$.message").value(request.getMessage()));
-        // Como verificar que se llama al EmailService ?
+        verify(emailServiceImpl, times(1)).sendContactConfirmation(request.getEmail());
 
     }
 
