@@ -83,10 +83,18 @@ class ContactControllerTest {
     }
 
     @Test
-    void createNewContact_With_BadRequest_Expect_ConstraintViolationException() {
+    void createNewContact_With_BadRequest_Expect_ConstraintViolationException() throws Exception {
         // Given:
+        var request = MocksContact.buildContactRequestInvalid();
+
         // When:
+        var result = mockMvc.perform(post(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
         // Then:
+        result.andExpect(status().isBadRequest());
+        result.andExpect(jsonPath("$.errors.length()").value(1));
     }
 
 }
