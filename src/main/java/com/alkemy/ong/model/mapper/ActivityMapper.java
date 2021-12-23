@@ -1,7 +1,7 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.ActivityEntity;
-import com.alkemy.ong.model.request.ActivityRequestDTO;
+import com.alkemy.ong.model.request.ActivityRequest;
 import com.alkemy.ong.model.response.ActivityResponseDTO;
 import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 @Service
 public class ActivityMapper {
 
-    public static ActivityEntity activityDTO2Entity(ActivityRequestDTO dto, String userName) {
+    public static ActivityEntity activityDTO2Entity(ActivityRequest dto, String userName) {
         OffsetDateTime createdDate = OffsetDateTime.now();
         ActivityEntity ent = new ActivityEntity();
         ent.setName(dto.getName());
