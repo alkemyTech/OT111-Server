@@ -2,7 +2,7 @@ package com.alkemy.ong.auth.controller;
 
 import com.alkemy.ong.auth.service.UserAuthService;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
-import com.alkemy.ong.exception.ApiException;
+import com.alkemy.ong.exception.ApiExceptionResponse;
 import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +54,7 @@ public class UserAuthController {
                             description = "Email ya existente.",
                             content = {
                                     @Content(mediaType = "application/json",
-                                            schema = @Schema(implementation = ApiException.class))
+                                            schema = @Schema(implementation = ApiExceptionResponse.class))
 
                             }
                     )
@@ -88,7 +87,7 @@ public class UserAuthController {
                             description = "Username o Password Incorretos.",
                             content = {
                                     @Content(mediaType = "application/json",
-                                            schema = @Schema(implementation = ApiException.class))
+                                            schema = @Schema(implementation = ApiExceptionResponse.class))
 
                             }
                     )
