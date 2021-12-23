@@ -29,6 +29,6 @@ public class ContactEntity {
 
     private String message;
 
-    private boolean deleted = Boolean.FALSE;
+    private boolean deleted;
 
 }
