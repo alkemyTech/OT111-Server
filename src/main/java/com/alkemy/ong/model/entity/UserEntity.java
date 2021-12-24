@@ -20,7 +20,7 @@ import java.util.Collection;
 @Where(clause = "deleted = false")
 @Builder
 @Entity
-public class UserEntity {
+public class UserEntity extends AuditableEntity{
 
     private static final long serialVersionUID = 1L;
 
@@ -52,17 +52,4 @@ public class UserEntity {
                     name = "role_id", referencedColumnName = "id")
     )
     private Collection<RoleEntity> roles;
-
-
-    @Builder.Default
-    private OffsetDateTime createdDate = OffsetDateTime.now();
-
-    private String createdBy;
-
-    @UpdateTimestamp
-    private OffsetDateTime modifiedDate;
-
-    private String modifiedBy;
-
-    private boolean deleted;
 }
