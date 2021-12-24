@@ -22,7 +22,7 @@ class OrganizationController {
 
 
     @GetMapping("/{id}/public")
-    public ResponseEntity<OrganizationDTO> getOrganization(@PathVariable Long id, List<Integer> getSlides) {
+    public ResponseEntity<OrganizationDTO> getOrganization(@PathVariable Long id) {
         slideService.getSlides().sort(slideService.findSlideById(id));
         return ResponseEntity.ok(OrganizationDTO.buildPublicData(organizationService.readOrganization(id)));
     }
