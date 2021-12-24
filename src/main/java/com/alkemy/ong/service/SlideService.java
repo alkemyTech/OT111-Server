@@ -9,4 +9,6 @@ public interface SlideService {
 
     void updateSlide(SlideRequestDTO request, Long id);
 
+    void deleteSlide(Long id);
+
 }

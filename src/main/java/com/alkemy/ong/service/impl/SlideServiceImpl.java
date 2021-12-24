@@ -33,4 +33,10 @@ public class SlideServiceImpl implements SlideService {
         foundSlide.setOrder(request.getOrder());
         slideRepository.save(foundSlide);
     }
+
+    @Override
+    public void deleteSlide(Long id) {
+        var foundSlide = slideRepository.findById(id).orElseThrow();
+        slideRepository.delete(foundSlide);
+    }
 }

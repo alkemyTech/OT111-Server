@@ -36,4 +36,14 @@ public class SlideController {
         slideService.updateSlide(request, id);
     }
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "eliminar un slide",
+            description = "Elimina el slide existente dado el ID pasado como parámetro por url, " +
+                    "y si el slide a eliminar no existe se lanza un error con código de estado 404")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSlideById(@PathVariable Long id) {
+        slideService.deleteSlide(id);
+    }
+
+
 }
