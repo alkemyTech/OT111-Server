@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.model.request.MemberRequest;
 import com.alkemy.ong.model.response.MemberResponse;
 import com.alkemy.ong.model.response.pagination.CustomPage;
 import com.alkemy.ong.service.MemberService;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/members")
@@ -30,4 +33,12 @@ public class MemberController {
         return memberService.getMembersPageable(pageRequest);
     }
 
+
+    @Operation(summary = "Crea un nuevo miembro",
+            description = "Crea un miembro como usuario normal")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public MemberResponse createOrganization(@Valid @RequestBody MemberRequest request) {
+        return memberService.createMember(request);
+    }
 }

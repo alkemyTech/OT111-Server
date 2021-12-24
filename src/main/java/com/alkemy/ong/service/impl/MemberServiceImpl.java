@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.model.request.MemberRequest;
 import com.alkemy.ong.model.response.MemberResponse;
 import com.alkemy.ong.model.response.pagination.CustomPage;
 import com.alkemy.ong.repository.MemberRepository;
@@ -17,5 +18,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public CustomPage<MemberResponse> getMembersPageable(Pageable pageRequest) {
         return new CustomPage<>(memberRepository.findAll(pageRequest).map(MemberResponse::toDTO));
+    }
+
+    @Override
+    public MemberResponse createMember(MemberRequest request) {
+        return MemberResponse.toDTO(memberRepository.save(MemberRequest.toEntity(request)));
     }
 }

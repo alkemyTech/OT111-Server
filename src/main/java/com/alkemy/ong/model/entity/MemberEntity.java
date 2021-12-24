@@ -1,7 +1,6 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -11,6 +10,9 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "member")
 @SQLDelete(sql = "UPDATE member SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
@@ -33,7 +35,7 @@ public class MemberEntity extends AuditableEntity {
     private String image;
 
     private String description;
-        
+
 }
 
 
