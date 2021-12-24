@@ -33,9 +33,11 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public void updateSlide(SlideRequestDTO request, Long id) {
         SlideEntity foundSlide = slideRepository.findById(id).orElseThrow();
+        var orgEnt =organizationRepository.findById(request.getOrganizationId()).orElseThrow();
         foundSlide.setText(request.getText());
         foundSlide.setImageUrl(String.valueOf(request.getImagenCodificada()));
         foundSlide.setOrder(request.getOrder());
+        orgEnt.setId(id);
         slideRepository.save(foundSlide);
     }
 
