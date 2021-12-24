@@ -1,34 +1,33 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserMapper extends AbstractMapper<UserEntity, UserDTO> {
+public class UserMapper extends AbstractMapper<UserEntity, UserResponse> {
 
     private final RoleMapper roleMapper;
 
     @Override
-    public UserDTO entity2DTO(UserEntity entity) {
+    public UserResponse entity2DTO(UserEntity entity) {
         if (entity == null) return null;
-        return UserDTO.builder()
+        return UserResponse.builder()
                 .id(entity.getId())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
                 .photo(entity.getPhoto())
                 .roles(roleMapper.entity2DTO(entity.getRoles()))
-                .createdDate(entity.getCreatedDate())
+         //       .createdDate(entity.getCreatedDate())
                 .build();
 
     }
 
     @Override
-    public UserEntity dto2Entity(UserDTO dto) {
+    public UserEntity dto2Entity(UserResponse dto) {
         return null;
     }
 

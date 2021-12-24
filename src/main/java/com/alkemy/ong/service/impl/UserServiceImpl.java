@@ -3,8 +3,8 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.model.entity.RoleEntity;
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.UserMapper;
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.request.UserRequest;
+import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
@@ -35,22 +35,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDTO> findAllUsers() {
+    public List<UserResponse> findAllUsers() {
         List<UserEntity> userEntityList = userRepository.findAll();
-        return userMapper.entity2DTO(userEntityList);
+        return userMapper.userToDTO(userEntityList);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public UserDTO findUserById(Long id) {
+    public UserResponse findUserById(Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow();
-        return userMapper.entity2DTO(foundUser);
+        return userMapper.userToDTO(foundUser);
     }
 
     @Override
     @Transactional
-    public void updateUser(UserUpdateDTO request, Long id) {
+    public void updateUser(UserRequest request, Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow();
+
         List<Integer> roleId = request.getRoles();
         List<RoleEntity> roleEntities = new ArrayList<>();
 
@@ -58,12 +59,8 @@ public class UserServiceImpl implements UserService {
             roleEntities.add(roleRepository.getById(roleIntegerId));
         }
 
-        foundUser.setFirstName(request.getFirstName());
-        foundUser.setLastName(request.getLastName());
-        foundUser.setEmail(request.getEmail());
-        foundUser.setPhoto(request.getPhoto());
-        foundUser.setRoles(roleEntities);
-        userRepository.save(foundUser);
+        userRepository.save(UserRequest.updateEntity(request, foundUser, roleEntities));
+
     }
 
     @Transactional

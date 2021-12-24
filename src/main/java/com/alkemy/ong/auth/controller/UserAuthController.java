@@ -7,7 +7,7 @@ import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import com.alkemy.ong.model.response.security.RegisterResponse;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,7 +111,7 @@ public class UserAuthController {
                             description = "Datos del Usuario",
                             content = {
                                     @Content(mediaType = "application/json",
-                                            schema = @Schema(implementation = UserDTO.class))
+                                            schema = @Schema(implementation = UserResponse.class))
                             }
                     ),
                     @ApiResponse(
@@ -128,7 +127,7 @@ public class UserAuthController {
             }
     )
     @GetMapping("/me")
-    public ResponseEntity<UserDTO> meData(@CurrentSecurityContext(expression = "authentication")
+    public ResponseEntity<UserResponse> meData(@CurrentSecurityContext(expression = "authentication")
                                                   Authentication authentication) {
         return ResponseEntity.ok(userAuthServ.meData(authentication.getName()));
     }
