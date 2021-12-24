@@ -2,7 +2,6 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.model.entity.RoleEntity;
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.request.UserRequest;
 import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.repository.RoleRepository;

@@ -3,15 +3,11 @@ package com.alkemy.ong.model.response;
 import com.alkemy.ong.model.entity.AuditableEntity;
 import com.alkemy.ong.model.entity.UserEntity;
 import com.alkemy.ong.model.mapper.RoleMapper;
-import com.alkemy.ong.model.mapper.UserMapper;
 import com.alkemy.ong.model.response.role.RoleDTO;
 import lombok.*;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
