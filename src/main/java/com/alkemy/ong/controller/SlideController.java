@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/slides")
@@ -43,6 +44,12 @@ public class SlideController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSlideById(@PathVariable Long id) {
         slideService.deleteSlide(id);
+    }
+
+    @GetMapping("by-combo")
+    @Operation(summary = "lista todos los slides")
+    public List<Integer> getAll() {
+        return slideService.getSlides();
     }
 
 

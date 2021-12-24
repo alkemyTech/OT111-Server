@@ -11,9 +11,13 @@ import com.alkemy.ong.service.SlideService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class SlideServiceImpl implements SlideService {
+
     private final SlideMapper slideMapper;
     private final SlideRepository slideRepository;
     private final OrganizationRepository organizationRepository;
@@ -27,7 +31,7 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     public void updateSlide(SlideRequestDTO request, Long id) {
-        SlideEntity foundSlide =slideRepository.findById(id).orElseThrow();
+        SlideEntity foundSlide = slideRepository.findById(id).orElseThrow();
         foundSlide.setText(request.getText());
         foundSlide.setImageUrl(String.valueOf(request.getImagenCodificada()));
         foundSlide.setOrder(request.getOrder());
@@ -38,5 +42,12 @@ public class SlideServiceImpl implements SlideService {
     public void deleteSlide(Long id) {
         var foundSlide = slideRepository.findById(id).orElseThrow();
         slideRepository.delete(foundSlide);
+    }
+
+    @Override
+    public List<Integer> getSlides() {
+        return slideRepository.findAll().stream()
+                .map(SlideEntity::getOrder)
+                .collect(Collectors.toList());
     }
 }
