@@ -28,7 +28,7 @@ public class TestimonialController {
             description = "Se actualiza el testimonio por el ID pasado como parámetro por url, " +
                     "y si el testimonio a actualzizar no existe se lanza un error con código de estado 404")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "testimonio actualizado",
+            @ApiResponse(responseCode = "204", description = "Testimonio actualizado",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = TestimonialDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
