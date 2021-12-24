@@ -2,6 +2,8 @@ package com.alkemy.ong.model.response;
 
 import lombok.*;
 
+import java.time.OffsetDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -16,5 +18,6 @@ public class CategoryResponseDTO {
     private String description;
 
     private String image;
+    private OffsetDateTime createdDate;
 }
 

@@ -6,6 +6,7 @@ import com.alkemy.ong.model.request.ContactRequestDTO;
 import com.alkemy.ong.model.response.ContactResponseDTO;
 import com.alkemy.ong.repository.ContactRepository;
 import com.alkemy.ong.service.ContactService;
+import com.alkemy.ong.service.sendgrid.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,14 @@ public class ContactServiceImpl implements ContactService {
 
     private final ContactRepository contactRepository;
     private final ContactMapper contactMapper;
+    private final EmailService emailService;
 
     @Override
     public ContactResponseDTO saveContact(ContactRequestDTO request) {
-        ContactEntity newContact = contactMapper.contactDTO2Entity(request);
+        ContactEntity newContact = contactMapper.toEntity(request);
+        emailService.sendContactConfirmation(request.getEmail());
         ContactEntity savedContact = contactRepository.save(newContact);
-        return contactMapper.contactEntity2DTO(savedContact);
+        return contactMapper.toDTO(savedContact);
     }
 
     @Override

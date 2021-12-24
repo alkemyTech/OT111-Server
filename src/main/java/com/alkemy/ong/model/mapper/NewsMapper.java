@@ -1,33 +1,55 @@
 package com.alkemy.ong.model.mapper;
 
+import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.entity.NewsEntity;
-import com.alkemy.ong.model.response.news.NewsDTO;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alkemy.ong.model.request.NewsRequestDTO;
+import com.alkemy.ong.model.response.news.NewsResponseDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@NoArgsConstructor
-public class NewsMapper extends AbstractMapper<NewsEntity, NewsDTO> {
+@RequiredArgsConstructor
+public class NewsMapper extends AbstractMapper<NewsEntity, NewsResponseDTO> {
 
-    @Autowired
-    private CategoryMapper categoryMapper;
+    private final CategoryMapper categoryMapper;
 
-    @Override
-    public NewsDTO entity2DTO(NewsEntity entity) {
+
+    public NewsResponseDTO toDto(NewsEntity entity, CategoryEntity categoryEntity) {
         if (entity == null) return null;
-
-        return NewsDTO.builder()
+        return NewsResponseDTO.builder()
                 .name(entity.getName())
                 .content(entity.getContent())
                 .image(entity.getImage())
-                .categoryResponseDTO(categoryMapper.categoryEntity2DTO(entity.getCategoryId()))
+                .category(categoryMapper.toDTO(categoryEntity))
+                .build();
+    }
+
+    public NewsEntity toEntity(NewsRequestDTO dto, CategoryEntity categoryEntity) {
+        if (dto == null) return null;
+        return NewsEntity.builder()
+                .name(dto.getName())
+                .content(dto.getContent())
+                .image(dto.getImage())
+                .category(categoryEntity)
                 .build();
     }
 
     @Override
-    public NewsEntity dto2Entity(NewsDTO dto) {
+    public NewsResponseDTO entity2DTO(NewsEntity entity) {
+        if (entity == null) return null;
+
+        return NewsResponseDTO.builder()
+                .name(entity.getName())
+                .content(entity.getContent())
+                .image(entity.getImage())
+                .category(categoryMapper.toDTO(entity.getCategory()))
+                .build();
+    }
+
+    @Override
+    public NewsEntity dto2Entity(NewsResponseDTO dto) {
         return null;
     }
 
 }
+
