@@ -52,5 +52,12 @@ public class SlideController {
         return slideService.getSlides();
     }
 
+    @PostMapping
+    @Operation(summary = "crear nuevo slide")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SlideResponseDTO createNewSlide(@Valid @RequestBody SlideRequestDTO request) {
+        return slideService.saveSlide(request);
+    }
+
 
 }

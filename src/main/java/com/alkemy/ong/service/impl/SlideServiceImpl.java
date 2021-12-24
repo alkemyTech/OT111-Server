@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.model.mapper.SlideMapper;
 import com.alkemy.ong.model.request.SlideRequestDTO;
+import com.alkemy.ong.model.response.AWSResponseDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.repository.SlideRepository;
@@ -49,5 +50,19 @@ public class SlideServiceImpl implements SlideService {
         return slideRepository.findAll().stream()
                 .map(SlideEntity::getOrder)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public SlideResponseDTO saveSlide(SlideRequestDTO request) {
+        Long organizationID = request.getOrganizationId();
+        var orgEnt = organizationRepository.findById(organizationID).orElseThrow();
+
+        BASE64DecodedMultipartFile multiPart = new BASE64DecodedMultipartFile(Base64.decodeBase64(request.getImagenCodificada()));
+        AWSResponseDTO imagenUrl = awsService.uploadFile(multiPart);
+
+        SlideEntity newSlide = slideMapper.toEntity(request, orgEnt, imagenUrl.getImageUrl());
+        SlideEntity savedSlide = slideRepository.save(newSlide);
+        return slideMapper.toDTO(savedSlide);
+
     }
 }

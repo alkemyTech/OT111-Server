@@ -15,4 +15,6 @@ public interface SlideService {
 
     List<Integer> getSlides();
 
+    SlideResponseDTO saveSlide(SlideRequestDTO request);
+
 }
