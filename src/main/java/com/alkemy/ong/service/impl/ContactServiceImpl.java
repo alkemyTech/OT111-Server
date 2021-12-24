@@ -23,10 +23,10 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactResponseDTO saveContact(ContactRequestDTO request) {
-        ContactEntity newContact = contactMapper.contactDTO2Entity(request);
+        ContactEntity newContact = contactMapper.toEntity(request);
         emailService.sendContactConfirmation(request.getEmail());
         ContactEntity savedContact = contactRepository.save(newContact);
-        return contactMapper.contactEntity2DTO(savedContact);
+        return contactMapper.toDTO(savedContact);
     }
 
     @Override
