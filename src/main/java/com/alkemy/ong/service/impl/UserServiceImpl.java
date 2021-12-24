@@ -22,13 +22,11 @@ public class UserServiceImpl implements UserService {
 
     private RoleRepository roleRepository;
     private UserRepository userRepository;
-    private UserMapper userMapper;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
     }
@@ -37,14 +35,14 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public List<UserResponse> findAllUsers() {
         List<UserEntity> userEntityList = userRepository.findAll();
-        return userMapper.userToDTO(userEntityList);
+        return UserResponse.listToDTO(userEntityList);
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserResponse findUserById(Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow();
-        return userMapper.userToDTO(foundUser);
+        return UserResponse.toDTO(foundUser);
     }
 
     @Override

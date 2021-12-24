@@ -8,8 +8,10 @@ import com.alkemy.ong.model.response.role.RoleDTO;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -18,7 +20,7 @@ import java.util.List;
 @Builder
 public class UserResponse extends AuditableEntity {
 
-    private final RoleMapper roleMapper;
+    private static final RoleMapper roleMapper = new RoleMapper();
 
     private Long id;
 
@@ -32,7 +34,7 @@ public class UserResponse extends AuditableEntity {
 
     private List<RoleDTO> roles;
 
-    public UserResponse toDTO(UserEntity entity) {
+    public static UserResponse toDTO(UserEntity entity) {
         if (entity == null) return null;
 
         return UserResponse.builder()
@@ -43,6 +45,27 @@ public class UserResponse extends AuditableEntity {
                 .photo(entity.getPhoto())
                 .roles(roleMapper.entity2DTO(entity.getRoles()))
                 .build();
+
+    }
+
+    public static List<UserResponse> listToDTO(List<UserEntity> users) {
+
+        List<UserResponse> result = new ArrayList<>();
+
+        for (UserEntity temp : users) {
+
+            UserResponse obj = new UserResponse();
+            obj.setId(temp.getId());
+            obj.setFirstName(temp.getFirstName());
+            obj.setLastName(temp.getLastName());
+            obj.setEmail(temp.getEmail());
+            obj.setPhoto(temp.getPhoto());
+            obj.setRoles(roleMapper.entity2DTO(temp.getRoles()));
+
+            result.add(obj);
+        }
+
+        return result;
 
     }
 }

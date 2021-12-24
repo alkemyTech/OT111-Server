@@ -31,20 +31,4 @@ public class UserMapper extends AbstractMapper<UserEntity, UserResponse> {
         return null;
     }
 
-    /*public UserUpdateDTO entityUpdate2DTO(UserEntity entity) {
-        if (entity == null) return null;
-        return UserUpdateDTO.builder()
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .password(entity.getPassword())
-                .email(entity.getEmail())
-                .photo(entity.getPhoto())
-                .roles(roleMapper.entity2DTO(entity.getRoles()))
-                .build();
-
-    }*/
-
-    /*public UserEntity updateDTO2Entity(UserUpdateDTO userUpdateDTO) {
-        return null;
-    }*/
 }
