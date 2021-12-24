@@ -60,18 +60,6 @@ class OrganizationControllerTest {
         result.andExpect(jsonPath("$.linkedinUrl").value(organizationSaved.getLinkedinUrl()));
     }
 
-    //If organization was deleted and try to update -> NOTFOUND
-    @Test
-    @WithMockUser(username = "userMock", roles = "USER")
-    void getOrganizationPublic_Expected_NotFound() throws Exception {
-        //Given
-        organizationRepository.delete(organizationSaved);
-        //When
-        var result = mockMvc.perform(get(PATH));
-        //Then
-        result.andExpect(status().isNotFound());
-        result.andExpect(jsonPath("$.message").exists());
-    }
 
     // ** POST /organization/public **
 
@@ -119,148 +107,38 @@ class OrganizationControllerTest {
         result.andExpect(status().isForbidden());
     }
 
-    //If name in request is invalid -> BAD_REQUEST
+    //If required fields in request are invalid -> BAD_REQUEST
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
-    void createOrganization_expectBadRequest_invalidName() throws Exception {
+    void createOrganization_expectBadRequest_invalidFields() throws Exception {
         //Given
-        var request = OrganizationMocks.buildOrganizationRequestInvalidName();
+        var request = OrganizationMocks.buildOrganizationRequestInvalidFields();
         //When
         var result = mockMvc.perform(post(PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtil.toJson(request)));
         //Then
         result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.errors.length()").value(1));
-
+        result.andExpect(jsonPath("$.errors.length()").value(4));
     }
-
-    //If image in request is invalid -> BAD_REQUEST
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void createOrganization_expectBadRequest_invalidImage() throws Exception {
-        //Given
-        var request = OrganizationMocks.buildOrganizationRequestInvalidImage();
-        //When
-        var result = mockMvc.perform(post(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.errors.length()").value(1));
-    }
-
-    //If email in request is invalid -> BAD_REQUEST
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void createOrganization_expectBadRequest_invalidEmail() throws Exception {
-
-        //Given
-        var request = OrganizationMocks.buildOrganizationRequestInvalidEmail();
-
-        //When
-        var result = mockMvc.perform(post(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-
-        //Then
-        result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.errors.length()").value(1));
-    }
-
-    //If welcomeText in request is invalid -> BAD_REQUEST
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void createOrganization_expectBadRequest_invalidWelcomeText() throws Exception {
-
-        //Given
-        var request = OrganizationMocks.buildOrganizationRequestInvalidWelcomeText();
-
-        //When
-        var result = mockMvc.perform(post(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-
-        //Then
-        result.andExpect(status().isBadRequest());
-        result.andExpect(jsonPath("$.errors.length()").value(1));
-    }
-
 
     // ** PUT /organization/public ** TESTS
 
     //PUT Tests with Repository:
 
-    //If try to update organization name and all is OK!
+    //If try to update required fields -> OK!
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateOrganization_statusOk_updateName() throws Exception {
+    void updateOrganization_statusOk_updateRequiredFields() throws Exception {
         //Given
         final String NEW_NAME = "ORGANIZATION-UPDATE-NAME";
-        var request = OrganizationMocks.buildOrganizationRequest();
-        request.setName(NEW_NAME);
-        //When
-        var result = mockMvc.perform(put(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isOk());
-        organizationRepository.flush();
-        var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
-        then(entityUpdate.getName()).isEqualTo(NEW_NAME);
-        then(entityUpdate.getModifiedDate()).isNotNull();
-        //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
-    }
-
-    //If try to update organization image and all is OK!
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateOrganization_statusOk_updateImage() throws Exception {
-        //Given
         final String NEW_IMAGE = "ORGANIZATION-UPDATE-IMAGE";
-        var request = OrganizationMocks.buildOrganizationRequest();
-        request.setImage(NEW_IMAGE);
-        //When
-        var result = mockMvc.perform(put(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isOk());
-        organizationRepository.flush();
-        var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
-        then(entityUpdate.getImage()).isEqualTo(NEW_IMAGE);
-        then(entityUpdate.getModifiedDate()).isNotNull();
-        //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
-    }
-
-    //If try to update organization email and all is OK!
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateOrganization_statusOk_updateEmail() throws Exception {
-        //Given
         final String NEW_EMAIL = "ORGANIZATION@UPDATE.COM";
-        var request = OrganizationMocks.buildOrganizationRequest();
-        request.setEmail(NEW_EMAIL);
-        //When
-        var result = mockMvc.perform(put(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isOk());
-        organizationRepository.flush();
-        var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
-        then(entityUpdate.getEmail()).isEqualTo(NEW_EMAIL);
-        then(entityUpdate.getModifiedDate()).isNotNull();
-        //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
-    }
-
-    //If try to update organization WelcomeText and all is OK!
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateOrganization_statusOk_updateWelcomeText() throws Exception {
-        //Given
         final String NEW_WELCOME_TEXT = "ORGANIZATION_UPDATE_WELCOME_TEXT";
         var request = OrganizationMocks.buildOrganizationRequest();
+        request.setName(NEW_NAME);
+        request.setImage(NEW_IMAGE);
+        request.setEmail(NEW_EMAIL);
         request.setWelcomeText(NEW_WELCOME_TEXT);
         //When
         var result = mockMvc.perform(put(PATH)
@@ -270,53 +148,29 @@ class OrganizationControllerTest {
         result.andExpect(status().isOk());
         organizationRepository.flush();
         var entityUpdate = organizationRepository.findById(organizationSaved.getId()).orElseThrow();
+        then(entityUpdate.getName()).isEqualTo(NEW_NAME);
+        then(entityUpdate.getImage()).isEqualTo(NEW_IMAGE);
+        then(entityUpdate.getEmail()).isEqualTo(NEW_EMAIL);
         then(entityUpdate.getWelcomeText()).isEqualTo(NEW_WELCOME_TEXT);
         then(entityUpdate.getModifiedDate()).isNotNull();
         //then(entityUpdate.getModifiedBy()).isEqualTo("userMock");
     }
 
-    //If is not a ADMIN role user. -> FORBIDDEN
-    @Test
-    @WithMockUser(username = "userMock", roles = "USER")
-    void updateOrganization_Unauthorized() throws Exception {
-        //Given
-        final String NEW_NAME = "ORGANIZATION-NAME-12";
-        var request = OrganizationMocks.buildOrganizationRequest();
-        request.setName(NEW_NAME);
-        //When
-        var result = mockMvc.perform(put(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isForbidden());
-    }
-
-    //If organization was deleted and try to update -> NOTFOUND
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateOrganization_Expect_NotFound() throws Exception {
-
-        //Given
-        var request = OrganizationMocks.buildOrganizationRequest();
-        //When
-        organizationRepository.delete(organizationSaved);
-        var result = mockMvc.perform(put(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isNotFound());
-        result.andExpect(jsonPath("$.message").exists());
-    }
-
     //PUT test with response
-    //If try to update name -> OK and response
+    //If try to update required fields -> OK and response
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateOrganizationName_statusOK_Response() throws Exception {
+    void updateOrganizationRequiredFields_statusOK_Response() throws Exception {
         //Given
         final String NEW_NAME = "ORGANIZATION-UPDATE-NAME";
+        final String NEW_IMAGE = "ORGANIZATION-UPDATE-IMAGE";
+        final String NEW_EMAIL = "ORGANIZATION@UPDATE.COM";
+        final String NEW_WELCOME_TEXT = "ORGANIZATION_UPDATE_WELCOME_TEXT";
         var request = OrganizationMocks.buildOrganizationRequest();
         request.setName(NEW_NAME);
+        request.setImage(NEW_IMAGE);
+        request.setEmail(NEW_EMAIL);
+        request.setWelcomeText(NEW_WELCOME_TEXT);
         //When
         var result = mockMvc.perform(put(PATH)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -325,11 +179,11 @@ class OrganizationControllerTest {
         result.andExpect(status().isOk());
         result.andExpect(jsonPath("$.id").exists());
         result.andExpect(jsonPath("$.name").value(NEW_NAME));
-        result.andExpect(jsonPath("$.image").value(request.getImage()));
+        result.andExpect(jsonPath("$.image").value(NEW_IMAGE));
         result.andExpect(jsonPath("$.address").value(request.getAddress()));
         result.andExpect(jsonPath("$.phone").value(request.getPhone()));
-        result.andExpect(jsonPath("$.email").value(request.getEmail()));
-        result.andExpect(jsonPath("$.welcomeText").value(request.getWelcomeText()));
+        result.andExpect(jsonPath("$.email").value(NEW_EMAIL));
+        result.andExpect(jsonPath("$.welcomeText").value(NEW_WELCOME_TEXT));
         result.andExpect(jsonPath("$.aboutUsText").value(request.getAboutUsText()));
         result.andExpect(jsonPath("$.facebookUrl").value(request.getFacebookUrl()));
         result.andExpect(jsonPath("$.instagramUrl").value(request.getInstagramUrl()));
@@ -342,6 +196,20 @@ class OrganizationControllerTest {
         //then(entityUpdated.getModifiedBy()).isEqualTo("userMock");
     }
 
+    //update Given Invalid required fields -> BAD_REQUEST
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void updateOrganization_expectBadRequest_invalidFields() throws Exception {
+        //Given
+        var request = OrganizationMocks.buildOrganizationRequestInvalidFields();
+        //When
+        var result = mockMvc.perform(put(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+        //Then
+        result.andExpect(status().isBadRequest());
+        result.andExpect(jsonPath("$.errors.length()").value(4));
+    }
 
     // ** DELETE /organization/public/{id} ** TESTS
 
