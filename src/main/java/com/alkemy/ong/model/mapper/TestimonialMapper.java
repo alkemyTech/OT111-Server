@@ -12,20 +12,20 @@ public class TestimonialMapper {
     public TestimonialEntity testimonialDTO2Entity(TestimonialRequestDTO dto) {
         TestimonialEntity ent = new TestimonialEntity();
         ent.setName(dto.getName());
-        ent.setImage(dto.getImagen());
+        ent.setImage(dto.getImage());
         ent.setContent(dto.getContent());
         return ent;
     }
 
-    /*public TestimonialResponseDTO testimonialEntity2DTO(TestimonialEntity ent) {
+    public TestimonialResponseDTO testimonialEntity2DTO(TestimonialEntity ent) {
         TestimonialResponseDTO dto = new TestimonialResponseDTO();
         dto.setId(ent.getId());
         dto.setName(ent.getName());
-        dto.setDescription(ent.getDescription());
+        dto.setContent(ent.getContent());
         dto.setImage(ent.getImage());
         return dto;
     }
-
+    /*
     public CategoryResponseDTO buildToList(CategoryEntity entity) {
         return CategoryResponseDTO.builder()
                 .name(entity.getName())

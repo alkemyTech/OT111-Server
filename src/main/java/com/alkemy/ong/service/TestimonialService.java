@@ -1,8 +1,8 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.dto.TestimonialDTO;
-import com.alkemy.ong.model.response.news.NewsDTO;
+import com.alkemy.ong.model.response.TestimonialResponseDTO;
 
 public interface TestimonialService {
-    void updateTestimonial(TestimonialDTO TestimonialDTO, Long id);
+    TestimonialResponseDTO updateTestimonial(TestimonialDTO TestimonialDTO, Long id);
 }
