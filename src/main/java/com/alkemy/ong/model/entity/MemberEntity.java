@@ -7,7 +7,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -15,36 +14,27 @@ import java.time.OffsetDateTime;
 @Table(name = "member")
 @SQLDelete(sql = "UPDATE member SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-public class MemberEntity {
+public class MemberEntity extends AuditableEntity {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @NotEmpty
-        private String name;
+    @NotEmpty
+    private String name;
 
-        private String facebookUrl;
+    private String facebookUrl;
 
-        private String instagramUrl;
+    private String instagramUrl;
 
-        private String linkedinUrl;
+    private String linkedinUrl;
 
-        @NotEmpty
-        private String image;
+    @NotEmpty
+    private String image;
 
-        private String description;
-
-        private OffsetDateTime createdDate;
-
-        private OffsetDateTime modifiedDate;
-
-        private String createdBy;
-
-        private String modifiedBy;
-
-        private boolean deleted = Boolean.FALSE;
-    }
+    private String description;
+        
+}
 
 
 

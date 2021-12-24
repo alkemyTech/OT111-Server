@@ -1,0 +1,21 @@
+package com.alkemy.ong.service.impl;
+
+import com.alkemy.ong.model.response.MemberResponse;
+import com.alkemy.ong.model.response.pagination.CustomPage;
+import com.alkemy.ong.repository.MemberRepository;
+import com.alkemy.ong.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class MemberServiceImpl implements MemberService {
+
+    private final MemberRepository memberRepository;
+
+    @Override
+    public CustomPage<MemberResponse> getMembersPageable(Pageable pageRequest) {
+        return new CustomPage<>(memberRepository.findAll(pageRequest).map(MemberResponse::toDTO));
+    }
+}
