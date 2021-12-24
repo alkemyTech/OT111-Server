@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
+
                 .antMatchers("/auth/me").permitAll()
                 .antMatchers("/storage/*").hasRole(ROLE_ADMIN)
 
@@ -55,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(ROLE_ADMIN)
+
 
                 //categories
                 .antMatchers(HttpMethod.GET, "/categories/by-combo").hasRole(ROLE_USER)
