@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class TestimonialRequestDTO {
     @NotEmpty(message = "Name is mandatory")
-    @NotNull
     private String name;
 
     private String image;

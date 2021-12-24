@@ -1,23 +1,15 @@
 package com.alkemy.ong.model.mapper;
 
-import com.alkemy.ong.model.entity.CategoryEntity;
 import com.alkemy.ong.model.entity.TestimonialEntity;
-import com.alkemy.ong.model.request.CategoryRequestDTO;
 import com.alkemy.ong.model.request.TestimonialRequestDTO;
-import com.alkemy.ong.model.response.CategoryResponseDTO;
 import com.alkemy.ong.model.response.TestimonialResponseDTO;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-public class TestimonialMapper {
+@Component
+public class TestimonialMapper{
 
-    public TestimonialEntity testimonialDTO2Entity(TestimonialRequestDTO dto) {
-        TestimonialEntity ent = new TestimonialEntity();
-        ent.setName(dto.getName());
-        ent.setImage(dto.getImage());
-        ent.setContent(dto.getContent());
-        return ent;
-    }
-
-    public TestimonialResponseDTO testimonialEntity2DTO(TestimonialEntity ent) {
+    public TestimonialResponseDTO entity2DTO(TestimonialEntity ent) {
         TestimonialResponseDTO dto = new TestimonialResponseDTO();
         dto.setId(ent.getId());
         dto.setName(ent.getName());
@@ -25,10 +17,17 @@ public class TestimonialMapper {
         dto.setImage(ent.getImage());
         return dto;
     }
+
+    public TestimonialEntity dto2Entity(TestimonialRequestDTO dto) {
+        TestimonialEntity ent = new TestimonialEntity();
+        ent.setName(dto.getName());
+        ent.setImage(dto.getImage());
+        ent.setContent(dto.getContent());
+        return ent;
+    }
     /*
-    public CategoryResponseDTO buildToList(CategoryEntity entity) {
-        return CategoryResponseDTO.builder()
-                .name(entity.getName())
-                .build();
+    public TestimonialResponseDTO requestToResponse(TestimonialEntity requestDTO){
+        return entity2DTO(dto2Entity(requestDTO));
     }*/
+
 }
