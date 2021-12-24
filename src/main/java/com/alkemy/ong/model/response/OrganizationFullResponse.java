@@ -1,7 +1,6 @@
 package com.alkemy.ong.model.response;
 
 import com.alkemy.ong.model.entity.OrganizationEntity;
-import com.alkemy.ong.model.request.OrganizationRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,34 +48,5 @@ public class OrganizationFullResponse {
                 .build();
     }
 
-    public static OrganizationEntity refreshData(OrganizationEntity organizationEntity, OrganizationRequest organizationRequest) {
-        organizationEntity.setName(organizationRequest.getName());
-        organizationEntity.setImage(organizationRequest.getImage());
-        organizationEntity.setAddress(organizationRequest.getAddress());
-        organizationEntity.setPhone(organizationRequest.getPhone());
-        organizationEntity.setEmail(organizationRequest.getEmail());
-        organizationEntity.setWelcomeText(organizationRequest.getWelcomeText());
-        organizationEntity.setAboutUsText(organizationRequest.getAboutUsText());
-        organizationEntity.setInstagramUrl(organizationRequest.getInstagramUrl());
-        organizationEntity.setFacebookUrl(organizationRequest.getFacebookUrl());
-        organizationEntity.setLinkedinUrl(organizationRequest.getLinkedinUrl());
-        return organizationEntity;
-    }
-
-    public static OrganizationEntity toEntity(OrganizationRequest request) {
-
-        return OrganizationEntity.builder()
-                .name(request.getName())
-                .image(request.getImage())
-                .address(request.getAddress())
-                .phone(request.getPhone())
-                .email(request.getEmail())
-                .welcomeText(request.getWelcomeText())
-                .aboutUsText(request.getAboutUsText())
-                .instagramUrl(request.getInstagramUrl())
-                .facebookUrl(request.getFacebookUrl())
-                .linkedinUrl(request.getLinkedinUrl())
-                .build();
-    }
 }
 

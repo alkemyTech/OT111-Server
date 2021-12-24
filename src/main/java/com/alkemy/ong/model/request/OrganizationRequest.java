@@ -1,10 +1,7 @@
 package com.alkemy.ong.model.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.alkemy.ong.model.entity.OrganizationEntity;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -40,5 +37,35 @@ public class OrganizationRequest {
     private String instagramUrl;
 
     private String linkedinUrl;
+
+    public static OrganizationEntity refreshData(OrganizationEntity organizationEntity, OrganizationRequest organizationRequest) {
+        organizationEntity.setName(organizationRequest.getName());
+        organizationEntity.setImage(organizationRequest.getImage());
+        organizationEntity.setAddress(organizationRequest.getAddress());
+        organizationEntity.setPhone(organizationRequest.getPhone());
+        organizationEntity.setEmail(organizationRequest.getEmail());
+        organizationEntity.setWelcomeText(organizationRequest.getWelcomeText());
+        organizationEntity.setAboutUsText(organizationRequest.getAboutUsText());
+        organizationEntity.setInstagramUrl(organizationRequest.getInstagramUrl());
+        organizationEntity.setFacebookUrl(organizationRequest.getFacebookUrl());
+        organizationEntity.setLinkedinUrl(organizationRequest.getLinkedinUrl());
+        return organizationEntity;
+    }
+
+    public static OrganizationEntity toEntity(OrganizationRequest request) {
+
+        return OrganizationEntity.builder()
+                .name(request.getName())
+                .image(request.getImage())
+                .address(request.getAddress())
+                .phone(request.getPhone())
+                .email(request.getEmail())
+                .welcomeText(request.getWelcomeText())
+                .aboutUsText(request.getAboutUsText())
+                .instagramUrl(request.getInstagramUrl())
+                .facebookUrl(request.getFacebookUrl())
+                .linkedinUrl(request.getLinkedinUrl())
+                .build();
+    }
 
 }

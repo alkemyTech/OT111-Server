@@ -26,14 +26,14 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationFullResponse updateOrganization(OrganizationRequest organizationRequest) {
         var foundOrganization = organizationRepository.findTopByOrderByIdDesc().orElseThrow();
         return OrganizationFullResponse.toDTO(organizationRepository
-                .save(OrganizationFullResponse.refreshData(foundOrganization, organizationRequest)));
+                .save(OrganizationRequest.refreshData(foundOrganization, organizationRequest)));
 
     }
 
     @Override
     @Transactional
     public OrganizationFullResponse saveOrganization(OrganizationRequest request) {
-        return OrganizationFullResponse.toDTO(organizationRepository.save(OrganizationFullResponse.toEntity(request)));
+        return OrganizationFullResponse.toDTO(organizationRepository.save(OrganizationRequest.toEntity(request)));
     }
 
     @Override
