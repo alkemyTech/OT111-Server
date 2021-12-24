@@ -8,8 +8,10 @@ import com.alkemy.ong.model.response.SlideResponseDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.AWSService;
+import com.alkemy.ong.service.BASE64DecodedMultipartFile;
 import com.alkemy.ong.service.SlideService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
