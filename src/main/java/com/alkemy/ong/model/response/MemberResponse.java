@@ -35,5 +35,5 @@ public class MemberResponse {
                 .linkedinUrl(entity.getLinkedinUrl())
                 .build();
     }
-
+    
 }

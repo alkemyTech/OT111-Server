@@ -10,4 +10,8 @@ public interface MemberService {
     CustomPage<MemberResponse> getMembersPageable(Pageable pageRequest);
 
     MemberResponse createMember(MemberRequest request);
+
+    void deleteMember(Long id);
+
+    MemberResponse updateMember(MemberRequest memberRequest, Long id);
 }

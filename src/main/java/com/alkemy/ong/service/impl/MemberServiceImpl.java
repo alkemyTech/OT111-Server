@@ -24,4 +24,19 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponse createMember(MemberRequest request) {
         return MemberResponse.toDTO(memberRepository.save(MemberRequest.toEntity(request)));
     }
+
+    @Override
+    public MemberResponse updateMember(MemberRequest memberRequest, Long id) {
+        var foundMember = memberRepository.findById(id).orElseThrow();
+        return MemberResponse.toDTO(memberRepository
+                .save(MemberRequest.refreshData(foundMember, memberRequest)));
+    }
+
+    @Override
+    public void deleteMember(Long id) {
+        var foundMember = memberRepository.findById(id).orElseThrow();
+        memberRepository.delete(foundMember);
+    }
+
+
 }

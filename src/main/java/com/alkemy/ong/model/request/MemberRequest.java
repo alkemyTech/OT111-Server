@@ -37,4 +37,15 @@ public class MemberRequest {
                 .linkedinUrl(request.getLinkedinUrl())
                 .build();
     }
+
+    public static MemberEntity refreshData(MemberEntity memberEntity, MemberRequest memberRequest) {
+        memberEntity.setName(memberRequest.getName());
+        memberEntity.setImage(memberRequest.getImage());
+        memberEntity.setDescription(memberRequest.getDescription());
+        memberEntity.setInstagramUrl(memberRequest.getInstagramUrl());
+        memberEntity.setFacebookUrl(memberRequest.getFacebookUrl());
+        memberEntity.setLinkedinUrl(memberRequest.getLinkedinUrl());
+        return memberEntity;
+
+    }
 }
