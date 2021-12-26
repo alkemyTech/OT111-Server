@@ -8,21 +8,25 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Tag(name = "Usuarios")
 @RestController
 @RequestMapping("/users")
+@Validated
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     @Operation(summary = "Lista todos los usuarios.", security = @SecurityRequirement(name = "bearerAuth"),
             description = "Obtiene la lista completa de usuarios, solo accesible por un Administrador")
+    @ResponseStatus(HttpStatus.OK)
     public List<UserResponse> getAllUsers() {
         return userService.findAllUsers();
     }
@@ -40,7 +44,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Lista el detalle de un usuario")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public UserResponse getUserDetails(@PathVariable Long id){
         return userService.findUserById(id);
 
@@ -50,8 +54,8 @@ public class UserController {
     @Operation(summary = "Actualizar un usuario",
             description = "Actualiza el usuario existente dado el ID pasado como parámetro por url, " +
                     "y si el usuario a actualizar no existe se lanza un error con código de estado 404")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateUser(@RequestBody UserRequest request, @PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUser(@Valid @RequestBody UserRequest request, @PathVariable Long id) {
         userService.updateUser(request, id);
     }
 }

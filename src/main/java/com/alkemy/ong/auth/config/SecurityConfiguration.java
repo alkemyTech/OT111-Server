@@ -42,8 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/storage/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/users/{id}").hasRole("ADMIN")//Creo que no esta en uso. Ver si esta en alguna tarea.
-                .antMatchers(HttpMethod.DELETE, "/users/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/users/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/news").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.GET, "/news/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole("ADMIN")
