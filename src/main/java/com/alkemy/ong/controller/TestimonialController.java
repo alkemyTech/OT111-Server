@@ -31,7 +31,7 @@ public class TestimonialController {
         testimonialService.saveTestimonial(testimonialEntity);
         System.out.println("Testimonial saved");
 
-        return "";
+        return " ";
     }
 
 }
