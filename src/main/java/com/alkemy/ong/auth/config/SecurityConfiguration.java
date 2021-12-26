@@ -75,15 +75,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.POST, "/activities").hasRole(ROLE_ADMIN)
 
+                //Organization
                 .antMatchers(HttpMethod.GET, ORGANIZATION_URL).permitAll()
                 .antMatchers(HttpMethod.POST, ORGANIZATION_URL).hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.PUT, ORGANIZATION_URL).hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.DELETE, ORGANIZATION_URL + "/{id}").hasRole(ROLE_ADMIN)
 
-                .antMatchers(HttpMethod.POST, MEMBER_URL).hasRole(ROLE_USER)
-                .antMatchers(HttpMethod.PUT, MEMBER_URL).hasRole(ROLE_USER)
+                //Members
+                .antMatchers(HttpMethod.POST, MEMBER_URL).hasAnyRole(ROLE_ADMIN, ROLE_USER)
+                .antMatchers(HttpMethod.PUT, MEMBER_URL + "/{id}").hasAnyRole(ROLE_ADMIN, ROLE_USER)
                 .antMatchers(HttpMethod.GET, MEMBER_URL).hasRole(ROLE_ADMIN)
-                .antMatchers(HttpMethod.DELETE, MEMBER_URL).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, MEMBER_URL + "/{id}").hasRole(ROLE_ADMIN)
+
 
                 .antMatchers("/api/docs/**").permitAll()
                 .anyRequest().authenticated()
