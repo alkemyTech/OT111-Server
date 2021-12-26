@@ -48,9 +48,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public NewsResponseDTO saveNews(NewsRequestDTO newsRequestDTO) {
         var foundCategory = categoryRepository.findById(newsRequestDTO.getCategoryId()).orElseThrow();
-        NewsEntity newNews = newsMapper.dtoRequest2Entity(newsRequestDTO, foundCategory);
+        NewsEntity newNews = newsMapper.toEntity(newsRequestDTO, foundCategory);
         NewsEntity savedNews = newsRepository.save(newNews);
-        return newsMapper.entity2DTOResponse(savedNews, foundCategory);
+        return newsMapper.toDto(savedNews, foundCategory);
     }
 
     public void deleteNews(Long id) {

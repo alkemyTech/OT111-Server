@@ -17,7 +17,6 @@ import static java.time.ZoneOffset.UTC;
 @Service
 public class JwtUtil {
 
-    //TODO: This MUST be hidden from the code
     private static final String SECRET_KEY = "secret";
 
     //Extract the username from token
@@ -49,7 +48,6 @@ public class JwtUtil {
     //Generate token from user details
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        // TODO: Agregar ROLE para generar la Token.
         return createToken(claims, userDetails.getUsername());
     }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContactMapper {
 
-    public ContactEntity contactDTO2Entity(ContactRequestDTO dto) {
+    public ContactEntity toEntity(ContactRequestDTO dto) {
         ContactEntity entity = new ContactEntity();
         entity.setName(dto.getName());
         entity.setPhone(dto.getPhone());
@@ -18,7 +18,7 @@ public class ContactMapper {
         return entity;
     }
 
-    public ContactResponseDTO contactEntity2DTO(ContactEntity entity) {
+    public ContactResponseDTO toDTO(ContactEntity entity) {
         ContactResponseDTO dto = new ContactResponseDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
