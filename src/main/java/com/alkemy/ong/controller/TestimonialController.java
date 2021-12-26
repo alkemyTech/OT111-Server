@@ -22,11 +22,8 @@ public class TestimonialController {
     @PostMapping("/")
     public String saveTestimonial(@Valid @ModelAttribute TestimonialEntity testimonialEntity, BindingResult result, Model model){
 
-        //ARREGLAR ESTO!
-
         if (result.hasErrors()){
-            model.addAttribute("","");
-            model.addAttribute("","");
+
             System.out.println("Error");
 
             return "";
