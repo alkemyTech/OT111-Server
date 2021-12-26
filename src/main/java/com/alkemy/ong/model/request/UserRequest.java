@@ -33,7 +33,7 @@ public class UserRequest extends AuditableEntity {
     @NotEmpty
     private List<Integer> roles;
 
-    public static UserEntity updateEntity(UserRequest request, UserEntity foundUser,List<RoleEntity> role){
+    public static UserEntity updateEntity(UserRequest request, UserEntity foundUser,List<RoleEntity> role) {
 
         foundUser.setFirstName(request.getFirstName());
         foundUser.setLastName(request.getLastName());
@@ -42,6 +42,6 @@ public class UserRequest extends AuditableEntity {
         foundUser.setRoles(role);
 
         return foundUser;
-    };
 
+    }
 }

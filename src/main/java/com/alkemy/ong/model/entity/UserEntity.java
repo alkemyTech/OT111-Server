@@ -2,13 +2,11 @@ package com.alkemy.ong.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import java.time.OffsetDateTime;
 import java.util.Collection;
 
 

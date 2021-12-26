@@ -21,12 +21,12 @@ public class UserServiceImpl implements UserService {
 
     private RoleRepository roleRepository;
     private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+
         this.roleRepository = roleRepository;
     }
 
