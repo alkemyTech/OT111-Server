@@ -37,10 +37,14 @@ public class SlideServiceImpl implements SlideService {
     public void updateSlide(SlideRequestDTO request, Long id) {
         SlideEntity foundSlide = slideRepository.findById(id).orElseThrow();
         var orgEnt = organizationRepository.findById(request.getOrganizationId()).orElseThrow();
+
+        BASE64DecodedMultipartFile multiPart = new BASE64DecodedMultipartFile(Base64.decodeBase64(request.getImagenCodificada()));
+        AWSResponseDTO imagenUrl = awsService.uploadFile(multiPart);
+
         foundSlide.setText(request.getText());
-        foundSlide.setImageUrl(String.valueOf(request.getImagenCodificada()));
+        foundSlide.setImageUrl(imagenUrl.getImageUrl());
         foundSlide.setOrder(request.getOrder());
-        orgEnt.setId(id);
+        foundSlide.setOrganization(orgEnt);
         slideRepository.save(foundSlide);
     }
 
