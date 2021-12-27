@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.request.SlideRequestDTO;
+import com.alkemy.ong.model.response.SlideListadoResponseDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface SlideService {
 
     void deleteSlide(Long id);
 
-    List<Integer> getSlides();
+    List<SlideListadoResponseDTO> getSlides();
 
     SlideResponseDTO saveSlide(SlideRequestDTO request);
 

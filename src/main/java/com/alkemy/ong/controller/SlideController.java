@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.SlideRequestDTO;
+import com.alkemy.ong.model.response.SlideListadoResponseDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 import com.alkemy.ong.service.SlideService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,9 +47,9 @@ public class SlideController {
         slideService.deleteSlide(id);
     }
 
-    @GetMapping("by-combo")
+    @GetMapping
     @Operation(summary = "lista todos los slides")
-    public List<Integer> getAll() {
+    public List<SlideListadoResponseDTO> getAll() {
         return slideService.getSlides();
     }
 

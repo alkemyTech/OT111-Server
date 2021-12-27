@@ -5,11 +5,13 @@ import com.alkemy.ong.model.entity.OrganizationEntity;
 import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.model.request.SlideRequestDTO;
 import com.alkemy.ong.model.response.OrganizationPublicResponse;
+import com.alkemy.ong.model.response.SlideListadoResponseDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SlideMapper {
+
     public SlideEntity toEntity(SlideRequestDTO dto, OrganizationEntity org, String awsImage) {
         SlideEntity ent = new SlideEntity();
         ent.setImageUrl(awsImage);
@@ -30,7 +32,14 @@ public class SlideMapper {
         return dto;
     }
 
-    public SlideResponseDTO buildToList(SlideEntity entity){
+    public SlideListadoResponseDTO toDtoListado(SlideEntity ent) {
+        return SlideListadoResponseDTO.builder()
+                .imageUrl(ent.getImageUrl())
+                .order(ent.getOrder())
+                .build();
+    }
+
+    public SlideResponseDTO buildToList(SlideEntity entity) {
         return SlideResponseDTO.builder()
                 .imageUrl(String.valueOf(entity.getClass()))
                 .id(entity.getId())

@@ -4,6 +4,7 @@ import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.model.mapper.SlideMapper;
 import com.alkemy.ong.model.request.SlideRequestDTO;
 import com.alkemy.ong.model.response.AWSResponseDTO;
+import com.alkemy.ong.model.response.SlideListadoResponseDTO;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.repository.SlideRepository;
@@ -35,7 +36,7 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public void updateSlide(SlideRequestDTO request, Long id) {
         SlideEntity foundSlide = slideRepository.findById(id).orElseThrow();
-        var orgEnt =organizationRepository.findById(request.getOrganizationId()).orElseThrow();
+        var orgEnt = organizationRepository.findById(request.getOrganizationId()).orElseThrow();
         foundSlide.setText(request.getText());
         foundSlide.setImageUrl(String.valueOf(request.getImagenCodificada()));
         foundSlide.setOrder(request.getOrder());
@@ -50,9 +51,9 @@ public class SlideServiceImpl implements SlideService {
     }
 
     @Override
-    public List<Integer> getSlides() {
+    public List<SlideListadoResponseDTO> getSlides() {
         return slideRepository.findAll().stream()
-                .map(SlideEntity::getOrder)
+                .map(ent -> slideMapper.toDtoListado(ent))
                 .collect(Collectors.toList());
     }
 
