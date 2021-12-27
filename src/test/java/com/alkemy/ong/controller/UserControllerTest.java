@@ -54,13 +54,13 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
+    @WithMockUser(username = "userMock", roles = "USER")
     void getAllUsers_fail() throws Exception {
 
         var result = mockMvc.perform(get(PATH));
 
-        result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$[99]").exists());
+        result.andExpect(status().isForbidden());
+        result.andExpect(jsonPath("$[999]").doesNotExist());
     }
 
     @Test
@@ -80,9 +80,9 @@ class UserControllerTest {
 
         var result = mockMvc.perform(delete(PATH + "/{id}", userSaved.getId()));
 
-        result.andExpect(status().isNoContent());
+        result.andExpect(status().isForbidden());
         var entityDelete= userRepository.findById(userSaved.getId());
-        then(entityDelete.isPresent()).isFalse();
+        then(entityDelete.isPresent()).isTrue();
     }
 
     @Test
@@ -106,17 +106,13 @@ class UserControllerTest {
     @WithMockUser(username = "userMock", roles = "ADMIN")
     void getUserDetails_fail() throws Exception {
 
-        var result = mockMvc.perform(get(PATH + "/{id}", userSaved.getId()));
+        final long ID_NOT_FOUND = -1;
 
-        List<RoleEntity> roles = (List) userSaved.getRoles();
+        var result = mockMvc.perform(get(PATH + "/{id}", ID_NOT_FOUND));
 
-        result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$.id").value(userSaved.getId()));
-        result.andExpect(jsonPath("$.firstName").value(userSaved.getLastName()));
-        result.andExpect(jsonPath("$.lastName").value(userSaved.getLastName()));
-        result.andExpect(jsonPath("$.email").value(userSaved.getEmail()));
-        result.andExpect(jsonPath("$.photo").value(userSaved.getPhoto()));
-        result.andExpect(jsonPath("$.roles[0].name").value(roles.get(0).getName()));
+        //Then
+        result.andExpect(status().isNotFound());
+        result.andExpect(jsonPath("$.message").exists());
     }
 
     @Test
@@ -138,27 +134,6 @@ class UserControllerTest {
         userRepository.flush();
         var entityUpdated = userRepository.findById(userSaved.getId()).orElseThrow();
         then(entityUpdated.getFirstName()).isEqualTo(NEW_NAME);
-        then(entityUpdated.getModifiedDate()).isNotNull();
-    }
-
-    @Test
-    @WithMockUser(username = "userMock", roles = "ADMIN")
-    void updateUser_fail() throws Exception {
-
-        //Given
-        final String NEW_NAME = "Mock USER 99";
-        var request = MocksUser.buildUserRequest();
-        request.setFirstName(NEW_NAME);
-        //When
-        var result = mockMvc.perform(put(PATH + "/{id}", userSaved.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtil.toJson(request)));
-        //Then
-        result.andExpect(status().isOk());
-
-        userRepository.flush();
-        var entityUpdated = userRepository.findById(userSaved.getId()).orElseThrow();
-        then(entityUpdated.getLastName()).isEqualTo(NEW_NAME);
         then(entityUpdated.getModifiedDate()).isNotNull();
     }
 }
