@@ -11,12 +11,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/activities")
 @RequiredArgsConstructor
 @Tag(name = "Actividades")
+@Validated
 public class ActivityController {
 
     private final ActivityService activityService;
@@ -26,6 +30,7 @@ public class ActivityController {
     @ResponseStatus(HttpStatus.CREATED)
     public ActivityResponseDTO createActivity(@CurrentSecurityContext(expression = "authentication")
                                                                           Authentication authentication,
+                                                              @Valid
                                                               @RequestBody ActivityRequest request) {
         String userName = authentication.getName();
 
@@ -39,8 +44,8 @@ public class ActivityController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ActivityUpdateResponseDTO updateActivity(@CurrentSecurityContext(expression = "authentication")
                                                                             Authentication authentication,
-                                                                    @RequestBody ActivityUpdateRequestDTO request,
-                                                                    @PathVariable Long id) {
+                                                    @Valid @RequestBody ActivityUpdateRequestDTO request,
+                                                    @PathVariable Long id) {
         String userName = authentication.getName();
 
         return activityService.updateActivity(request, id, userName);
