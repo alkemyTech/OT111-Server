@@ -23,7 +23,6 @@ public class ActivityController {
 
     @PostMapping
     @Operation(summary = "Crear una nueva actividad")
-
     @ResponseStatus(HttpStatus.CREATED)
     public ActivityResponseDTO createActivity(@CurrentSecurityContext(expression = "authentication")
                                                                           Authentication authentication,
