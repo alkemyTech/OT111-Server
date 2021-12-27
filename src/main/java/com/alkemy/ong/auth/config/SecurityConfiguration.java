@@ -67,6 +67,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ROLE_ADMIN)
 
+                //Testimonials
+                .antMatchers(HttpMethod.PUT,"/testimonials/{id}").hasRole(ROLE_ADMIN)
+
                 // Contacts
                 .antMatchers(HttpMethod.POST, "/contacts").permitAll()
                 .antMatchers(HttpMethod.GET, "/contacts").hasRole(ROLE_ADMIN)
@@ -93,6 +96,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
