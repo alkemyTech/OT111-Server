@@ -19,7 +19,6 @@ public class TestimonialController {
 
     @Autowired
     private TestimonialService testimonialService;
-    private TestimonialRepository testimonialRepository;
 
     @PutMapping("/{id}")
 
