@@ -26,15 +26,15 @@ public class MemberRequest {
 
     private String description;
 
-    public static MemberEntity toEntity(MemberRequest request) {
+    public MemberEntity toEntity() {
 
         return MemberEntity.builder()
-                .name(request.getName())
-                .image(request.getImage())
-                .description(request.getDescription())
-                .instagramUrl(request.getInstagramUrl())
-                .facebookUrl(request.getFacebookUrl())
-                .linkedinUrl(request.getLinkedinUrl())
+                .name(name)
+                .image(image)
+                .description(description)
+                .instagramUrl(instagramUrl)
+                .facebookUrl(facebookUrl)
+                .linkedinUrl(linkedinUrl)
                 .build();
     }
 

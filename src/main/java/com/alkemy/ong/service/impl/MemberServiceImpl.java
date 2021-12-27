@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberResponse createMember(MemberRequest request) {
-        return MemberResponse.toDTO(memberRepository.save(MemberRequest.toEntity(request)));
+        return MemberResponse.toDTO(memberRepository.save(request.toEntity()));
     }
 
     @Override
