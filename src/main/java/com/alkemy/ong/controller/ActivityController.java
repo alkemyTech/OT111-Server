@@ -36,7 +36,7 @@ public class ActivityController {
     @Operation(summary = "Actualizar una actividad",
             description = "Actualiza la actividad existente dado el ID pasado como parámetro por url, " +
                     "y si la actividad a actualizar no existe se lanza un error con código de estado 404")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ActivityUpdateResponseDTO updateActivity(@CurrentSecurityContext(expression = "authentication")
                                                                             Authentication authentication,
                                                                     @RequestBody ActivityUpdateRequestDTO request,

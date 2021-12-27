@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 class ActivityControllerTest {
@@ -61,6 +62,30 @@ class ActivityControllerTest {
         ActivityEntity createdEntity = activityRepository.findById(savedActivity.getId()).orElseThrow();
         then(createdEntity.getCreatedDate()).isNotNull();
         then(createdEntity.getCreatedBy()).isEqualTo("userMock");
+
+    }
+
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void updateActivity_statusOK() throws Exception{
+
+        //Given:
+        final String NEW_NAME = "Activity-NAME";
+        ActivityRequest request = ActivityMocks.buildActivityRequest();
+        request.setName(NEW_NAME);
+
+        //When:
+        var result = mockMvc.perform(put(PATH + "/{id}",savedActivity.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
+        //Then:
+        result.andExpect(status().isNoContent());
+
+        activityRepository.flush();
+        ActivityEntity createdEntity = activityRepository.findById(savedActivity.getId()).orElseThrow();
+        then(createdEntity.getName()).isEqualTo(NEW_NAME);
+        then(createdEntity.getModifiedDate()).isNotNull();
 
     }
 
