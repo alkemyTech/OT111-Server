@@ -8,6 +8,9 @@ CREATE TABLE organization
     email         VARCHAR(255)   NOT NULL,
     welcome_text  TEXT           NOT NULL,
     about_us_text TEXT           NULL,
+    facebook_url  VARCHAR(500)   NULL,
+    instagram_url VARCHAR(500)   NULL,
+    linkedin_url  VARCHAR(500)   NULL,
 --    Timestamps
     created_date  timestamptz(0) NOT NULL DEFAULT NOW(),
     created_by    VARCHAR(100)   NULL,
