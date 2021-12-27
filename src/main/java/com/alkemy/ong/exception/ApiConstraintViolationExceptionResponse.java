@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class ApiConstraintViolationException {
+public class ApiConstraintViolationExceptionResponse {
 
     private String message;
     private int httpStatus;

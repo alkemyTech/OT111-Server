@@ -10,7 +10,7 @@ import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,26 +18,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
 
-    @Autowired
-    private JwtUtil jwtTokenUtil;
+    private final JwtUtil jwtTokenUtil;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private AuthenticationMapper authenticationMapper;
+    private final AuthenticationMapper authenticationMapper;
 
-    @Autowired
-    private UserDetailsCustomService userDetailsCustomService;
+    private final UserDetailsCustomService userDetailsCustomService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
     @Override
     public AuthenticationResponse loginAttempt(AuthenticationRequest authenticationRequest) {
