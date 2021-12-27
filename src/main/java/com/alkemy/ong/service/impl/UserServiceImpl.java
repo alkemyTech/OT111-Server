@@ -24,13 +24,6 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
-
     @Override
     @Transactional(readOnly = true)
     public List<UserResponse> findAllUsers() {
