@@ -17,4 +17,16 @@ import java.time.OffsetDateTime;
 @SQLDelete(sql = "UPDATE testimonial SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class TestimonialEntity extends AuditableEntity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    private String name;
+
+    private String image;
+
+    private String content;
+
 } 
