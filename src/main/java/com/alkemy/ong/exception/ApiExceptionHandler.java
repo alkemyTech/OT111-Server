@@ -101,6 +101,4 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiConstraintViolationException);
     }
-
-
 }
