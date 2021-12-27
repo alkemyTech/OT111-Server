@@ -1,9 +1,10 @@
 package com.alkemy.ong.model.mapper;
 
-import com.alkemy.ong.model.dto.OrganizationDTO;
+
 import com.alkemy.ong.model.entity.OrganizationEntity;
 import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.model.request.SlideRequestDTO;
+import com.alkemy.ong.model.response.OrganizationPublicResponse;
 import com.alkemy.ong.model.response.SlideResponseDTO;
 import org.springframework.stereotype.Component;
 
@@ -24,15 +25,8 @@ public class SlideMapper {
         dto.setImageUrl(ent.getImageUrl());
         dto.setText(ent.getText());
         dto.setOrder(ent.getOrder());
-        dto.setOrganization(OrganizationDTO.builder() //TODO: usar el mapper de organization(cuando este listo)
-                .name(ent.getOrganization().getName())
-                .image(ent.getOrganization().getImage())
-                .address(ent.getOrganization().getAddress())
-                .phone(ent.getOrganization().getPhone())
-                .email(ent.getOrganization().getEmail())
-                .aboutUsText(ent.getOrganization().getAboutUsText())
-                .welcomeText(ent.getOrganization().getWelcomeText())
-                .build());
+        dto.setOrganization(OrganizationPublicResponse.toDTO(ent.getOrganization()));
+
         return dto;
     }
 
@@ -40,7 +34,7 @@ public class SlideMapper {
         return SlideResponseDTO.builder()
                 .imageUrl(String.valueOf(entity.getClass()))
                 .id(entity.getId())
-                .organization(OrganizationDTO.builder().build())
+                .organization(OrganizationPublicResponse.toDTO(entity.getOrganization()))
                 .order(entity.getOrder())
                 .text(entity.getText())
                 .build();

@@ -1,6 +1,6 @@
 package com.alkemy.ong.model.response;
 
-import com.alkemy.ong.model.dto.OrganizationDTO;
+
 import lombok.*;
 
 import java.util.Comparator;
@@ -19,7 +19,7 @@ public class SlideResponseDTO implements Comparator<Integer> {
 
     private Integer order;
 
-    private OrganizationDTO organization;
+    private OrganizationPublicResponse organization;
 
     @Override
     public int compare(Integer o1, Integer o2) {
