@@ -14,9 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class UserRequest extends AuditableEntity {
-
-    private static RoleRepository roleRepository;
+public class UserRequest {
 
     @NotEmpty
     private String firstName;
@@ -33,13 +31,13 @@ public class UserRequest extends AuditableEntity {
     @NotEmpty
     private List<Integer> roles;
 
-    public static UserEntity updateEntity(UserRequest request, UserEntity foundUser,List<RoleEntity> role) {
+    public static UserEntity updateEntity(UserRequest request, UserEntity foundUser,List<RoleEntity> roles) {
 
         foundUser.setFirstName(request.getFirstName());
         foundUser.setLastName(request.getLastName());
         foundUser.setEmail(request.getEmail());
         foundUser.setPhoto(request.getPhoto());
-        foundUser.setRoles(role);
+        foundUser.setRoles(roles);
 
         return foundUser;
 
