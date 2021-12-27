@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface NewsService {
 
+
     NewsResponseDTO findNewsById(Long id);
 
     NewsResponseDTO updateNews(NewsRequestDTO newsRequestDTO, Long id);
@@ -17,6 +18,5 @@ public interface NewsService {
     CustomPage<NewsResponseDTO> getNewsPageable(Pageable pageable);
 
     void deleteNews(Long id);
-
 
 }
