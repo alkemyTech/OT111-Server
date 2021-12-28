@@ -16,14 +16,27 @@ public class TestimonialServiceImpl implements TestimonialService {
     private final TestimonialRepository testimonialRepository;
     private final TestimonialMapper testimonialMapper;
 
+    @Override
+    public TestimonialResponseDTO saveTestimonial(TestimonialRequestDTO testimonialRequestDTO) {
+        TestimonialEntity savedEntity = testimonialRepository.save(testimonialMapper.dto2Entity(testimonialRequestDTO));
+        return testimonialMapper.entity2DTO(savedEntity);
+    }
 
     @Override
-    public TestimonialResponseDTO updateTestimonial(TestimonialRequestDTO TestimonialDTO, Long id) {
+    public TestimonialResponseDTO updateTestimonial(TestimonialRequestDTO testimonialDTO, Long id) {
         TestimonialEntity testimonial = testimonialRepository.findById(id).orElseThrow();
-        testimonial.setName(TestimonialDTO.getName());
-        testimonial.setContent(TestimonialDTO.getContent());
-        testimonial.setImage(TestimonialDTO.getImage());
+        testimonial.setName(testimonialDTO.getName());
+        testimonial.setContent(testimonialDTO.getContent());
+        testimonial.setImage(testimonialDTO.getImage());
         testimonialRepository.save(testimonial);
         return testimonialMapper.entity2DTO(testimonial);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        testimonialRepository.deleteById(id);
+    }
+
 }
+
+

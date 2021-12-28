@@ -12,6 +12,7 @@ public class MocksUser {
 
         return RoleEntity.builder().id(2).name("ROLE_ADMIN").build();
     }
+
     public static RoleEntity newRoleUser() {
 
         return RoleEntity.builder().id(1).name("ROLE_USER").build();
