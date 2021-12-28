@@ -7,6 +7,7 @@ import com.alkemy.ong.model.request.TestimonialRequestDTO;
 import com.alkemy.ong.model.response.TestimonialResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,13 @@ public class TestimonialController {
                     "y si el testimonio a actualzizar no existe se lanza un error con código de estado 404")
     public ResponseEntity<TestimonialResponseDTO> updateTestimonial(@Valid @RequestBody TestimonialRequestDTO testimonialRequestDTO, @PathVariable Long id) {
         return ResponseEntity.ok(testimonialService.updateTestimonial(testimonialRequestDTO, id));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar testimonio por ID")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTestimonialById(@PathVariable Long id) {
+        testimonialService.deleteById(id);
     }
 
 }
