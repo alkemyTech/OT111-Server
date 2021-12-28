@@ -3,14 +3,11 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.model.request.ActivityRequest;
 import com.alkemy.ong.model.request.ActivityUpdateRequestDTO;
 import com.alkemy.ong.model.response.ActivityResponseDTO;
-import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
 import com.alkemy.ong.service.ActivityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,13 +25,8 @@ public class ActivityController {
     @PostMapping
     @Operation(summary = "Crear una nueva actividad")
     @ResponseStatus(HttpStatus.CREATED)
-    public ActivityResponseDTO createActivity(@CurrentSecurityContext(expression = "authentication")
-                                                                          Authentication authentication,
-                                                              @Valid
-                                                              @RequestBody ActivityRequest request) {
-        String userName = authentication.getName();
-
-        return activityService.createActivity(request, userName);
+    public ActivityResponseDTO createActivity(@Valid @RequestBody ActivityRequest request) {
+        return activityService.createActivity(request);
     }
 
     @PutMapping("/{id}")
@@ -42,13 +34,9 @@ public class ActivityController {
             description = "Actualiza la actividad existente dado el ID pasado como parámetro por url, " +
                     "y si la actividad a actualizar no existe se lanza un error con código de estado 404")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ActivityUpdateResponseDTO updateActivity(@CurrentSecurityContext(expression = "authentication")
-                                                                            Authentication authentication,
-                                                    @Valid @RequestBody ActivityUpdateRequestDTO request,
-                                                    @PathVariable Long id) {
-        String userName = authentication.getName();
-
-        return activityService.updateActivity(request, id, userName);
+    public ActivityResponseDTO updateActivity(@Valid @RequestBody ActivityUpdateRequestDTO request,
+                                              @PathVariable Long id) {
+        return activityService.updateActivity(request, id);
 
 
     }
