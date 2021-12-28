@@ -18,7 +18,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityMapper activityMapper;
 
-
+  
     @Override
     public ActivityResponseDTO createActivity(ActivityRequest request){
         ActivityEntity newActivity = ActivityMapper.activityDTO2Entity(request);
