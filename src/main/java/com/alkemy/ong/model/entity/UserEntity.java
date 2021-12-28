@@ -2,17 +2,16 @@ package com.alkemy.ong.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import java.time.OffsetDateTime;
 import java.util.Collection;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
@@ -20,7 +19,7 @@ import java.util.Collection;
 @Where(clause = "deleted = false")
 @Builder
 @Entity
-public class UserEntity {
+public class UserEntity extends AuditableEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,15 +53,5 @@ public class UserEntity {
     private Collection<RoleEntity> roles;
 
 
-    @Builder.Default
-    private OffsetDateTime createdDate = OffsetDateTime.now();
 
-    private String createdBy;
-
-    @UpdateTimestamp
-    private OffsetDateTime modifiedDate;
-
-    private String modifiedBy;
-
-    private boolean deleted;
 }
