@@ -7,6 +7,7 @@ import com.alkemy.ong.model.response.TestimonialResponseDTO;
 import com.alkemy.ong.repository.TestimonialRepository;
 import com.alkemy.ong.service.TestimonialService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,11 @@ public class TestimonialServiceImpl implements TestimonialService {
     private final TestimonialRepository testimonialRepository;
     private final TestimonialMapper testimonialMapper;
 
+    @Override
+    public TestimonialResponseDTO saveTestimonial(TestimonialRequestDTO testimonialRequestDTO) {
+        TestimonialEntity savedEntity = testimonialRepository.save(testimonialMapper.dto2Entity(testimonialRequestDTO));
+        return testimonialMapper.entity2DTO(savedEntity);
+    }
 
     @Override
     public TestimonialResponseDTO updateTestimonial(TestimonialRequestDTO TestimonialDTO, Long id) {
@@ -26,4 +32,5 @@ public class TestimonialServiceImpl implements TestimonialService {
         testimonialRepository.save(testimonial);
         return testimonialMapper.entity2DTO(testimonial);
     }
+
 }
