@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Tag(name = "Organización")
 @Validated
-class OrganizationController {
+public class OrganizationController {
 
     private final OrganizationService organizationService;
 
