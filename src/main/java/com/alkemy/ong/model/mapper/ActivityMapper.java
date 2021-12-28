@@ -1,24 +1,34 @@
 package com.alkemy.ong.model.mapper;
 
 import com.alkemy.ong.model.entity.ActivityEntity;
-import com.alkemy.ong.model.request.ActivityRequestDTO;
+import com.alkemy.ong.model.request.ActivityRequest;
 import com.alkemy.ong.model.response.ActivityResponseDTO;
 import com.alkemy.ong.model.response.ActivityUpdateResponseDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 
 @Service
+@Builder
 public class ActivityMapper {
 
-    public static ActivityEntity activityDTO2Entity(ActivityRequestDTO dto, String userName) {
+    public static ActivityEntity activityDTO2Entity(ActivityRequest dto, String userName) {
         OffsetDateTime createdDate = OffsetDateTime.now();
-        ActivityEntity ent = new ActivityEntity();
-        ent.setName(dto.getName());
-        ent.setCreatedBy(userName);
-        ent.setCreatedDate(createdDate);
-        ent.setContent(dto.getContent());
-        return ent;
+//        ActivityEntity ent = new ActivityEntity();
+//        ent.setName(dto.getName());
+//        ent.setCreatedBy(userName);
+//        ent.setCreatedDate(createdDate);
+//        ent.setContent(dto.getContent());
+//        return ent;
+        return ActivityEntity.builder()
+                .name(dto.getName())
+                .content(dto.getContent())
+                .image(dto.getImage())
+//                .createdBy(userName)
+//                .createdDate(createdDate)
+                .build();
     }
 
     public static ActivityResponseDTO activityEntity2DTO(ActivityEntity ent) {

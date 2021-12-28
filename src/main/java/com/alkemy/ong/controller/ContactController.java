@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class ContactController {
     @PostMapping
     @Operation(summary = "Creará un nuevo contacto", description = "Campos obligatorios: Name, Email, Message.")
     @ResponseStatus(HttpStatus.CREATED)
-    public ContactResponseDTO createNewContact(@RequestBody ContactRequestDTO request) {
+    public ContactResponseDTO createNewContact(@Valid @RequestBody ContactRequestDTO request) {
         return contactService.saveContact(request);
     }
 
