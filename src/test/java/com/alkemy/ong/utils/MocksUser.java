@@ -2,7 +2,7 @@ package com.alkemy.ong.utils;
 
 import com.alkemy.ong.model.entity.RoleEntity;
 import com.alkemy.ong.model.entity.UserEntity;
-import com.alkemy.ong.model.request.user.UserUpdateDTO;
+import com.alkemy.ong.model.request.UserRequest;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ public class MocksUser {
 
         return RoleEntity.builder().id(2).name("ROLE_ADMIN").build();
     }
+
     public static RoleEntity newRoleUser() {
 
         return RoleEntity.builder().id(1).name("ROLE_USER").build();
@@ -28,8 +29,8 @@ public class MocksUser {
                 .build();
     }
 
-    public static UserUpdateDTO buildUserRequest() {
-        return UserUpdateDTO.builder()
+    public static UserRequest buildUserRequest() {
+        return UserRequest.builder()
                 .firstName("Mock firstname")
                 .lastName("Mock lastname")
                 .email("mock@email.com")
