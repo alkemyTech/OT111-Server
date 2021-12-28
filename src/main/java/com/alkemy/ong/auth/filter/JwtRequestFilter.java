@@ -2,7 +2,7 @@ package com.alkemy.ong.auth.filter;
 
 import com.alkemy.ong.auth.service.JwtUtil;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,13 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private UserDetailsCustomService userDetailsCustomService;
+    private final UserDetailsCustomService userDetailsCustomService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
     //Take control of the request. Decide if the request from the client is valid or not.
     @Override

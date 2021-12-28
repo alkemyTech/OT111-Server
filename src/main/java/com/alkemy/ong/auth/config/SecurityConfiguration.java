@@ -1,7 +1,7 @@
 package com.alkemy.ong.auth.config;
 
 import com.alkemy.ong.auth.filter.JwtRequestFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+
+    private final JwtRequestFilter jwtRequestFilter;
 
     @Bean
     @Override
@@ -30,32 +31,72 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_USER = "USER";
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        final String ORGANIZATION_URL = "/organization/public";
+        final String MEMBER_URL = "/members";
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/register").permitAll()
 
-                // TODO: Aca pueden ir agregando sus Endpoints
-                // TODO: .antMatchers(Metodo, Ruta).hasRole("rol que puede acceder")
-                .antMatchers("/users").hasRole("ADMIN")
-                .antMatchers("/storage/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole("ADMIN")    
-                .antMatchers(HttpMethod.GET, "/users/{id}").hasRole("ADMIN")//Creo que no esta en uso. Ver si esta en alguna tarea.
-                .antMatchers(HttpMethod.DELETE, "/users/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/news").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/categories").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/categories").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole("ADMIN")
+                .antMatchers("/auth/me").permitAll()
+                .antMatchers("/storage/*").hasRole(ROLE_ADMIN)
+
+                //Users_ADMIN
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, "/users/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/users/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, "/users/{id}").hasRole(ROLE_USER)
+
+                //News
+                .antMatchers(HttpMethod.GET, "/news").hasAnyRole(ROLE_ADMIN, ROLE_USER)
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(ROLE_ADMIN)
+
+
+                //categories
+                .antMatchers(HttpMethod.GET, "/categories/by-combo").hasRole(ROLE_USER)
+                .antMatchers(HttpMethod.GET, "/categories").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/categories").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ROLE_ADMIN)
+
+                //Testimonials
+                .antMatchers(HttpMethod.PUT,"/testimonials/{id}").hasRole(ROLE_ADMIN)
+
+                // Contacts
+                .antMatchers(HttpMethod.POST, "/contacts").permitAll()
+                .antMatchers(HttpMethod.GET, "/contacts").hasRole(ROLE_ADMIN)
+
+                //Activities
+                .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/activities").hasRole(ROLE_ADMIN)
+
+                //Organization
+                .antMatchers(HttpMethod.GET, ORGANIZATION_URL).permitAll()
+                .antMatchers(HttpMethod.POST, ORGANIZATION_URL).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, ORGANIZATION_URL).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, ORGANIZATION_URL + "/{id}").hasRole(ROLE_ADMIN)
+
+                //Members
+                .antMatchers(HttpMethod.POST, MEMBER_URL).hasAnyRole(ROLE_ADMIN, ROLE_USER)
+                .antMatchers(HttpMethod.PUT, MEMBER_URL + "/{id}").hasAnyRole(ROLE_ADMIN, ROLE_USER)
+                .antMatchers(HttpMethod.GET, MEMBER_URL).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, MEMBER_URL + "/{id}").hasRole(ROLE_ADMIN)
+
+
                 .antMatchers("/api/docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
