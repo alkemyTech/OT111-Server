@@ -7,7 +7,6 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-@Builder
 public class AuthenticationRequest {
 
     private String username;

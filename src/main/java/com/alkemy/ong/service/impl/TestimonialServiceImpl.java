@@ -26,4 +26,9 @@ public class TestimonialServiceImpl implements TestimonialService {
         testimonialRepository.save(testimonial);
         return testimonialMapper.entity2DTO(testimonial);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        testimonialRepository.deleteById(id);
+    }
 }
