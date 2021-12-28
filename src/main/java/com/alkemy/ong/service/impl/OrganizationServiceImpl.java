@@ -1,24 +1,35 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.model.entity.SlideEntity;
+import com.alkemy.ong.model.mapper.AbstractMapper;
+import com.alkemy.ong.model.mapper.SlideMapper;
 import com.alkemy.ong.model.request.OrganizationRequest;
 import com.alkemy.ong.model.response.OrganizationFullResponse;
 import com.alkemy.ong.model.response.OrganizationPublicResponse;
 import com.alkemy.ong.repository.OrganizationRepository;
+import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OrganizationServiceImpl implements OrganizationService {
 
     private final OrganizationRepository organizationRepository;
+    private final SlideRepository slideRepository;
+    private final SlideMapper slideMapper;
 
     @Override
     public OrganizationPublicResponse getOrganization() {
         var organization = organizationRepository.findTopByOrderByIdDesc().orElseThrow();
-        return OrganizationPublicResponse.toDTO(organization);
+        var slidesEnt = slideRepository.findByOrganizationId(organization.getId()).stream()
+                .map(ent -> slideMapper.toDTONoOrg(ent))
+                .collect(Collectors.toList());
+        return OrganizationPublicResponse.toDTO(organization, slidesEnt);
     }
 
     @Override

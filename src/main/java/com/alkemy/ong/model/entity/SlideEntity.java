@@ -30,8 +30,7 @@ public class SlideEntity extends AuditableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
-    //TODO: Create the organization entity to relate the tables (Foreign Key)
     private OrganizationEntity organization;
-    
+
 
 }

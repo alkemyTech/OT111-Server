@@ -28,7 +28,15 @@ public class SlideMapper {
         dto.setText(ent.getText());
         dto.setOrder(ent.getOrder());
         dto.setOrganization(OrganizationPublicResponse.toDTO(ent.getOrganization()));
+        return dto;
+    }
 
+    public SlideResponseDTO toDTONoOrg(SlideEntity ent) {
+        SlideResponseDTO dto = new SlideResponseDTO();
+        dto.setId(ent.getId());
+        dto.setImageUrl(ent.getImageUrl());
+        dto.setText(ent.getText());
+        dto.setOrder(ent.getOrder());
         return dto;
     }
 
