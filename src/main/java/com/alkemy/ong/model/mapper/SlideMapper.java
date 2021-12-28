@@ -47,14 +47,6 @@ public class SlideMapper {
                 .build();
     }
 
-    public SlideResponseDTO buildToList(SlideEntity entity) {
-        return SlideResponseDTO.builder()
-                .imageUrl(String.valueOf(entity.getClass()))
-                .id(entity.getId())
-                .organization(OrganizationPublicResponse.toDTO(entity.getOrganization()))
-                .order(entity.getOrder())
-                .text(entity.getText())
-                .build();
-    }
+
 
 }
