@@ -1,9 +1,10 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.entity.TestimonialEntity;
+import com.alkemy.ong.model.response.TestimonialResponseDTO;
 
 public interface TestimonialService {
 
-    public void saveTestimonial(TestimonialEntity testimonialEntity);
+    void saveTestimonial(TestimonialEntity testimonialEntity);
 
 }
