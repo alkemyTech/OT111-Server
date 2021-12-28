@@ -19,6 +19,7 @@ import java.util.Collection;
 @Where(clause = "deleted = false")
 @Builder
 @Entity
+
 public class UserEntity extends AuditableEntity {
 
     private static final long serialVersionUID = 1L;
@@ -51,7 +52,4 @@ public class UserEntity extends AuditableEntity {
                     name = "role_id", referencedColumnName = "id")
     )
     private Collection<RoleEntity> roles;
-
-
-
 }
