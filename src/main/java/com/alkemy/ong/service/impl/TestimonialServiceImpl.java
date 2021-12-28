@@ -1,22 +1,26 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.model.entity.TestimonialEntity;
+import com.alkemy.ong.model.mapper.TestimonialMapper;
 import com.alkemy.ong.model.request.TestimonialRequestDTO;
 import com.alkemy.ong.model.response.TestimonialResponseDTO;
 import com.alkemy.ong.repository.TestimonialRepository;
 import com.alkemy.ong.service.TestimonialService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class TestimonialServiceImpl implements TestimonialService {
 
-    @Autowired
-    private TestimonialRepository testimonialRepository;
+    private final TestimonialRepository testimonialRepository;
+    private final TestimonialMapper testimonialMapper;
 
     @Override
-    public void saveTestimonial(TestimonialEntity testimonialEntity) {
-        testimonialRepository.save(testimonialEntity);
+    public TestimonialResponseDTO saveTestimonial(TestimonialRequestDTO testimonialRequestDTO) {
+        TestimonialEntity savedEntity = testimonialRepository.save(testimonialMapper.dto2Entity(testimonialRequestDTO));
+        return testimonialMapper.entity2DTO(savedEntity);
     }
 
     @Override

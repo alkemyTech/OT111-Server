@@ -1,15 +1,13 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.entity.TestimonialEntity;
 import com.alkemy.ong.service.TestimonialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import com.alkemy.ong.model.request.TestimonialRequestDTO;
 import com.alkemy.ong.model.response.TestimonialResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +22,11 @@ public class TestimonialController {
     @Autowired
     private TestimonialService testimonialService;
 
-    @PostMapping("/")
-    public String saveTestiymonial(@Valid @RequestBody TestimonialEntity testimonialEntity, BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            System.out.println("Error");
-            return "";
-        }
-        testimonialService.saveTestimonial(testimonialEntity);
-        log.error("Testimonial saved");
-        return " ";
+    @PostMapping
+    @Operation(summary = "Crear Nuevo Testimonial")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TestimonialResponseDTO saveTestimonial(@Valid @RequestBody TestimonialRequestDTO testimonialRequestDTO) {
+        return testimonialService.saveTestimonial(testimonialRequestDTO);
     }
 
     @PutMapping("/{id}")
@@ -43,5 +36,5 @@ public class TestimonialController {
     public ResponseEntity<TestimonialResponseDTO> updateTestimonial(@Valid @RequestBody TestimonialRequestDTO testimonialRequestDTO, @PathVariable Long id) {
         return ResponseEntity.ok(testimonialService.updateTestimonial(testimonialRequestDTO, id));
     }
-    
+
 }
