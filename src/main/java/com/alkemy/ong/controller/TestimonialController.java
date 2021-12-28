@@ -37,11 +37,11 @@ public class TestimonialController {
     }
 
     @PutMapping("/{id}")
-
     @Operation(summary = "Actualizar testimonio por ID",
             description = "Se actualiza el testimonio por el ID pasado como parámetro por url, " +
                     "y si el testimonio a actualzizar no existe se lanza un error con código de estado 404")
     public ResponseEntity<TestimonialResponseDTO> updateTestimonial(@Valid @RequestBody TestimonialRequestDTO testimonialRequestDTO, @PathVariable Long id) {
         return ResponseEntity.ok(testimonialService.updateTestimonial(testimonialRequestDTO, id));
     }
+    
 }
