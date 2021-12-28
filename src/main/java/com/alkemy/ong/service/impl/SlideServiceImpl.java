@@ -57,7 +57,7 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public List<SlideListadoResponseDTO> getSlides() {
         return slideRepository.findAll().stream()
-                .map(ent -> slideMapper.toDtoListado(ent))
+                .map(slideMapper::toDtoListado)
                 .collect(Collectors.toList());
     }
 
