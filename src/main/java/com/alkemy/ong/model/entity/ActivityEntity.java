@@ -5,7 +5,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -16,7 +15,7 @@ import java.time.OffsetDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActivityEntity extends  AuditableEntity{
+public class ActivityEntity extends  AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,16 +27,4 @@ public class ActivityEntity extends  AuditableEntity{
 
     private String image;
 
-    //  Timestamps
-
-//    private OffsetDateTime createdDate;
-//
-//    private String createdBy;
-//
-//    private OffsetDateTime modifiedDate;
-//
-//    private String modifiedBy;
-//
-//    //  SoftDelete
-//    private Boolean deleted = Boolean.FALSE;
 }
