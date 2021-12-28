@@ -6,9 +6,6 @@ import com.alkemy.ong.model.request.NewsRequestDTO;
 
 public class NewsMocks {
 
-    //@Autowired
-    //private CategoryEntity categoryEntity;
-
     public static CategoryEntity buildCategoryEntity() {
         return CategoryEntity.builder()
                 .name("Mock Category")
@@ -31,16 +28,17 @@ public class NewsMocks {
                 .name("name newsMock")
                 .content("content newsMock")
                 .image("url newsMock")
-                .categoryId(buildNewsRequest().getCategoryId())
+                .categoryId(12L)
                 .build();
     }
 
     public static NewsRequestDTO buildNewsRequestInvalid() {
         return NewsRequestDTO.builder()
                 .name("")
-                .content("content newsMock")
-                .image("url newsMock")
-                //.categoryId(buildNewsRequest().getCategoryId())
+                .content("")
+                .image("")
+                .categoryId(buildNewsRequest().getCategoryId())
                 .build();
     }
+
 }
