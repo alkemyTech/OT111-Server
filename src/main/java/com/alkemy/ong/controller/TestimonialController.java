@@ -1,12 +1,13 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.service.TestimonialService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.alkemy.ong.model.request.TestimonialRequestDTO;
 import com.alkemy.ong.model.response.TestimonialResponseDTO;
-import com.alkemy.ong.repository.TestimonialRepository;
-import com.alkemy.ong.service.TestimonialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,20 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/testimonials")
+@Slf4j
 @Tag(name = "Testimonios")
+@RequestMapping("/testimonials")
 public class TestimonialController {
 
     @Autowired
     private TestimonialService testimonialService;
+
+    @PostMapping
+    @Operation(summary = "Crear Nuevo Testimonial")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TestimonialResponseDTO saveTestimonial(@Valid @RequestBody TestimonialRequestDTO testimonialRequestDTO) {
+        return testimonialService.saveTestimonial(testimonialRequestDTO);
+    }
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar testimonio por ID",
