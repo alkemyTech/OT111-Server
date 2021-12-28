@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class UserResponse extends AuditableEntity {
+public class UserResponse {
 
     private static final RoleMapper roleMapper = new RoleMapper();
 
