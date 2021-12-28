@@ -58,7 +58,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.DELETE, "/news/{id}").hasRole(ROLE_ADMIN)
 
-
                 //categories
                 .antMatchers(HttpMethod.GET, "/categories/by-combo").hasRole(ROLE_USER)
                 .antMatchers(HttpMethod.GET, "/categories").hasRole(ROLE_ADMIN)
@@ -77,6 +76,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //Activities
                 .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.POST, "/activities").hasRole(ROLE_ADMIN)
+
+                //Slides
+                .antMatchers(HttpMethod.PUT, "/slides").hasRole(ROLE_USER)
+                .antMatchers(HttpMethod.POST, "/slides").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/slides/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE, "/slides/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, "/slides/{id}").hasRole(ROLE_ADMIN)
 
                 //Organization
                 .antMatchers(HttpMethod.GET, ORGANIZATION_URL).permitAll()

@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 @SQLDelete(sql = "UPDATE slide SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 @Entity
-public class SlideEntity {
+public class SlideEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,22 +25,12 @@ public class SlideEntity {
 
     private String text;
 
+    @Column(name = "order_number")
     private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
-    //TODO: Create the organization entity to relate the tables (Foreign Key)
     private OrganizationEntity organization;
-    
-    //Auditory fields
-    private OffsetDateTime created_date;
 
-    private String created_by;
 
-    private OffsetDateTime modify_date;
-
-    private String modify_by;
-
-    //Soft delete
-    private Boolean deleted = Boolean.FALSE;
 }
