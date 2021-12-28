@@ -16,21 +16,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/slides")
 @RequiredArgsConstructor
-@Tag(name = "slides")
+@Tag(name = "Slides")
 public class SlideController {
 
     private final SlideService slideService;
 
     @GetMapping("/{id}")
-    @Operation(summary = "Obtener slide por Id",
-            description = "Obtiene el slide creado por el id pasado como parametro, " +
-                    "y si no existe lanza un error con codigo de estado 404")
+    @Operation(summary = "Obtener un slide por Id",
+            description = "Obtiene el slide creado por el id pasado como parámetro, " +
+                    "y si no existe lanza un error con código de estado 404")
     public SlideResponseDTO getSlideDetails(@PathVariable Long id) {
         return slideService.findSlideById(id);
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "actualizar un slide",
+    @Operation(summary = "Actualizar un slide",
             description = "Actualiza el slide existente dado el ID pasado como parámetro por url, " +
                     "y si el slide a actualizar no existe se lanza un error con código de estado 404")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -39,7 +39,7 @@ public class SlideController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "eliminar un slide",
+    @Operation(summary = "Eliminar un slide",
             description = "Elimina el slide existente dado el ID pasado como parámetro por url, " +
                     "y si el slide a eliminar no existe se lanza un error con código de estado 404")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -48,13 +48,13 @@ public class SlideController {
     }
 
     @GetMapping
-    @Operation(summary = "lista todos los slides")
+    @Operation(summary = "Listar todos los slides")
     public List<SlideListadoResponseDTO> getAll() {
         return slideService.getSlides();
     }
 
     @PostMapping
-    @Operation(summary = "crear nuevo slide")
+    @Operation(summary = "Crear nuevo slide")
     @ResponseStatus(HttpStatus.CREATED)
     public SlideResponseDTO createNewSlide(@Valid @RequestBody SlideRequestDTO request) {
         return slideService.saveSlide(request);
