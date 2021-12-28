@@ -1,23 +1,11 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -28,7 +16,7 @@ import java.time.OffsetDateTime;
 @Entity
 @SQLDelete(sql = "UPDATE news SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-public class NewsEntity {
+public class NewsEntity extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,17 +33,5 @@ public class NewsEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
-
-    @Builder.Default
-    private OffsetDateTime createdDate = OffsetDateTime.now();
-
-    private OffsetDateTime modifiedDate;
-
-    private String createdBy;
-
-    private String modifiedBy;
-
-    private boolean deleted = Boolean.FALSE;
-
 
 }

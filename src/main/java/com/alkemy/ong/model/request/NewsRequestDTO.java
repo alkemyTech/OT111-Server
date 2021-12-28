@@ -1,6 +1,7 @@
 package com.alkemy.ong.model.request;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@Builder
 public class NewsRequestDTO {
 
     @NotEmpty(message = "Name is mandatory")

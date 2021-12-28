@@ -6,7 +6,7 @@ import com.alkemy.ong.model.request.security.AuthenticationRequest;
 import com.alkemy.ong.model.request.security.RegisterRequest;
 import com.alkemy.ong.model.response.security.AuthenticationResponse;
 import com.alkemy.ong.model.response.security.RegisterResponse;
-import com.alkemy.ong.model.response.user.UserDTO;
+import com.alkemy.ong.model.response.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +50,10 @@ public class UserAuthController {
             summary = "Buscará la cuenta que iniciò sesion (Dentro del Context)",
             description = "Ver datos del usuario en Context."
     )
+
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO meData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
+    public UserResponse meData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
         return userAuthServ.meData(authentication.getName());
     }
 
