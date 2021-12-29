@@ -1,7 +1,9 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.entity.OrganizationEntity;
+import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.repository.OrganizationRepository;
+import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.utils.OrganizationMocks;
 import com.alkemy.ong.utils.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,12 +34,17 @@ class OrganizationControllerTest {
     @Autowired
     private OrganizationRepository organizationRepository;
 
-    private OrganizationEntity organizationSaved;
+    @Autowired
+    private SlideRepository slideRepository;
 
+    private OrganizationEntity organizationSaved;
+    private SlideEntity slideSaved;
 
     @BeforeEach
     void setUp() {
+
         organizationSaved = organizationRepository.save(OrganizationMocks.buildOrganizationEntity());
+        slideSaved = slideRepository.save(OrganizationMocks.buildSlidesEntityWithOrganizationId(organizationSaved));
     }
 
 
@@ -45,21 +52,31 @@ class OrganizationControllerTest {
 
     //GET like normal user -> OK
     //TODO: Importante test fallando resolverlo
-//    @Test
-//    @WithMockUser(username = "userMock", roles = "USER")
-//    void getOrganizationPublic_statusOK() throws Exception {
-//        //When
-//        var result = mockMvc.perform(get(PATH));
-//        //Then
-//        result.andExpect(status().isOk());
-//        result.andExpect(jsonPath("$.name").value(organizationSaved.getName()));
-//        result.andExpect(jsonPath("$.image").value(organizationSaved.getImage()));
-//        result.andExpect(jsonPath("$.address").value(organizationSaved.getAddress()));
-//        result.andExpect(jsonPath("$.phone").value(organizationSaved.getPhone()));
-//        result.andExpect(jsonPath("$.facebookUrl").value(organizationSaved.getFacebookUrl()));
-//        result.andExpect(jsonPath("$.instagramUrl").value(organizationSaved.getInstagramUrl()));
-//        result.andExpect(jsonPath("$.linkedinUrl").value(organizationSaved.getLinkedinUrl()));
-//    }
+    @Test
+    @WithMockUser(username = "userMock", roles = "USER")
+    void getOrganizationPublic_statusOK() throws Exception {
+
+        //When
+        var result = mockMvc.perform(get(PATH));
+
+        //Then
+        organizationRepository.flush();
+        slideRepository.flush();
+
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$.name").value(organizationSaved.getName()));
+        result.andExpect(jsonPath("$.image").value(organizationSaved.getImage()));
+        result.andExpect(jsonPath("$.address").value(organizationSaved.getAddress()));
+        result.andExpect(jsonPath("$.phone").value(organizationSaved.getPhone()));
+        result.andExpect(jsonPath("$.facebookUrl").value(organizationSaved.getFacebookUrl()));
+        result.andExpect(jsonPath("$.instagramUrl").value(organizationSaved.getInstagramUrl()));
+        result.andExpect(jsonPath("$.linkedinUrl").value(organizationSaved.getLinkedinUrl()));
+
+        result.andExpect(jsonPath("$.slides[0].text").value(slideSaved.getText()));
+        result.andExpect(jsonPath("$.slides[0].imageUrl").value(slideSaved.getImageUrl()));
+        result.andExpect(jsonPath("$.slides[0].order").value(slideSaved.getOrder()));
+
+    }
 
 
     // ** POST /organization/public **

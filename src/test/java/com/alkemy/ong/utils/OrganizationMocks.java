@@ -1,6 +1,7 @@
 package com.alkemy.ong.utils;
 
 import com.alkemy.ong.model.entity.OrganizationEntity;
+import com.alkemy.ong.model.entity.SlideEntity;
 import com.alkemy.ong.model.request.OrganizationRequest;
 
 public class OrganizationMocks {
@@ -17,6 +18,15 @@ public class OrganizationMocks {
                 .facebookUrl("Mock facebook url")
                 .instagramUrl("Mock instagram url")
                 .linkedinUrl("Mock linkedin url")
+                .build();
+    }
+
+    public static SlideEntity buildSlidesEntityWithOrganizationId(OrganizationEntity org) {
+        return SlideEntity.builder()
+                .imageUrl("MockImage.jpg")
+                .text("Texto")
+                .order(2)
+                .organization(org)
                 .build();
     }
 
