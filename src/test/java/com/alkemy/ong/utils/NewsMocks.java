@@ -23,21 +23,21 @@ public class NewsMocks {
                 .build();
     }
 
-    public static NewsRequestDTO buildNewsRequest() {
+    public static NewsRequestDTO buildNewsRequest(Long id) {
         return NewsRequestDTO.builder()
                 .name("name newsMock")
                 .content("content newsMock")
                 .image("url newsMock")
-                .categoryId(12L)
+                .categoryId(id)
                 .build();
     }
 
-    public static NewsRequestDTO buildNewsRequestInvalid() {
+    public static NewsRequestDTO buildNewsRequestInvalid(Long id) {
         return NewsRequestDTO.builder()
                 .name("")
                 .content("")
                 .image("")
-                .categoryId(buildNewsRequest().getCategoryId())
+                .categoryId(id)
                 .build();
     }
 

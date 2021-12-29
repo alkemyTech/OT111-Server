@@ -38,13 +38,11 @@ class NewsControllerTest {
     private CategoryRepository categoryRepository;
 
     private NewsEntity newsSaved;
+    private CategoryEntity categorySaved;
 
     @BeforeEach
     void setUp() {
-
-
-        CategoryEntity categorySaved = categoryRepository.save(NewsMocks.buildCategoryEntity());
-
+        categorySaved = categoryRepository.save(NewsMocks.buildCategoryEntity());
         newsSaved = newsRepository.save(NewsEntity.builder()
                 .name("MockNews name")
                 .content("MockNews content")
@@ -56,7 +54,6 @@ class NewsControllerTest {
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
     void findById_statusOK() throws Exception {
-
         //Given
 
         //When
@@ -68,7 +65,6 @@ class NewsControllerTest {
         result.andExpect(jsonPath("$.content").value(newsSaved.getContent()));
         result.andExpect(jsonPath("$.image").value(newsSaved.getImage()));
         result.andExpect(jsonPath("$.category.id").value(newsSaved.getCategory().getId()));
-
     }
 
     @Test
@@ -85,30 +81,35 @@ class NewsControllerTest {
 
     }
 
-    //TODO: Importante test fallando resolverlo
-//    @Test
-//    @WithMockUser(username = "userMock", roles = "ADMIN")
-//    void createNews_statusCreated() throws Exception {
-//        //Given:
-//        var request = NewsMocks.buildNewsRequest();
-//        //When:
-//        var result = mockMvc.perform(post(PATH)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(TestUtil.toJson(request)));
-//        //Then:
-//        result.andExpect(status().isCreated());
-//        result.andExpect(jsonPath("$.name").value(request.getName()));
-//        result.andExpect(jsonPath("$.content").value(request.getContent()));
-//        result.andExpect(jsonPath("$.image").value(request.getImage()));
-//        result.andExpect(jsonPath("$.category.id").value(request.getCategoryId()));
-//    }
+    @Test
+    @WithMockUser(username = "userMock", roles = "ADMIN")
+    void createNews_statusCreated() throws Exception {
+        categoryRepository.flush();
+
+        //Given:
+        var request = NewsMocks.buildNewsRequest(categorySaved.getId());
+
+        //When:
+        var result = mockMvc.perform(post(PATH)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtil.toJson(request)));
+
+        newsRepository.flush();
+
+        //Then:
+        result.andExpect(status().isCreated());
+        result.andExpect(jsonPath("$.name").value(request.getName()));
+        result.andExpect(jsonPath("$.content").value(request.getContent()));
+        result.andExpect(jsonPath("$.image").value(request.getImage()));
+        result.andExpect(jsonPath("$.category.id").value(categorySaved.getId()));
+    }
 
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
     void createNews_Expect_BadRequest() throws Exception {
 
         //Given:
-        var request = NewsMocks.buildNewsRequestInvalid();
+        var request = NewsMocks.buildNewsRequestInvalid(categorySaved.getId());
 
         //When:
         var result = mockMvc.perform(post(PATH)
