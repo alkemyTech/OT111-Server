@@ -1,7 +1,9 @@
-    plugins {
+plugins {
     id 'org.springframework.boot' version '2.6.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.flywaydb.flyway" version "8.3.0"
+    id 'jacoco'
 }
 
 group = 'com.alkemy'
@@ -42,7 +44,19 @@ dependencies {
 
     implementation 'org.springdoc:springdoc-openapi-ui:1.5.13'
 
+    implementation 'org.flywaydb:flyway-core'
+}
 
+flyway {
+    driver = 'org.postgresql.Driver'
+    user = 'postgres'
+    password = 'postgres'
+    url = 'jdbc:postgresql://localhost:5432/ot111_ong'
+    locations = [
+            'classpath:db/migration'
+    ]
+    schemas = ['public']
+    cleanDisabled = false
 }
 
 
@@ -50,5 +64,16 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/OngApplication.class'])
+        }))
     }
 }

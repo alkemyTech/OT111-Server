@@ -4,6 +4,10 @@ import com.alkemy.ong.model.request.OrganizationRequest;
 import com.alkemy.ong.model.response.OrganizationFullResponse;
 import com.alkemy.ong.model.response.OrganizationPublicResponse;
 import com.alkemy.ong.service.OrganizationService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
+
 @RestController
 @RequestMapping("/organization/public")
 @RequiredArgsConstructor
 @Tag(name = "Organización")
 @Validated
-class OrganizationController {
+public class OrganizationController {
 
     private final OrganizationService organizationService;
 
