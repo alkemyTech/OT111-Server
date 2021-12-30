@@ -38,21 +38,12 @@ class NewsControllerTest {
     private CategoryRepository categoryRepository;
 
     private NewsEntity newsSaved;
-<<<<<<< HEAD
 
-    @BeforeEach
-    void setUp() {
-
-
-        CategoryEntity categorySaved = categoryRepository.save(NewsMocks.buildCategoryEntity());
-
-=======
     private CategoryEntity categorySaved;
 
     @BeforeEach
     void setUp() {
         categorySaved = categoryRepository.save(NewsMocks.buildCategoryEntity());
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
         newsSaved = newsRepository.save(NewsEntity.builder()
                 .name("MockNews name")
                 .content("MockNews content")
@@ -64,10 +55,7 @@ class NewsControllerTest {
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
     void findById_statusOK() throws Exception {
-<<<<<<< HEAD
 
-=======
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
         //Given
 
         //When
@@ -79,10 +67,7 @@ class NewsControllerTest {
         result.andExpect(jsonPath("$.content").value(newsSaved.getContent()));
         result.andExpect(jsonPath("$.image").value(newsSaved.getImage()));
         result.andExpect(jsonPath("$.category.id").value(newsSaved.getCategory().getId()));
-<<<<<<< HEAD
 
-=======
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
     }
 
     @Test
@@ -102,36 +87,26 @@ class NewsControllerTest {
     @Test
     @WithMockUser(username = "userMock", roles = "ADMIN")
     void createNews_statusCreated() throws Exception {
-<<<<<<< HEAD
-        //Given:
-        var request = NewsMocks.buildNewsRequest();
-=======
+
         categoryRepository.flush();
 
         //Given:
         var request = NewsMocks.buildNewsRequest(categorySaved.getId());
 
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
         //When:
         var result = mockMvc.perform(post(PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtil.toJson(request)));
-<<<<<<< HEAD
-=======
 
         newsRepository.flush();
 
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
         //Then:
         result.andExpect(status().isCreated());
         result.andExpect(jsonPath("$.name").value(request.getName()));
         result.andExpect(jsonPath("$.content").value(request.getContent()));
         result.andExpect(jsonPath("$.image").value(request.getImage()));
-<<<<<<< HEAD
-        result.andExpect(jsonPath("$.category.id").value(request.getCategoryId()));
-=======
         result.andExpect(jsonPath("$.category.id").value(categorySaved.getId()));
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
+
     }
 
     @Test
@@ -139,11 +114,8 @@ class NewsControllerTest {
     void createNews_Expect_BadRequest() throws Exception {
 
         //Given:
-<<<<<<< HEAD
-        var request = NewsMocks.buildNewsRequestInvalid();
-=======
+
         var request = NewsMocks.buildNewsRequestInvalid(categorySaved.getId());
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
 
         //When:
         var result = mockMvc.perform(post(PATH)

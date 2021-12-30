@@ -23,37 +23,24 @@ public class NewsMocks {
                 .build();
     }
 
-<<<<<<< HEAD
-    public static NewsRequestDTO buildNewsRequest() {
-=======
+
     public static NewsRequestDTO buildNewsRequest(Long id) {
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
+
         return NewsRequestDTO.builder()
                 .name("name newsMock")
                 .content("content newsMock")
                 .image("url newsMock")
-<<<<<<< HEAD
-                .categoryId(12L)
-                .build();
-    }
 
-    public static NewsRequestDTO buildNewsRequestInvalid() {
-=======
                 .categoryId(id)
                 .build();
     }
 
     public static NewsRequestDTO buildNewsRequestInvalid(Long id) {
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
         return NewsRequestDTO.builder()
                 .name("")
                 .content("")
                 .image("")
-<<<<<<< HEAD
-                .categoryId(buildNewsRequest().getCategoryId())
-=======
                 .categoryId(id)
->>>>>>> f78cb153c07c41f1d75805da12fd111897ab7ec9
                 .build();
     }
 
